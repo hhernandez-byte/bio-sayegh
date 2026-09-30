@@ -34,9 +34,11 @@ export default function Navbar({ usuario, onCerrarSesion }) {
             <Link to="/estadisticas" style={{ color: '#34d399', textDecoration: 'none', fontWeight: 'bold', padding: '8px 14px', borderRadius: '8px', backgroundColor: '#334155', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px' }}>
               <BarChart2 size={16} /> Datos
             </Link>
-            <button style={{ border: 'none', background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', fontWeight: 'bold', padding: '8px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', cursor: 'pointer' }}>
+            
+            {/* LINK CORREGIDO HACIA /insignias */}
+            <Link to="/insignias" style={{ textDecoration: 'none', background: 'linear-gradient(135deg, #f59e0b, #d97706)', color: '#fff', fontWeight: 'bold', padding: '8px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', cursor: 'pointer' }}>
               <Award size={16} /> INSIGNIAS
-            </button>
+            </Link>
           </div>
 
           {/* TARJETA DE ROL Y BOTÓN SALIR */}
