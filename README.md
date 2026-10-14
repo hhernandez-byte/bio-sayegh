@@ -18,6 +18,3 @@
 Ministerio de Ambiente y Desarrollo Sostenible. (2023). *Guía para la gestión integral de residuos sólidos en instituciones educativas*. MinAmbiente. https://www.minambiente.gov.co/
 
 Bernate, J. A., & Fonseca, J. E. (2021). Herramientas tecnológicas y educación ambiental para la conservación de la biodiversidad. *Revista Electrónica Educare*, 25(3), 1-15. https://www.redalyc.org/
-
-
-  
