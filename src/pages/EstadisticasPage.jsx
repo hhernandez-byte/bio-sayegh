@@ -321,7 +321,7 @@ export default function EstadisticasPage() {
           </div>
         </div>
       </div>
-
-    </div>
-  );
+  
+ </div>
+);
 }
