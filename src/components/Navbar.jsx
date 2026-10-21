@@ -75,3 +75,4 @@ export default function Navbar({ usuario, onCerrarSesion }) {
     </nav>
   );
 }
+// Actualización Bio-Sayegh COLSAM
