@@ -199,7 +199,7 @@ export default function Home({ usuario }) {
               fontWeight: 600,
               opacity: 0.95
             }}>
-              Plataforma ecológica para la geolocalización de residuos, limpieza colaborativa y gamificación ambiental por cursos en el Colegio Sagrado Corazón de Jesús.
+              Plataforma ecológica para la geolocalización de residuos, limpieza colaborativa y gamificación ambiental por cursos en el Colegio San Alberto Magno.
             </p>
 
             <div style={{ display: 'flex', justifyContent: 'center', gap: '16px', flexWrap: 'wrap' }}>
@@ -365,7 +365,7 @@ export default function Home({ usuario }) {
                 <HeartHandshake size={16} /> Institución
               </h4>
               <p style={{ fontSize: '0.8rem', color: '#FFFFFF', margin: '0 0 4px 0', fontWeight: 700 }}>
-                Colegio Sagrado Corazón de Jesús
+                Colegio San Alberto Magno
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', fontSize: '0.75rem', color: '#A6D9A5' }}>
                 <CheckCircle2 size={14} /> Sistema Ecológico Activo v2.5
