@@ -5,7 +5,8 @@ import AccesoModal from './components/AccesoModal';
 import Home from './pages/Home';
 import MapaPage from './pages/MapaPage';
 import InsigniasPage from './pages/InsigniasPage';
-import EstadisticasPage from './pages/EstadisticasPage'; // Importación correcta
+import EstadisticasPage from './pages/EstadisticasPage';
+import NosotrosPage from './pages/NosotrosPage'; // 1. IMPORTA TU COMPONENTE DE NOSOTROS (ajusta la ruta si está en otra carpeta, ej: './components/Nosotros')
 
 export default function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -43,7 +44,10 @@ export default function App() {
         <Route path="/" element={<Home usuario={usuario} />} />
         <Route path="/mapa" element={<MapaPage usuario={usuario} />} />
         <Route path="/insignias" element={<InsigniasPage usuario={usuario} />} />
-        <Route path="/estadisticas" element={<EstadisticasPage />} /> {/* Ruta activada */}
+        <Route path="/estadisticas" element={<EstadisticasPage />} />
+        
+        {/* 2. AGREGA LA RUTA DE NOSOTROS AQUÍ */}
+        <Route path="/nosotros" element={<NosotrosPage />} /> 
       </Routes>
     </Router>
   );
