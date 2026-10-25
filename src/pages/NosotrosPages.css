@@ -1,0 +1,634 @@
+/* ==================== VARIABLES Y RESET ==================== */
+:root {
+  --teal: #03658C;
+  --teal-dark: #024f6e;
+  --green: #338C30;
+  --green-dark: #287026;
+  --coffee: #8C644D;
+  --mint: #A6D9A5;
+  --white: #FFFFFF;
+  --bg-light: #F8FAFC;
+  --text-dark: #03658C;
+  --text-slate: #475569;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+body {
+  background-color: var(--white);
+  color: var(--text-dark);
+  line-height: 1.5;
+  padding-bottom: 2rem;
+}
+
+/* ==================== 1. ENCABEZADO ==================== */
+.navbar {
+  background-color: var(--teal);
+  color: var(--white);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 900;
+  font-size: 1.1rem;
+}
+
+.logo-icon {
+  width: 32px;
+  height: 32px;
+  background-color: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.brand-sub {
+  color: var(--mint);
+  font-size: 0.9rem;
+  margin-left: 4px;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.nav-btn {
+  color: white;
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  transition: background 0.2s;
+}
+
+.nav-btn.active, .nav-btn:hover {
+  background-color: var(--teal-dark);
+  border: 1px solid var(--mint);
+}
+
+.btn-insignias {
+  background-color: var(--green);
+  color: white;
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border-radius: 6px;
+  font-weight: 700;
+}
+
+.pill-salon {
+  background-color: #024059;
+  border: 1px solid rgba(166, 217, 165, 0.4);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.7rem;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  background-color: var(--mint);
+  border-radius: 50%;
+}
+
+.btn-rol {
+  background-color: var(--coffee);
+  color: white;
+  border: 1px solid rgba(166, 217, 165, 0.3);
+  padding: 0.3rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.7rem;
+}
+
+/* ==================== MAIN CONTAINER ==================== */
+.main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
+/* ==================== 2. HERO BANNER ==================== */
+.hero-banner {
+  background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 50%, var(--green) 100%);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  text-align: center;
+  border: 1px solid rgba(166, 217, 165, 0.3);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(166, 217, 165, 0.4);
+  padding: 0.3rem 1rem;
+  border-radius: 50px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--mint);
+  letter-spacing: 1px;
+}
+
+.dot-mint {
+  width: 8px;
+  height: 8px;
+  background-color: var(--mint);
+  border-radius: 50%;
+}
+
+.hero-title {
+  font-size: 2.5rem;
+  font-weight: 900;
+  margin: 1.5rem 0 1rem;
+  line-height: 1.1;
+  text-transform: uppercase;
+}
+
+.hero-title .highlight {
+  color: var(--mint);
+}
+
+.hero-description {
+  font-size: 0.95rem;
+  max-width: 650px;
+  margin: 0 auto 1.5rem;
+  color: #f1f5f9;
+}
+
+.hero-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.75rem 1.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  transition: transform 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--green);
+  color: white;
+}
+
+.btn-secondary {
+  background-color: var(--teal);
+  color: white;
+  border: 1px solid rgba(166, 217, 165, 0.4);
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+  transform: translateY(-2px);
+}
+
+/* ==================== METRIC CARDS ==================== */
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.metric-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.metric-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+}
+
+.metric-number {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--teal);
+}
+
+.metric-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--text-slate);
+  letter-spacing: 1px;
+}
+
+/* ==================== 3. DESCRIPCIÓN DEL GRUPO (5 CIRCULAR SIDE BY SIDE) ==================== */
+.section-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.section-header {
+  text-align: center;
+}
+
+.sub-tag {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--green);
+  letter-spacing: 1.5px;
+}
+
+.section-title {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--teal);
+}
+
+.section-desc {
+  font-size: 0.85rem;
+  color: var(--text-slate);
+}
+
+.team-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 1rem;
+}
+
+@media (max-width: 900px) {
+  .team-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .team-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.team-card {
+  background-color: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 1.25rem 0.75rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s, transform 0.3s;
+}
+
+.team-card:hover {
+  border-color: var(--green);
+  transform: translateY(-4px);
+}
+
+.card-top-stripe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: linear-gradient(to right, var(--teal), var(--green), var(--coffee));
+}
+
+.avatar-wrapper {
+  position: relative;
+  display: inline-block;
+  margin: 0.5rem 0;
+}
+
+.avatar-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--teal), var(--green), var(--mint));
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--teal);
+}
+
+.avatar-circle::before {
+  content: '';
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 1;
+}
+
+.avatar-circle {
+  position: relative;
+}
+
+.avatar-circle span, .avatar-circle {
+  position: relative;
+  z-index: 2;
+}
+
+.badge-role {
+  position: absolute;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--teal);
+  color: white;
+  font-size: 0.6rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  text-transform: uppercase;
+}
+
+.member-name {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--teal);
+  margin-top: 0.5rem;
+}
+
+.member-role {
+  font-size: 0.7rem;
+  color: var(--text-slate);
+}
+
+/* ==================== 4. PREGUNTA PROBLEMATIZADORA ==================== */
+.quote-card {
+  background-color: var(--teal);
+  color: white;
+  padding: 2.5rem;
+  border-radius: 24px;
+  border: 2px solid var(--green);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.quote-tag {
+  color: var(--mint);
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+}
+
+.quote-text {
+  font-size: 1.3rem;
+  font-weight: 900;
+  line-height: 1.4;
+  margin-bottom: 1.5rem;
+}
+
+.quote-footer {
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.version-tag {
+  color: var(--mint);
+  font-weight: 700;
+  font-family: monospace;
+}
+
+/* ==================== 5 & 6. PLANTEAMIENTO Y JUSTIFICACIÓN ==================== */
+.cards-three-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.problem-card, .justification-card {
+  background-color: white;
+  border-radius: 16px;
+  padding: 1.5rem;
+  border: 2px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.icon-circle {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: white;
+}
+
+.num-box {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  color: white;
+}
+
+.card-subtitle {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+}
+
+.card-title {
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: var(--teal);
+}
+
+.card-text {
+  font-size: 0.8rem;
+  color: var(--text-slate);
+}
+
+.card-btn {
+  border: none;
+  color: white;
+  padding: 0.75rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+/* ==================== 7. OBJETIVOS ==================== */
+.general-objective-box {
+  background: linear-gradient(to right, var(--teal), var(--green));
+  color: white;
+  padding: 2rem;
+  border-radius: 16px;
+}
+
+.objective-tag {
+  color: var(--mint);
+  font-size: 0.75rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.objective-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.objectives-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.obj-card {
+  background-color: white;
+  border: 2px solid #f1f5f9;
+  border-radius: 16px;
+  padding: 1.25rem;
+}
+
+.obj-num {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(166, 217, 165, 0.3);
+  color: var(--green);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+}
+
+.obj-title {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--teal);
+  margin-bottom: 0.25rem;
+}
+
+.obj-desc {
+  font-size: 0.75rem;
+  color: var(--text-slate);
+}
+
+/* ==================== 8. MARCO REFERENCIAL ==================== */
+.marco-box {
+  background-color: white;
+  border: 2px solid rgba(3, 101, 140, 0.2);
+  border-radius: 16px;
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.marco-title {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--teal);
+}
+
+.marco-list {
+  list-style: none;
+  font-size: 0.8rem;
+  color: var(--text-slate);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+/* ==================== BORDES Y COLORES DE APOYO ==================== */
+.border-teal { border-color: var(--teal); }
+.border-green { border-color: var(--green); }
+.border-coffee { border-color: var(--coffee); }
+
+.bg-teal { background-color: var(--teal); }
+.bg-green { background-color: var(--green); }
+.bg-coffee { background-color: var(--coffee); }
+
+.bg-teal-light { background-color: rgba(3, 101, 140, 0.1); }
+.bg-green-light { background-color: rgba(166, 217, 165, 0.25); }
+.bg-coffee-light { background-color: rgba(140, 100, 77, 0.1); }
+
+/* ==================== FOOTER ==================== */
+.footer {
+  background-color: var(--teal);
+  color: white;
+  border-top: 4px solid var(--green);
+  padding: 2rem 0;
+  margin-top: 3rem;
+  font-size: 0.75rem;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-weight: 700;
+}
