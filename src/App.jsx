@@ -47,7 +47,7 @@ export default function App() {
         <Route path="/estadisticas" element={<EstadisticasPage />} />
         
         {/* 2. AGREGA LA RUTA DE NOSOTROS AQUÍ */}
-        <Route path="/nosotros" element={<NosotrosPage />} /> 
+        <Route path="/nosotros" element={<nosotrosPage.jsx />} /> 
       </Routes>
     </Router>
   );
