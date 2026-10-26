@@ -36,9 +36,9 @@ export default function App() {
   // 5 Team Members Data (Requirement: Circular initials side by side)
   const teamMembers = [
     {
-      id: 'HH',
-      initials: 'HH',
-      name: 'Harold Hernández',
+      id: 'AC',
+      initials: 'AC',
+      name: 'Aylin Carbonell',
       role: 'Líder de Proyecto & Software',
       specialty: 'Desarrollo Web & Georreferenciación',
       bio: 'Encargado de la arquitectura de la plataforma web Bio-Sayegh COLSAM, coordinando la geolocalización vectorial en tiempo real y la integración con el sistema de incentivos por curso.',
@@ -50,9 +50,9 @@ export default function App() {
       badge: 'Líder'
     },
     {
-      id: 'AS',
-      initials: 'AS',
-      name: 'Andrea Sayegh',
+      id: 'JG',
+      initials: 'JG',
+      name: 'Jesús Gutierrez',
       role: 'Investigadora Principal Ecológica',
       specialty: 'Gestión Ambiental Escolar',
       bio: 'Líder del diagnóstico situacional de residuos en el Colegio San Alberto Magno. Diseñó la pregunta problematizadora y la estrategia de cultura ciudadana ambiental.',
@@ -64,9 +64,9 @@ export default function App() {
       badge: 'Investigadora'
     },
     {
-      id: 'MG',
-      initials: 'MG',
-      name: 'Mateo Gómez',
+      id: 'HH',
+      initials: 'HH',
+      name: 'Hernando Hernandez',
       role: 'Analista de Datos Ambientales',
       specialty: 'Métricas & Estadísticas',
       bio: 'Especialista en estructuración de indicadores cuantitativos. Procesa las estadísticas de saneamiento y acumulación de eco-puntos por salón.',
@@ -78,9 +78,9 @@ export default function App() {
       badge: 'Analista'
     },
     {
-      id: 'CR',
-      initials: 'CR',
-      name: 'Camila Rodríguez',
+      id: 'SP',
+      initials: 'SP',
+      name: 'Samuel Pardo',
       role: 'Coordinadora de Gamificación',
       specialty: 'Estrategias Didácticas & Pedagógicas',
       bio: 'Diseñadora del esquema de gamificación escolar, encargada de la Ruta de Insignias y de articular el proyecto con el PRAE del Colegio San Alberto Magno.',
@@ -92,9 +92,9 @@ export default function App() {
       badge: 'Coordinadora'
     },
     {
-      id: 'VM',
-      initials: 'VM',
-      name: 'Valentín Mendoza',
+      id: 'YV',
+      initials: 'YV',
+      name: 'Yhara Vasquéz',
       role: 'Especialista en Logística & Zonas',
       specialty: 'Geolocalización & Operativa',
       bio: 'Supervisa la delimitación física del campus para el mapa vectorial, asegurando la verificación en terreno de las alertas de residuos reportadas.',
@@ -189,7 +189,7 @@ export default function App() {
   // Marco Referencial Data
   const marcoData = {
     teorico: {
-      title: 'Marco Teórico',
+      title: 'Marco Tecnológico',
       subtitle: 'Sostenibilidad & Gamificación Educativa',
       content: 'Se fundamenta en la teoría del Aprendizaje Basado en Juegos (GBL), la Geoinformática ambiental y los enfoques de Educación para el Desarrollo Sostenible (EDS) promovidos por la UNESCO.',
       points: [
@@ -208,16 +208,7 @@ export default function App() {
         'Saneamiento Colaborativo: Proceso colectivo de recuperación de zonas'
       ]
     },
-    contextual: {
-      title: 'Marco Contextual',
-      subtitle: 'Colegio San Alberto Magno (COLSAM)',
-      content: 'Desarrollado específicamente en las instalaciones del Colegio San Alberto Magno, involucrando activamente a estudiantes, profesores y salones piloto como el Salón 3A.',
-      points: [
-        'Comunidad educativa comprometida con la innovación verde',
-        'Infraestructura física distribuida en bloques, patios y zonas verdes',
-        'Integración directa con el Proyecto Ambiental Escolar (PRAE)'
-      ]
-    },
+   
     legal: {
       title: 'Marco Legal',
       subtitle: 'Normativa Ambiental Colombiana',
@@ -228,18 +219,7 @@ export default function App() {
         'Objetivos de Desarrollo Sostenible (ODS 12: Producción y Consumo Responsable)'
       ]
     },
-    metodologico: {
-      title: 'Marco Metodológico',
-      subtitle: 'Investigación-Acción Participativa (IAP)',
-      content: 'Enfoque mixto que combina la recolección cuantitativa de métricas de residuos con la observación cualitativa de hábitos sostenibles en los cursos.',
-      points: [
-        'Enfoque de Investigación-Acción Participativa (IAP)',
-        'Diagnóstico, diseño tecnológico, pilotaje e impacto',
-        'Técnicas: Registro en plataforma, encuestas y observación directa'
-      ]
-    }
-  };
-
+  
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#03658C] font-sans selection:bg-[#A6D9A5] selection:text-[#03658C] pb-12">
       
