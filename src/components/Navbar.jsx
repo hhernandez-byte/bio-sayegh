@@ -80,4 +80,9 @@ export default function Navbar({ usuario, onCerrarSesion }) {
     </nav>
   );
 }
+<<<<<<< HEAD
 // Actualización Bio-Sayegh COLSAM
+=======
+// Actualización 
+
+>>>>>>> 85e3a6f (Corregido y actualizado EstadisticasPage)

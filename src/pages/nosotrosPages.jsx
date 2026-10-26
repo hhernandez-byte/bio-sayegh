@@ -1,22 +1,22 @@
 import React, { useState } from 'react';
-import { 
-  Leaf, 
-  MapPin, 
-  BarChart3, 
-  Users, 
-  Award, 
-  Sparkles, 
-  RefreshCw, 
-  ShieldCheck, 
-  Target, 
-  BookOpen, 
-  HelpCircle, 
-  CheckCircle2, 
-  Globe, 
-  Activity, 
-  Lightbulb, 
-  X, 
-  ArrowRight, 
+import {
+  Leaf,
+  MapPin,
+  BarChart3,
+  Users,
+  Award,
+  Sparkles,
+  RefreshCw,
+  ShieldCheck,
+  Target,
+  BookOpen,
+  HelpCircle,
+  CheckCircle2,
+  Globe,
+  Activity,
+  Lightbulb,
+  X,
+  ArrowRight,
   TreePine
 } from 'lucide-react';
 
@@ -219,19 +219,19 @@ export default function App() {
         'Objetivos de Desarrollo Sostenible (ODS 12: Producción y Consumo Responsable)'
       ]
     },
-  
+ 
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#03658C] font-sans selection:bg-[#A6D9A5] selection:text-[#03658C] pb-12">
-      
-      
+     
+     
         {/* ==================== 2. BANNER PRINCIPAL ==================== */}
         <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#03658C] via-[#024f6e] to-[#338C30] text-white p-8 sm:p-12 text-center shadow-xl border border-[#A6D9A5]/30">
-          
+         
           <Leaf className="absolute -left-10 -bottom-10 w-48 h-48 text-white/5 pointer-events-none" />
           <TreePine className="absolute -right-10 -top-10 w-52 h-52 text-white/5 pointer-events-none" />
 
           <div className="max-w-3xl mx-auto space-y-6 relative z-10">
-            
+           
             {/* Top Pill Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#A6D9A5]/40 text-xs font-bold uppercase tracking-widest text-[#A6D9A5]">
               <span className="w-2 h-2 rounded-full bg-[#A6D9A5]" />
@@ -253,16 +253,16 @@ export default function App() {
 
             {/* Action Buttons */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
-              <a 
-                href="#equipo" 
+              <a
+                href="#equipo"
                 className="px-6 py-3 rounded-full bg-[#338C30] hover:bg-[#287026] text-white text-xs font-bold tracking-wider uppercase shadow-lg transition-all flex items-center gap-2"
               >
                 <Users className="w-4 h-4" />
                 <span>INTEGRANTES DEL GRUPO</span>
               </a>
-              
-              <a 
-                href="#objetivos" 
+             
+              <a
+                href="#objetivos"
                 className="px-6 py-3 rounded-full bg-[#03658C] hover:bg-[#024f6e] text-white text-xs font-bold tracking-wider uppercase border border-[#A6D9A5]/40 shadow-lg transition-all flex items-center gap-2"
               >
                 <Target className="w-4 h-4 text-[#A6D9A5]" />
@@ -275,7 +275,7 @@ export default function App() {
 
         {/* ==================== METRIC CARDS ==================== */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          
+         
           <div className="bg-white rounded-2xl p-6 border-2 border-[#338C30] shadow-sm flex items-center gap-5 hover:shadow-md transition-shadow">
             <div className="w-14 h-14 rounded-xl bg-[#A6D9A5]/25 border border-[#338C30]/30 flex items-center justify-center text-[#338C30] shrink-0">
               <ShieldCheck className="w-7 h-7" />
@@ -325,7 +325,7 @@ export default function App() {
           {/* 5 Circular Members Row */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
             {teamMembers.map((member) => (
-              <div 
+              <div
                 key={member.id}
                 onClick={() => setSelectedMember(member)}
                 className="group cursor-pointer bg-white rounded-2xl p-5 border-2 border-slate-100 hover:border-[#338C30] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden"
@@ -342,7 +342,7 @@ export default function App() {
                       </span>
                     </div>
                   </div>
-                  
+                 
                   {/* Badge */}
                   <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#03658C] text-white uppercase tracking-wider shadow">
                     {member.badge}
@@ -369,18 +369,18 @@ export default function App() {
 
         {/* TEAM MEMBER MODAL */}
         {selectedMember && (
-          <div 
+          <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn"
             onClick={() => setSelectedMember(null)}
           >
-            <div 
+            <div
               className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-2 border-[#338C30] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Header Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#03658C] via-[#338C30] to-[#8C644D]" />
 
-              <button 
+              <button
                 onClick={() => setSelectedMember(null)}
                 className="absolute top-5 right-5 p-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors"
               >
@@ -441,7 +441,7 @@ export default function App() {
         {/* ==================== 4. PREGUNTA PROBLEMATIZADORA ==================== */}
         <section className="max-w-4xl mx-auto">
           <div className="rounded-3xl bg-[#03658C] text-white p-8 sm:p-10 shadow-xl border-2 border-[#338C30] relative overflow-hidden">
-            
+           
             <HelpCircle className="absolute -right-8 -bottom-8 w-44 h-44 text-white/5 pointer-events-none" />
 
             <div className="flex items-center gap-2 text-[#A6D9A5] text-xs font-bold uppercase tracking-widest mb-3">
@@ -479,7 +479,7 @@ export default function App() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {problemComponents.map((comp) => (
-              <div 
+              <div
                 key={comp.id}
                 className={`bg-white rounded-2xl border-2 ${comp.borderColor} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group`}
               >
@@ -515,7 +515,7 @@ export default function App() {
                 </div>
 
                 {/* Full Width Button at Bottom */}
-                <button 
+                <button
                   onClick={() => setActiveProblemTab(comp.id)}
                   className={`w-full py-3 ${comp.btnBg} text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-4`}
                 >
@@ -539,7 +539,7 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            
+           
             <div className="bg-white p-6 rounded-2xl border-2 border-[#03658C]/20 hover:border-[#03658C] shadow-sm space-y-3 relative overflow-hidden transition-all">
               <div className="w-10 h-10 rounded-xl bg-[#03658C] text-white flex items-center justify-center font-bold">
                 01
