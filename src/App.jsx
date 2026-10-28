@@ -7,7 +7,7 @@ import Home from './pages/Home';
 import MapaPage from './pages/MapaPage';
 import InsigniasPage from './pages/InsigniasPage';
 import EstadisticasPage from './pages/EstadisticasPage';
-import NosotrosPage from './pages/NosotrosPage';
+import NosotrosPage from './pages/nosotrosPage';
 
 export default function App() {
   const [usuario, setUsuario] = useState(() => {
