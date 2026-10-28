@@ -16,22 +16,40 @@ import {
   TreePine
 } from 'lucide-react';
 
-export default function App() {
-  // Selected Team Member for Interactive Modal
-  const [selectedMember, setSelectedMember] = useState(null);
+// 1. Interfaz para los miembros del equipo
+interface TeamMember {
+  id: string;
+  initials: string;
+  name: string;
+  role: string;
+  specialty: string;
+  bio: string;
+  contributions: string[];
+  badge: string;
+}
 
-  // Active Tab for Marco Referencial
-  const [activeMarcoTab, setActiveMarcoTab] = useState('teorico');
+// 2. Tipo para las claves del Marco Referencial
+type MarcoTabKey = 'teorico' | 'conceptual' | 'legal';
 
-  // 5 Team Members Data (Requirement: Circular initials side by side)
-  const teamMembers = [
+export default function NosotrosPage() {
+  const [activeNav, setActiveNav] = useState<string>('nosotros');
+
+  // Solución al error de 'SetStateAction<null>' y 'never':
+  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
+
+  const [activeProblemTab, setActiveProblemTab] = useState<string>('contexto');
+
+  // Solución al error de indexación en marcoData:
+  const [activeMarcoTab, setActiveMarcoTab] = useState<MarcoTabKey>('teorico');
+
+  const teamMembers: TeamMember[] = [
     {
       id: 'AC',
       initials: 'AC',
       name: 'Aylin Carbonell',
       role: 'Líder de Proyecto & Software',
       specialty: 'Desarrollo Web & Georreferenciación',
-      bio: 'Encargado de la arquitectura de la plataforma web Bio-Sayegh COLSAM, coordinando la geolocalización vectorial en tiempo real y la integración con el sistema de incentivos por curso.',
+      bio: 'Encargada de la arquitectura de la plataforma web Bio-Sayegh COLSAM, coordinando la geolocalización vectorial en tiempo real y la integración con el sistema de incentivos por curso.',
       contributions: [
         'Arquitectura e interfaz de la plataforma web',
         'Coordinación técnica del sistema vectorial del mapa',
@@ -43,7 +61,7 @@ export default function App() {
       id: 'JG',
       initials: 'JG',
       name: 'Jesús Gutierrez',
-      role: 'Investigadora Principal Ecológica',
+      role: 'Investigador Principal Ecológico',
       specialty: 'Gestión Ambiental Escolar',
       bio: 'Líder del diagnóstico situacional de residuos en el Colegio San Alberto Magno. Diseñó la pregunta problematizadora y la estrategia de cultura ciudadana ambiental.',
       contributions: [
@@ -51,7 +69,7 @@ export default function App() {
         'Diseño de las categorías de recolección de residuos',
         'Gestión e integración del marco normativo y metodológico'
       ],
-      badge: 'Investigadora'
+      badge: 'Investigador'
     },
     {
       id: 'HH',
@@ -71,15 +89,15 @@ export default function App() {
       id: 'SP',
       initials: 'SP',
       name: 'Samuel Pardo',
-      role: 'Coordinadora de Gamificación',
+      role: 'Coordinador de Gamificación',
       specialty: 'Estrategias Didácticas & Pedagógicas',
-      bio: 'Diseñadora del esquema de gamificación escolar, encargada de la Ruta de Insignias y de articular el proyecto con el PRAE del Colegio San Alberto Magno.',
+      bio: 'Diseñador del esquema de gamificación escolar, encargado de la Ruta de Insignias y de articular el proyecto con el PRAE del Colegio San Alberto Magno.',
       contributions: [
         'Diseño conceptual de la Ruta de Insignias',
         'Redacción del Marco Teórico y Pedagógico',
         'Estrategias de incentivo para salones de clase'
       ],
-      badge: 'Coordinadora'
+      badge: 'Coordinador'
     },
     {
       id: 'YV',
@@ -97,7 +115,6 @@ export default function App() {
     }
   ];
 
-  // Planteamiento del Problema Cards
   const problemComponents = [
     {
       id: 'contexto',
@@ -152,7 +169,6 @@ export default function App() {
     }
   ];
 
-  // Specific Objectives
   const specificObjectives = [
     {
       num: '1',
@@ -176,8 +192,7 @@ export default function App() {
     }
   ];
 
-  // Marco Referencial Data
-  const marcoData = {
+  const marcoData: Record<MarcoTabKey, { title: string; subtitle: string; content: string; points: string[] }> = {
     teorico: {
       title: 'Marco Tecnológico',
       subtitle: 'Sostenibilidad & Gamificación Educativa',
@@ -198,7 +213,6 @@ export default function App() {
         'Saneamiento Colaborativo: Proceso colectivo de recuperación de zonas'
       ]
     },
-   
     legal: {
       title: 'Marco Legal',
       subtitle: 'Normativa Ambiental Colombiana',
@@ -213,22 +227,19 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#03658C] font-sans selection:bg-[#A6D9A5] selection:text-[#03658C] pb-12">
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
-        {/* ==================== 2. BANNER PRINCIPAL ==================== */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-12">
+        
+        {/* BANNER PRINCIPAL */}
         <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#03658C] via-[#024f6e] to-[#338C30] text-white p-8 sm:p-12 text-center shadow-xl border border-[#A6D9A5]/30">
-         
           <Leaf className="absolute -left-10 -bottom-10 w-48 h-48 text-white/5 pointer-events-none" />
           <TreePine className="absolute -right-10 -top-10 w-52 h-52 text-white/5 pointer-events-none" />
 
           <div className="max-w-3xl mx-auto space-y-6 relative z-10">
-           
-            {/* Top Pill Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#A6D9A5]/40 text-xs font-bold uppercase tracking-widest text-[#A6D9A5]">
               <span className="w-2 h-2 rounded-full bg-[#A6D9A5]" />
-              <span>APARTADO NOSOTROS • COLEGIO SAN ALBERTO MAGNO</span>
+              <span>APARTADO NOSOTROS - COLEGIO SAN ALBERTO MAGNO</span>
             </div>
 
-            {/* Title */}
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight uppercase leading-tight">
               PROYECTO <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#A6D9A5] to-white">
@@ -236,12 +247,10 @@ export default function App() {
               </span>
             </h1>
 
-            {/* Subtitle */}
             <p className="text-sm sm:text-base text-slate-100 font-normal leading-relaxed max-w-2xl mx-auto">
               Plataforma ecológica para la geolocalización de residuos, limpieza colaborativa, gamificación ambiental y estructuración metodológica de investigación escolar.
             </p>
 
-            {/* Action Buttons */}
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
               <a
                 href="#equipo"
@@ -250,7 +259,7 @@ export default function App() {
                 <Users className="w-4 h-4" />
                 <span>INTEGRANTES DEL GRUPO</span>
               </a>
-             
+              
               <a
                 href="#objetivos"
                 className="px-6 py-3 rounded-full bg-[#03658C] hover:bg-[#024f6e] text-white text-xs font-bold tracking-wider uppercase border border-[#A6D9A5]/40 shadow-lg transition-all flex items-center gap-2"
@@ -259,13 +268,11 @@ export default function App() {
                 <span>VER OBJETIVOS</span>
               </a>
             </div>
-
           </div>
         </section>
 
-        {/* ==================== METRIC CARDS ==================== */}
+        {/* METRIC CARDS */}
         <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-         
           <div className="bg-white rounded-2xl p-6 border-2 border-[#338C30] shadow-sm flex items-center gap-5 hover:shadow-md transition-shadow">
             <div className="w-14 h-14 rounded-xl bg-[#A6D9A5]/25 border border-[#338C30]/30 flex items-center justify-center text-[#338C30] shrink-0">
               <ShieldCheck className="w-7 h-7" />
@@ -291,14 +298,13 @@ export default function App() {
               <BookOpen className="w-7 h-7" />
             </div>
             <div>
-              <div className="text-3xl font-black text-[#03658C]">5</div>
-              <div className="text-xs font-bold text-slate-500 tracking-wider uppercase">EJE METODOLÓGICO Y MARCO</div>
+              <div className="text-3xl font-black text-[#03658C]">3</div>
+              <div className="text-xs font-bold text-slate-500 tracking-wider uppercase">EJES DEL MARCO REFERENCIAL</div>
             </div>
           </div>
-
         </section>
 
-        {/* ==================== 3. DESCRIPCIÓN DEL GRUPO (5 INTEGRANTES EN FILA CIRCULAR) ==================== */}
+        {/* INTEGRANTES DEL EQUIPO */}
         <section id="equipo" className="space-y-6 pt-4">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold text-[#338C30] uppercase tracking-widest">
@@ -312,18 +318,15 @@ export default function App() {
             </p>
           </div>
 
-          {/* 5 Circular Members Row */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
-            {teamMembers.map((member) => (
+            {teamMembers.map((member: TeamMember) => (
               <div
                 key={member.id}
                 onClick={() => setSelectedMember(member)}
                 className="group cursor-pointer bg-white rounded-2xl p-5 border-2 border-slate-100 hover:border-[#338C30] shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col items-center text-center relative overflow-hidden"
               >
-                {/* Top Accent Stripe */}
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#03658C] via-[#338C30] to-[#8C644D]" />
 
-                {/* Circular Frame with Initial */}
                 <div className="relative my-3">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-[#03658C] via-[#338C30] to-[#A6D9A5] shadow-md group-hover:scale-105 transition-transform duration-300">
                     <div className="w-full h-full rounded-full bg-white flex items-center justify-center border-2 border-[#A6D9A5]/30">
@@ -332,14 +335,12 @@ export default function App() {
                       </span>
                     </div>
                   </div>
-                 
-                  {/* Badge */}
+                  
                   <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#03658C] text-white uppercase tracking-wider shadow">
                     {member.badge}
                   </span>
                 </div>
 
-                {/* Name & Role */}
                 <h3 className="text-sm font-black text-[#03658C] group-hover:text-[#338C30] transition-colors mt-2">
                   {member.name}
                 </h3>
@@ -347,7 +348,6 @@ export default function App() {
                   {member.role}
                 </p>
 
-                {/* Interactive Action Prompt */}
                 <div className="mt-4 text-[11px] font-bold text-[#338C30] flex items-center gap-1 group-hover:underline">
                   <span>Ver Detalle</span>
                   <ArrowRight className="w-3 h-3" />
@@ -357,7 +357,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* TEAM MEMBER MODAL */}
+        {/* MODAL FICHA TÉCNICA */}
         {selectedMember && (
           <div
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm animate-fadeIn"
@@ -367,7 +367,6 @@ export default function App() {
               className="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 relative shadow-2xl border-2 border-[#338C30] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Header Accent Line */}
               <div className="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-[#03658C] via-[#338C30] to-[#8C644D]" />
 
               <button
@@ -408,7 +407,7 @@ export default function App() {
                 <div>
                   <span className="font-bold text-[#03658C] block text-xs uppercase mb-2">Aportes Específicos</span>
                   <ul className="space-y-2">
-                    {selectedMember.contributions.map((c, i) => (
+                    {selectedMember.contributions.map((c: string, i: number) => (
                       <li key={i} className="flex items-center gap-2 text-xs text-slate-700">
                         <CheckCircle2 className="w-4 h-4 text-[#338C30] shrink-0" />
                         <span>{c}</span>
@@ -428,10 +427,9 @@ export default function App() {
           </div>
         )}
 
-        {/* ==================== 4. PREGUNTA PROBLEMATIZADORA ==================== */}
+        {/* PREGUNTA PROBLEMATIZADORA */}
         <section className="max-w-4xl mx-auto">
           <div className="rounded-3xl bg-[#03658C] text-white p-8 sm:p-10 shadow-xl border-2 border-[#338C30] relative overflow-hidden">
-           
             <HelpCircle className="absolute -right-8 -bottom-8 w-44 h-44 text-white/5 pointer-events-none" />
 
             <div className="flex items-center gap-2 text-[#A6D9A5] text-xs font-bold uppercase tracking-widest mb-3">
@@ -446,14 +444,14 @@ export default function App() {
             <div className="pt-4 border-t border-teal-700/60 flex flex-wrap items-center justify-between text-xs text-slate-200 gap-2">
               <span className="flex items-center gap-1.5 font-medium">
                 <Sparkles className="w-4 h-4 text-[#A6D9A5]" />
-                Eje articulador del Proyecto Ambiental PRAE - COLSAM
+                <span>Eje articulador del Proyecto Ambiental PRAE COLSAM</span>
               </span>
               <span className="font-mono text-[#A6D9A5] font-bold">BIO-SAYEGH v2.5</span>
             </div>
           </div>
         </section>
 
-        {/* ==================== 5. PLANTEAMIENTO DEL PROBLEMA ==================== */}
+        {/* PLANTEAMIENTO DEL PROBLEMA */}
         <section className="space-y-6">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold text-[#338C30] uppercase tracking-widest">
@@ -474,7 +472,6 @@ export default function App() {
                 className={`bg-white rounded-2xl border-2 ${comp.borderColor} shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between overflow-hidden group`}
               >
                 <div className="p-6 space-y-4">
-                  {/* Circle Icon at the top */}
                   <div className={`w-12 h-12 rounded-full ${comp.iconBg} flex items-center justify-center shadow-md`}>
                     {comp.icon}
                   </div>
@@ -494,7 +491,7 @@ export default function App() {
 
                   <div className="pt-2">
                     <ul className="space-y-1.5">
-                      {comp.details.map((dt, idx) => (
+                      {comp.details.map((dt: string, idx: number) => (
                         <li key={idx} className="flex items-center gap-2 text-xs text-slate-500">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#338C30]" />
                           <span>{dt}</span>
@@ -504,8 +501,8 @@ export default function App() {
                   </div>
                 </div>
 
-                {/* Full Width Button at Bottom */}
                 <button
+                  onClick={() => setActiveProblemTab(comp.id)}
                   className={`w-full py-3 ${comp.btnBg} text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-4`}
                 >
                   <span>{comp.btnText}</span>
@@ -516,7 +513,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* ==================== 6. JUSTIFICACIÓN DEL PROYECTO ==================== */}
+        {/* JUSTIFICACIÓN DEL PROYECTO */}
         <section className="space-y-6">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold text-[#338C30] uppercase tracking-widest">
@@ -528,7 +525,6 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-           
             <div className="bg-white p-6 rounded-2xl border-2 border-[#03658C]/20 hover:border-[#03658C] shadow-sm space-y-3 relative overflow-hidden transition-all">
               <div className="w-10 h-10 rounded-xl bg-[#03658C] text-white flex items-center justify-center font-bold">
                 01
@@ -558,11 +554,10 @@ export default function App() {
                 Se articula con el Proyecto Ambiental Escolar (PRAE) garantizando la continuidad pedagógica en la comunidad educativa.
               </p>
             </div>
-
           </div>
         </section>
 
-        {/* ==================== 7. OBJETIVOS ==================== */}
+        {/* OBJETIVOS */}
         <section id="objetivos" className="space-y-6 pt-4">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold text-[#338C30] uppercase tracking-widest">
@@ -573,7 +568,6 @@ export default function App() {
             </h2>
           </div>
 
-          {/* Objetivo General Card */}
           <div className="bg-gradient-to-r from-[#03658C] to-[#338C30] text-white rounded-2xl p-6 sm:p-8 shadow-md border border-[#A6D9A5]/30">
             <div className="flex items-center gap-2 text-[#A6D9A5] font-bold text-xs uppercase tracking-widest mb-2">
               <Target className="w-5 h-5 text-[#A6D9A5]" />
@@ -584,7 +578,6 @@ export default function App() {
             </p>
           </div>
 
-          {/* Objetivos Específicos Grid */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             {specificObjectives.map((obj) => (
               <div key={obj.num} className="bg-white rounded-2xl p-5 border-2 border-slate-100 hover:border-[#338C30] shadow-sm transition-all space-y-2">
@@ -598,7 +591,7 @@ export default function App() {
           </div>
         </section>
 
-        {/* ==================== 8. MARCO REFERENCIAL ==================== */}
+        {/* MARCO REFERENCIAL */}
         <section className="space-y-6 pt-4">
           <div className="text-center space-y-2">
             <span className="text-xs font-bold text-[#338C30] uppercase tracking-widest">
@@ -609,9 +602,8 @@ export default function App() {
             </h2>
           </div>
 
-          {/* Tabs Nav */}
           <div className="flex flex-wrap items-center justify-center gap-2 border-b border-slate-200 pb-4">
-            {Object.keys(marcoData).map((key) => (
+            {(Object.keys(marcoData) as MarcoTabKey[]).map((key) => (
               <button
                 key={key}
                 onClick={() => setActiveMarcoTab(key)}
@@ -626,7 +618,6 @@ export default function App() {
             ))}
           </div>
 
-          {/* Tab Content Box */}
           <div className="bg-white rounded-2xl p-6 sm:p-8 border-2 border-[#03658C]/20 shadow-md space-y-4 max-w-4xl mx-auto">
             <span className="text-xs font-bold text-[#338C30] uppercase tracking-wider">
               {marcoData[activeMarcoTab].subtitle}
@@ -641,7 +632,7 @@ export default function App() {
             <div className="pt-2">
               <span className="text-xs font-bold text-[#03658C] uppercase block mb-2">Puntos Destacados:</span>
               <ul className="space-y-2">
-                {marcoData[activeMarcoTab].points.map((pt, i) => (
+                {marcoData[activeMarcoTab].points.map((pt: string, i: number) => (
                   <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
                     <CheckCircle2 className="w-4 h-4 text-[#338C30] shrink-0" />
                     <span>{pt}</span>
@@ -654,23 +645,22 @@ export default function App() {
 
       </main>
 
-      {/* ==================== FOOTER ==================== */}
+      {/* FOOTER */}
       <footer className="mt-16 bg-[#03658C] text-white py-8 border-t-4 border-[#338C30]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-4 text-xs">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#338C30] flex items-center justify-center text-white">
-              <Leaf className="w-3.5 h-3.5" />
+            <div className="w-6 h-6 rounded-full bg-[#338C30] flex items-center justify-center">
+              <Leaf className="w-3.5 h-3.5 text-white" />
             </div>
-            <span className="font-bold tracking-tight">Bio-Sayegh COLSAM</span>
-            <span className="text-slate-300">| Proyecto Ambiental Escolar</span>
+            <span className="font-bold tracking-wide uppercase">
+              Bio-Sayegh COLSAM &copy; {new Date().getFullYear()}
+            </span>
           </div>
-
-          <div className="text-slate-300">
-            © {new Date().getFullYear()} Colegio San Alberto Magno. Todos los derechos reservados.
-          </div>
+          <p className="text-slate-300">
+            Colegio San Alberto Magno &bull; Proyecto Ambiental Escolar (PRAE)
+          </p>
         </div>
       </footer>
-
     </div>
   );
 }
