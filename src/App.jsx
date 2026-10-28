@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+ // Actualización de ruta para Vercel 
+ import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AccesoModal from './components/AccesoModal';
