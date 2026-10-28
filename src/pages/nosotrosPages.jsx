@@ -1,12 +1,8 @@
 import React, { useState } from 'react';
 import {
   Leaf,
-  MapPin,
-  BarChart3,
   Users,
-  Award,
   Sparkles,
-  RefreshCw,
   ShieldCheck,
   Target,
   BookOpen,
@@ -21,14 +17,8 @@ import {
 } from 'lucide-react';
 
 export default function App() {
-  // Navigation active tab
-  const [activeNav, setActiveNav] = useState('nosotros');
-
   // Selected Team Member for Interactive Modal
   const [selectedMember, setSelectedMember] = useState(null);
-
-  // Active Tab for Planteamiento del Problema
-  const [activeProblemTab, setActiveProblemTab] = useState('contexto');
 
   // Active Tab for Marco Referencial
   const [activeMarcoTab, setActiveMarcoTab] = useState('teorico');
@@ -218,12 +208,12 @@ export default function App() {
         'Decreto 1743 de 1994 (Institucionalización de la Educación Ambiental)',
         'Objetivos de Desarrollo Sostenible (ODS 12: Producción y Consumo Responsable)'
       ]
-    },
- 
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#FFFFFF] text-[#03658C] font-sans selection:bg-[#A6D9A5] selection:text-[#03658C] pb-12">
-     
-     
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* ==================== 2. BANNER PRINCIPAL ==================== */}
         <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#03658C] via-[#024f6e] to-[#338C30] text-white p-8 sm:p-12 text-center shadow-xl border border-[#A6D9A5]/30">
          
@@ -516,7 +506,6 @@ export default function App() {
 
                 {/* Full Width Button at Bottom */}
                 <button
-                  onClick={() => setActiveProblemTab(comp.id)}
                   className={`w-full py-3 ${comp.btnBg} text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-4`}
                 >
                   <span>{comp.btnText}</span>

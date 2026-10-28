@@ -5,12 +5,8 @@ import {
   Apple, 
   Trash2, 
   Milk, 
-  BarChart3, 
   Cpu, 
-  CheckCircle2, 
-  Zap, 
-  Sparkles,
-  PieChart
+  Sparkles
 } from 'lucide-react';
 
 export default function EstadisticasPage() {

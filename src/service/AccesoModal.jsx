@@ -240,22 +240,6 @@ export default function AccesoModal({ onIngresar }) {
           <span>Ingresar a la Plataforma</span>
           <ChevronRight size={18} />
         </button> 
-        const handleSubmit = (e) => {
-  e.preventDefault();
-  
-  // Clave genérica de prueba
-  const CLAVE_CORRECTA = '1234';
-
-  if (password !== CLAVE_CORRECTA) {
-    setError('Clave incorrecta. Usa la clave de prueba: 1234');
-    return;
-  }
-
-  setError('');
-  onSeleccionarSalon(`salon_${salonSeleccionado.toLowerCase()}`);
-  setPassword('');
-  onClose();
-};
 
         {/* Pie de página pequeño */}
         <p style={{ marginTop: '20px', marginBottom: 0, fontSize: '0.75rem', color: '#64748b', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '4px' }}>

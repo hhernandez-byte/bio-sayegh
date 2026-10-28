@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ShieldAlert, UserCheck, Key, Lock, ArrowRight, X, Sparkles } from 'lucide-react';
+import { ShieldAlert, UserCheck, Key, ArrowRight, X, Sparkles } from 'lucide-react';
 
 export default function AccesoModal({ abierto, onCerrar, onSeleccionarRol }) {
   const [salonSeleccionado, setSalonSeleccionado] = useState('3a');

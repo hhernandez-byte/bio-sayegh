@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { 
   AlertTriangle, 
   Send, 
@@ -45,18 +45,15 @@ export default function MapaPage() {
   const [descripcion, setDescripcion] = useState('');
   const [reportadoPor, setReportadoPor] = useState('');
 
-  const [reportes, setReportes] = useState([]);
-  const [puntosGuardados, setPuntosGuardados] = useState(120);
-
-  useEffect(() => {
+  const [reportes, setReportes] = useState(() => {
     try {
-      const reportesGuardados = JSON.parse(localStorage.getItem('reportes_residuos') || '[]');
-      setReportes(reportesGuardados);
-    } catch (e) {
-      console.error("Error al cargar reportes:", e);
-      setReportes([]);
+      return JSON.parse(localStorage.getItem('reportes_residuos') || '[]');
+    } catch (error) {
+      console.error('Error al cargar reportes:', error);
+      return [];
     }
-  }, []);
+  });
+  const [puntosGuardados, setPuntosGuardados] = useState(120);
 
   const guardarReportes = (nuevos) => {
     setReportes(nuevos);

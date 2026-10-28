@@ -9,6 +9,7 @@ router.get('/robot-stats', async (req, res) => {
     const datos = await Residuo.find();
     res.json(datos);
   } catch (error) {
+    console.error('Error al obtener datos del robot:', error);
     res.status(500).json({ mensaje: 'Error al obtener datos del robot' });
   }
 });
