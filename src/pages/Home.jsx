@@ -322,65 +322,6 @@ export default function Home({ usuario }) {
 
       </div>
 
-      {/* FOOTER DOMINANTE EN AZUL CON DETALLES EN VERDE Y MENTA */}
-      <footer style={{
-        marginTop: 'auto',
-        backgroundColor: '#03658C',
-        borderTop: '4px solid #338C30',
-        padding: '36px 20px 20px 20px',
-        boxSizing: 'border-box',
-        color: '#FFFFFF'
-      }}>
-        <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '28px', marginBottom: '28px', paddingBottom: '28px', borderBottom: '1px solid rgba(255,255,255,0.2)' }}>
-            <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
-                <div style={{ backgroundColor: '#338C30', padding: '6px', borderRadius: '8px', color: '#A6D9A5' }}>
-                  <Leaf size={18} />
-                </div>
-                <span style={{ fontSize: '1.1rem', fontWeight: 900, color: '#A6D9A5' }}>
-                  Bio-Sayegh <span style={{ color: '#FFFFFF' }}>COLSAM</span>
-                </span>
-              </div>
-              <p style={{ fontSize: '0.8rem', color: '#FFFFFF', lineHeight: 1.6, margin: 0, opacity: 0.9 }}>
-                Iniciativa tecnológica orientada al desarrollo sostenible y la gestión ecológica escolar.
-              </p>
-            </div>
-
-            <div>
-              <h4 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#A6D9A5', textTransform: 'uppercase', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <Users size={16} /> Equipo de Trabajo
-              </h4>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <div style={{ width: '42px', height: '42px', borderRadius: '50%', backgroundColor: '#338C30', color: '#FFFFFF', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: '0.9rem', border: '2px solid #A6D9A5' }}>BS</div>
-                <div>
-                  <strong style={{ fontSize: '0.85rem', color: '#FFFFFF', display: 'block' }}>Desarrollo Bio-Sayegh</strong>
-                  <span style={{ fontSize: '0.75rem', color: '#A6D9A5' }}>Proyecto de Ecología</span>
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <h4 style={{ fontSize: '0.85rem', fontWeight: 800, color: '#A6D9A5', textTransform: 'uppercase', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>
-                <HeartHandshake size={16} /> Institución
-              </h4>
-              <p style={{ fontSize: '0.8rem', color: '#FFFFFF', margin: '0 0 4px 0', fontWeight: 700 }}>
-                Colegio San Alberto Magno
-              </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', marginTop: '8px', fontSize: '0.75rem', color: '#A6D9A5' }}>
-                <CheckCircle2 size={14} /> Sistema Ecológico Activo v2.5
-              </div>
-            </div>
-          </div>
-
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '12px', fontSize: '0.78rem', color: '#A6D9A5' }}>
-            <span>© {new Date().getFullYear()} Bio-Sayegh COLSAM. Todos los derechos reservados.</span>
-            <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-              <Code size={14} color="#A6D9A5" /> Plataforma Ecológica Escolar
-            </span>
-          </div>
-        </div>
-      </footer>
 
     </div>
   );
