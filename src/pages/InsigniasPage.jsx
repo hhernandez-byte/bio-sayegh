@@ -7,6 +7,9 @@ const API_URL = process.env.REACT_APP_API_URL || 'https://tu-servidor-php.com/ap
 // ----------------------------------------------------------------------
 // PALETA DE COLORES ADAPTADA 100% A TU NAVEGADOR BIO-SAYEGH
 // ----------------------------------------------------------------------
+// ----------------------------------------------------------------------
+// PALETA AJUSTADA A TU NAVEGADOR (PETRÓLEO, VERDE, AZUL BOTÓN, MARRÓN)
+// ----------------------------------------------------------------------
 const RAREZA_CONFIG = {
   Común: {
     label: 'Común',
@@ -21,18 +24,18 @@ const RAREZA_CONFIG = {
     label: 'Raro',
     colorHex: '#38BDF8',
     bgGradient: 'from-[#0A628A]/95 via-[#064460]/95 to-[#043349]/98',
-    borderColor: 'border-[#38BDF8]/40 hover:border-[#38BDF8]',
+    borderColor: 'border-[#0E6E94] hover:border-[#38BDF8]',
     glowColor: 'group-hover:shadow-[0_0_35px_rgba(56,189,248,0.35)]',
-    badgeStyle: 'bg-[#085375] text-[#38BDF8] border-[#38BDF8]',
+    badgeStyle: 'bg-[#0E6E94] text-[#38BDF8] border-[#38BDF8]',
     particleColor: '#38BDF8'
   },
   Épico: {
     label: 'Épico',
-    colorHex: '#F97316',
-    bgGradient: 'from-[#6E4837]/95 via-[#064460]/95 to-[#043349]/98',
-    borderColor: 'border-[#93634C] hover:border-[#F97316]',
-    glowColor: 'group-hover:shadow-[0_0_40px_rgba(147,99,76,0.45)]',
-    badgeStyle: 'bg-[#93634C] text-white border-[#F97316]',
+    colorHex: '#E29578',
+    bgGradient: 'from-[#93634C]/80 via-[#064460]/95 to-[#043349]/98',
+    borderColor: 'border-[#93634C] hover:border-[#E29578]',
+    glowColor: 'group-hover:shadow-[0_0_40px_rgba(147,99,76,0.5)]',
+    badgeStyle: 'bg-[#93634C] text-white border-[#E29578]',
     particleColor: '#93634C'
   },
   Legendario: {
@@ -40,11 +43,12 @@ const RAREZA_CONFIG = {
     colorHex: '#F59E0B',
     bgGradient: 'from-[#2E8B38]/40 via-[#064460]/95 to-[#043349]/98',
     borderColor: 'border-[#2E8B38] hover:border-[#4ADE80]',
-    glowColor: 'group-hover:shadow-[0_0_50px_rgba(46,139,56,0.55)]',
+    glowColor: 'group-hover:shadow-[0_0_50px_rgba(46,139,56,0.6)]',
     badgeStyle: 'bg-[#2E8B38] text-white border-amber-300 animate-pulse',
     particleColor: '#2E8B38'
   }
 };
+
 
 // ----------------------------------------------------------------------
 // CATÁLOGO COMPLETO DE INSIGNIAS POR DEFECTO (15 MEDALLAS EXTENDIDAS)
