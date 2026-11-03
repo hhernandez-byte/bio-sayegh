@@ -1,8 +1,9 @@
- // Actualización de ruta para Vercel 
- import React, { useState } from 'react';
+// Actualización de ruta para Vercel 
+import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import AccesoModal from './components/AccesoModal';
+import FooterBioSayegh from './components/Footer'; // 1. Importación del Footer
 import Home from './pages/Home';
 import MapaPage from './pages/MapaPage';
 import InsigniasPage from './pages/InsigniasPage';
@@ -46,9 +47,11 @@ export default function App() {
         <Route path="/mapa" element={<MapaPage usuario={usuario} />} />
         <Route path="/insignias" element={<InsigniasPage usuario={usuario} />} />
         <Route path="/estadisticas" element={<EstadisticasPage />} />
-        
         <Route path="/nosotros" element={<NosotrosPage />} />
       </Routes>
+
+      {/* 2. Componente renderizado justo debajo del Routes */}
+      <FooterBioSayegh />
     </Router>
   );
 }
