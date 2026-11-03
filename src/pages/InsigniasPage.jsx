@@ -297,7 +297,7 @@ function InsigniaModal({ insignia, desbloqueada, puntosActuales, onClose }) {
           >
             <IconComponent
               size={72}
-              color={desbloqueada ? insignia.colorHex : '#64748B'}
+              color={desbloqueada ? insignia.colorHex : '#030303'}
               className={desbloqueada ? 'animate-bounce' : ''}
             />
           </div>
