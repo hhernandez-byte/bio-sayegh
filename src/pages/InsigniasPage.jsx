@@ -8,44 +8,44 @@ const API_URL = process.env.REACT_APP_API_URL || 'https://tu-servidor-php.com/ap
 // PALETA DE COLORES ADAPTADA 100% A TU NAVEGADOR BIO-SAYEGH
 // ----------------------------------------------------------------------
 // ----------------------------------------------------------------------
-// PALETA AJUSTADA A TU NAVEGADOR (PETRÓLEO, VERDE, AZUL BOTÓN, MARRÓN)
+// PALETA ADAPTADA 100% A LA PÁGINA DE INICIO (FONDO CLARO + BANNER GRADIENTE)
 // ----------------------------------------------------------------------
 const RAREZA_CONFIG = {
   Común: {
     label: 'Común',
-    colorHex: '#4ADE80',
-    bgGradient: 'from-[#085375]/95 via-[#064460]/95 to-[#043349]/98',
-    borderColor: 'border-[#0E6E94] hover:border-[#2E8B38]',
-    glowColor: 'group-hover:shadow-[0_0_30px_rgba(46,139,56,0.35)]',
-    badgeStyle: 'bg-[#0E6E94] text-white border-[#2E8B38]',
+    colorHex: '#2E8B38',
+    bgGradient: 'from-white to-[#F0FDF4]',
+    borderColor: 'border-[#2E8B38]/30 hover:border-[#2E8B38]',
+    glowColor: 'group-hover:shadow-[0_10px_25px_rgba(46,139,56,0.15)]',
+    badgeStyle: 'bg-[#2E8B38]/10 text-[#2E8B38] border-[#2E8B38]/30',
     particleColor: '#2E8B38'
   },
   Raro: {
     label: 'Raro',
-    colorHex: '#38BDF8',
-    bgGradient: 'from-[#0A628A]/95 via-[#064460]/95 to-[#043349]/98',
-    borderColor: 'border-[#0E6E94] hover:border-[#38BDF8]',
-    glowColor: 'group-hover:shadow-[0_0_35px_rgba(56,189,248,0.35)]',
-    badgeStyle: 'bg-[#0E6E94] text-[#38BDF8] border-[#38BDF8]',
-    particleColor: '#38BDF8'
+    colorHex: '#0E6E94',
+    bgGradient: 'from-white to-[#F0F9FF]',
+    borderColor: 'border-[#0E6E94]/30 hover:border-[#0E6E94]',
+    glowColor: 'group-hover:shadow-[0_10px_25px_rgba(14,110,148,0.15)]',
+    badgeStyle: 'bg-[#0E6E94]/10 text-[#0E6E94] border-[#0E6E94]/30',
+    particleColor: '#0E6E94'
   },
   Épico: {
     label: 'Épico',
-    colorHex: '#E29578',
-    bgGradient: 'from-[#93634C]/80 via-[#064460]/95 to-[#043349]/98',
-    borderColor: 'border-[#93634C] hover:border-[#E29578]',
-    glowColor: 'group-hover:shadow-[0_0_40px_rgba(147,99,76,0.5)]',
-    badgeStyle: 'bg-[#93634C] text-white border-[#E29578]',
+    colorHex: '#93634C',
+    bgGradient: 'from-white to-[#FDF8F6]',
+    borderColor: 'border-[#93634C]/30 hover:border-[#93634C]',
+    glowColor: 'group-hover:shadow-[0_10px_25px_rgba(147,99,76,0.15)]',
+    badgeStyle: 'bg-[#93634C]/10 text-[#93634C] border-[#93634C]/30',
     particleColor: '#93634C'
   },
   Legendario: {
     label: 'Legendario',
-    colorHex: '#F59E0B',
-    bgGradient: 'from-[#2E8B38]/40 via-[#064460]/95 to-[#043349]/98',
-    borderColor: 'border-[#2E8B38] hover:border-[#4ADE80]',
-    glowColor: 'group-hover:shadow-[0_0_50px_rgba(46,139,56,0.6)]',
-    badgeStyle: 'bg-[#2E8B38] text-white border-amber-300 animate-pulse',
-    particleColor: '#2E8B38'
+    colorHex: '#D97706',
+    bgGradient: 'from-amber-50 to-amber-100/50',
+    borderColor: 'border-amber-400 hover:border-amber-500',
+    glowColor: 'group-hover:shadow-[0_10px_30px_rgba(217,119,6,0.25)]',
+    badgeStyle: 'bg-amber-500 text-white border-amber-400 animate-pulse',
+    particleColor: '#D97706'
   }
 };
 
