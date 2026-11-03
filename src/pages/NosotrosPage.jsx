@@ -16,20 +16,12 @@ import {
   TreePine
 } from 'lucide-react';
 
-
-
 export default function NosotrosPage() {
-  const [activeNav, setActiveNav] = useState<string>('nosotros');
+  const [selectedMember, setSelectedMember] = useState(null);
+  const [activeProblemTab, setActiveProblemTab] = useState('contexto');
+  const [activeMarcoTab, setActiveMarcoTab] = useState('teorico');
 
-  // Solución al error de 'SetStateAction<null>' y 'never':
-  const [selectedMember, setSelectedMember] = useState<TeamMember | null>(null);
-
-  const [activeProblemTab, setActiveProblemTab] = useState<string>('contexto');
-
-  // Solución al error de indexación en marcoData:
-  const [activeMarcoTab, setActiveMarcoTab] = useState<MarcoTabKey>('teorico');
-
-  const teamMembers: TeamMember[] = [
+  const teamMembers = [
     {
       id: 'AC',
       initials: 'AC',
@@ -179,7 +171,7 @@ export default function NosotrosPage() {
     }
   ];
 
-  const marcoData: Record<MarcoTabKey, { title: string; subtitle: string; content: string; points: string[] }> = {
+  const marcoData = {
     teorico: {
       title: 'Marco Tecnológico',
       subtitle: 'Sostenibilidad & Gamificación Educativa',
@@ -306,7 +298,7 @@ export default function NosotrosPage() {
           </div>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 max-w-6xl mx-auto">
-            {teamMembers.map((member: TeamMember) => (
+            {teamMembers.map((member) => (
               <div
                 key={member.id}
                 onClick={() => setSelectedMember(member)}
@@ -394,7 +386,7 @@ export default function NosotrosPage() {
                 <div>
                   <span className="font-bold text-[#03658C] block text-xs uppercase mb-2">Aportes Específicos</span>
                   <ul className="space-y-2">
-                    {selectedMember.contributions.map((c: string, i: number) => (
+                    {selectedMember.contributions.map((c, i) => (
                       <li key={i} className="flex items-center gap-2 text-xs text-slate-700">
                         <CheckCircle2 className="w-4 h-4 text-[#338C30] shrink-0" />
                         <span>{c}</span>
@@ -478,7 +470,7 @@ export default function NosotrosPage() {
 
                   <div className="pt-2">
                     <ul className="space-y-1.5">
-                      {comp.details.map((dt: string, idx: number) => (
+                      {comp.details.map((dt, idx) => (
                         <li key={idx} className="flex items-center gap-2 text-xs text-slate-500">
                           <span className="w-1.5 h-1.5 rounded-full bg-[#338C30]" />
                           <span>{dt}</span>
@@ -490,7 +482,7 @@ export default function NosotrosPage() {
 
                 <button
                   onClick={() => setActiveProblemTab(comp.id)}
-                  className={`w-full py-3 ${comp.btnBg} text-white font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-4`}
+                  className={`w-full py-3 ${comp.btnBg} text-[#FFFFFF] font-bold text-xs uppercase tracking-wider transition-colors flex items-center justify-center gap-2 mt-4`}
                 >
                   <span>{comp.btnText}</span>
                   <ArrowRight className="w-4 h-4" />
@@ -590,7 +582,7 @@ export default function NosotrosPage() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-2 border-b border-slate-200 pb-4">
-            {(Object.keys(marcoData) as MarcoTabKey[]).map((key) => (
+            {Object.keys(marcoData).map((key) => (
               <button
                 key={key}
                 onClick={() => setActiveMarcoTab(key)}
@@ -619,7 +611,7 @@ export default function NosotrosPage() {
             <div className="pt-2">
               <span className="text-xs font-bold text-[#03658C] uppercase block mb-2">Puntos Destacados:</span>
               <ul className="space-y-2">
-                {marcoData[activeMarcoTab].points.map((pt: string, i: number) => (
+                {marcoData[activeMarcoTab].points.map((pt, i) => (
                   <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
                     <CheckCircle2 className="w-4 h-4 text-[#338C30] shrink-0" />
                     <span>{pt}</span>
