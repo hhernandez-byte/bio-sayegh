@@ -62,7 +62,6 @@ export default function Navbar({ usuario, onCerrarSesion }) {
         <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
           <BioSayeghLogo />
           <span style={{ fontSize: '0.9rem', fontWeight: 800, color: '#A6D9A5', letterSpacing: '1px', alignSelf: 'flex-end', marginBottom: '6px' }}>
-            COLSAM
           </span>
         </Link>
 
