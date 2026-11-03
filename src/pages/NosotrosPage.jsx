@@ -16,20 +16,7 @@ import {
   TreePine
 } from 'lucide-react';
 
-// 1. Interfaz para los miembros del equipo
-interface TeamMember {
-  id: string;
-  initials: string;
-  name: string;
-  role: string;
-  specialty: string;
-  bio: string;
-  contributions: string[];
-  badge: string;
-}
 
-// 2. Tipo para las claves del Marco Referencial
-type MarcoTabKey = 'teorico' | 'conceptual' | 'legal';
 
 export default function NosotrosPage() {
   const [activeNav, setActiveNav] = useState<string>('nosotros');
