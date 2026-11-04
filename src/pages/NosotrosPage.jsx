@@ -23,75 +23,75 @@ export default function NosotrosPage() {
 
   const teamMembers = [
     {
-      id: 'AC',
-      initials: 'AC',
-      name: 'Aylin Carbonell',
-      role: 'Líder de Proyecto & Software',
-      specialty: 'Desarrollo Web & Georreferenciación',
-      bio: 'Encargada de la arquitectura de la plataforma web Bio-Sayegh COLSAM, coordinando la geolocalización vectorial en tiempo real y la integración con el sistema de incentivos por curso.',
-      contributions: [
-        'Arquitectura e interfaz de la plataforma web',
-        'Coordinación técnica del sistema vectorial del mapa',
-        'Integración del módulo interactivo de insignias ecológicas'
-      ],
-      badge: 'Líder'
-    },
-    {
-      id: 'JG',
-      initials: 'JG',
-      name: 'Jesús Gutierrez',
-      role: 'Investigador Principal Ecológico',
-      specialty: 'Gestión Ambiental Escolar',
-      bio: 'Líder del diagnóstico situacional de residuos en el Colegio San Alberto Magno. Diseñó la pregunta problematizadora y la estrategia de cultura ciudadana ambiental.',
-      contributions: [
-        'Formulación de la pregunta problematizadora',
-        'Diseño de las categorías de recolección de residuos',
-        'Gestión e integración del marco normativo y metodológico'
-      ],
-      badge: 'Investigador'
-    },
-    {
-      id: 'HH',
-      initials: 'HH',
-      name: 'Hernando Hernandez',
-      role: 'Analista de Datos Ambientales',
-      specialty: 'Métricas & Estadísticas',
-      bio: 'Especialista en estructuración de indicadores cuantitativos. Procesa las estadísticas de saneamiento y acumulación de eco-puntos por salón.',
-      contributions: [
-        'Modelado de métricas para zonas saneadas y eco-puntos',
-        'Análisis cualitativo y cuantitativo del proyecto',
-        'Validación de datos de campo en el campus'
-      ],
-      badge: 'Analista'
-    },
-    {
-      id: 'SP',
-      initials: 'SP',
-      name: 'Samuel Pardo',
-      role: 'Coordinador de Gamificación',
-      specialty: 'Estrategias Didácticas & Pedagógicas',
-      bio: 'Diseñador del esquema de gamificación escolar, encargado de la Ruta de Insignias y de articular el proyecto con el PRAE del Colegio San Alberto Magno.',
-      contributions: [
-        'Diseño conceptual de la Ruta de Insignias',
-        'Redacción del Marco Teórico y Pedagógico',
-        'Estrategias de incentivo para salones de clase'
-      ],
-      badge: 'Coordinador'
-    },
-    {
-      id: 'YV',
-      initials: 'YV',
-      name: 'Yhara Vasquéz',
-      role: 'Especialista en Logística & Zonas',
-      specialty: 'Geolocalización & Operativa',
-      bio: 'Supervisa la delimitación física del campus para el mapa vectorial, asegurando la verificación en terreno de las alertas de residuos reportadas.',
-      contributions: [
-        'Mapeo territorial del Colegio San Alberto Magno',
-        'Estructuración del Marco Contextual y territorial',
-        'Enlace con docentes y representantes de salones'
-      ],
-      badge: 'Logística'
-    }
+    id: 'AC',
+    initials: 'AC',
+    name: 'Aylin Carbonell',
+    role: 'Administradora de Base de Datos',
+    specialty: 'Gestión de Datos & Almacenamiento',
+    bio: 'Encargada de estructurar los modelos de datos, asegurar el almacenamiento correcto y la integridad de la información del sistema.',
+    contributions: [
+      'Diseño y estructuración del modelo de datos',
+      'Gestión de registros de usuarios, salones e insignias',
+      'Aseguramiento de la persistencia de datos'
+    ],
+    badge: 'Base de Datos'
+  },
+  {
+    id: 'JG',
+    initials: 'JG',
+    name: 'Jesús Gutierrez',
+    role: 'Analista de Errores & Calidad',
+    specialty: 'Control de Calidad (QA) & Pruebas',
+    bio: 'Encargado de realizar pruebas de software, detectar fallos en la interfaz y garantizar el correcto funcionamiento del sistema.',
+    contributions: [
+      'Pruebas funcionales de la plataforma web',
+      'Detección y reporte de errores en el código',
+      'Control de calidad y verificación del rendimiento'
+    ],
+    badge: 'Analista QA'
+  },
+  {
+    id: 'HH',
+    initials: 'HH',
+    name: 'Hernando Hernandez',
+    role: 'Investigador Teórico del Proyecto',
+    specialty: 'Investigación Ambiental & Contenidos',
+    bio: 'Encargado del sustento ecológico, investigación del marco PRAE y redacción de los contenidos ambientales de la plataforma.',
+    contributions: [
+      'Investigación del marco teórico ecológico (PRAE)',
+      'Redacción de eco-consejos y guías del sitio',
+      'Documentación temática ambiental del proyecto'
+    ],
+    badge: 'Investigador'
+  },
+  {
+    id: 'SP',
+    initials: 'SP',
+    name: 'Samuel Pardo',
+    role: 'Líder General del Proyecto',
+    specialty: 'Dirección de Proyecto & Estrategia',
+    bio: 'Encargado de la gestión integral, supervisión del equipo y toma de decisiones estratégicas de la plataforma Bio-Sayegh COLSAM.',
+    contributions: [
+      'Liderazgo y gestión del equipo',
+      'Planificación estratégica del proyecto',
+      'Supervisión general de avances y entregables'
+    ],
+    badge: 'Líder'
+  },
+  {
+    id: 'YV',
+    initials: 'YV',
+    name: 'Yhara Vasquéz',
+    role: 'Desarrolladora Web Principal',
+    specialty: 'Desarrollo Frontend & UI/UX',
+    bio: 'Encargada del desarrollo web, maquetación visual y componentes interactivos de la plataforma Bio-Sayegh COLSAM.',
+    contributions: [
+      'Desarrollo e interfaz de la plataforma web',
+      'Implementación de componentes dinámicos en React',
+      'Navegación y diseño responsivo del sitio'
+    ],
+    badge: 'Desarrolladora'
+  }
   ];
 
   const problemComponents = [
