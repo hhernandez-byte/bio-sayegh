@@ -1,14 +1,20 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import * as Icons from 'lucide-react';
+
+// Swiper React Componentes y Estilos para Carrusel 3D
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { EffectCoverflow, Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 // URL de la API del backend PHP
 const API_URL = process.env.REACT_APP_API_URL || 'https://tu-servidor-php.com/api.php';
 
 // ----------------------------------------------------------------------
-// PALETA DE COLORES ADAPTADA 100% A TU NAVEGADOR BIO-SAYEGH
-// ----------------------------------------------------------------------
-// ----------------------------------------------------------------------
-// PALETA ADAPTADA 100% A LA PÁGINA DE INICIO (FONDO CLARO + BANNER GRADIENTE)
+// PALETA DE COLORES Y RAREZAS ADAPTADA A LA PÁGINA DE INICIO
 // ----------------------------------------------------------------------
 const RAREZA_CONFIG = {
   Común: {
@@ -48,7 +54,6 @@ const RAREZA_CONFIG = {
     particleColor: '#D97706'
   }
 };
-
 
 // ----------------------------------------------------------------------
 // CATÁLOGO COMPLETO DE INSIGNIAS POR DEFECTO (15 MEDALLAS EXTENDIDAS)
@@ -207,18 +212,84 @@ const INSIGNIAS_CATALOGO_DEFAULT = [
 ];
 
 // ----------------------------------------------------------------------
+// EFECTO DE CONFETI EN CANVAS NATIVO (OPTIMIZADO PARA VS CODE ONLINE)
+// ----------------------------------------------------------------------
+function dispararConfetiBioSayegh() {
+  const canvas = document.createElement('canvas');
+  canvas.style.position = 'fixed';
+  canvas.style.top = '0';
+  canvas.style.left = '0';
+  canvas.style.width = '100vw';
+  canvas.style.height = '100vh';
+  canvas.style.pointerEvents = 'none';
+  canvas.style.zIndex = '99999';
+  document.body.appendChild(canvas);
+
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const colores = ['#064460', '#2E8B38', '#0E6E94', '#93634C', '#4ADE80', '#F59E0B'];
+  const particulas = Array.from({ length: 110 }).map(() => ({
+    x: canvas.width / 2,
+    y: canvas.height / 2 + 60,
+    vx: (Math.random() - 0.5) * 18,
+    vy: (Math.random() - 0.75) * 18,
+    size: Math.random() * 9 + 4,
+    color: colores[Math.floor(Math.random() * colores.length)],
+    rotation: Math.random() * 360,
+    vRot: (Math.random() - 0.5) * 12,
+    opacity: 1
+  }));
+
+  let frame = 0;
+  function animar() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    let activas = 0;
+
+    particulas.forEach((p) => {
+      if (p.opacity > 0) {
+        activas++;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.32; // Gravedad
+        p.rotation += p.vRot;
+        p.opacity -= 0.01;
+
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.opacity);
+        ctx.translate(p.x, p.y);
+        ctx.rotate((p.rotation * Math.PI) / 180);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+        ctx.restore();
+      }
+    });
+
+    if (activas > 0 && frame < 180) {
+      frame++;
+      requestAnimationFrame(animar);
+    } else {
+      canvas.remove();
+    }
+  }
+
+  animar();
+}
+
+// ----------------------------------------------------------------------
 // COMPONENTE SECUNDARIO: FONDO DE PARTÍCULAS INTERACTIVO
 // ----------------------------------------------------------------------
 function BackgroundParticles() {
   const particles = useMemo(() => {
-    return Array.from({ length: 30 }).map((_, i) => ({
+    return Array.from({ length: 25 }).map((_, i) => ({
       id: i,
       size: Math.random() * 5 + 2,
       x: Math.random() * 100,
       y: Math.random() * 100,
       duration: Math.random() * 14 + 8,
       delay: Math.random() * 5,
-      opacity: Math.random() * 0.4 + 0.2
+      opacity: Math.random() * 0.3 + 0.1
     }));
   }, []);
 
@@ -227,7 +298,7 @@ function BackgroundParticles() {
       {particles.map((p) => (
         <div
           key={p.id}
-          className="absolute rounded-full bg-[#2E8B38]/40 blur-[1px] animate-pulse"
+          className="absolute rounded-full bg-[#2E8B38]/30 blur-[1px] animate-pulse"
           style={{
             width: `${p.size}px`,
             height: `${p.size}px`,
@@ -239,9 +310,6 @@ function BackgroundParticles() {
           }}
         />
       ))}
-      <div className="absolute -top-40 -left-40 w-[500px] h-[500px] bg-[#0E6E94]/20 rounded-full blur-[140px]" />
-      <div className="absolute top-1/2 -right-40 w-[500px] h-[500px] bg-[#2E8B38]/20 rounded-full blur-[140px]" />
-      <div className="absolute -bottom-40 left-1/3 w-[500px] h-[500px] bg-[#085375]/30 rounded-full blur-[140px]" />
     </div>
   );
 }
@@ -258,65 +326,50 @@ function InsigniaModal({ insignia, desbloqueada, puntosActuales, onClose }) {
   const faltantes = Math.max(0, insignia.reqPuntos - puntosActuales);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#042433]/85 backdrop-blur-md animate-fadeIn">
-      <div className={`relative w-full max-w-lg bg-[#064460] border ${config.borderColor} rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden text-white`}>
-        {/* Luz de fondo */}
-        <div 
-          className="absolute -top-20 -left-20 w-48 h-48 rounded-full blur-3xl pointer-events-none opacity-40"
-          style={{ backgroundColor: insignia.colorHex || config.particleColor }}
-        />
-
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md animate-fadeIn">
+      <div className={`relative w-full max-w-lg bg-white border ${config.borderColor} rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden text-slate-800`}>
+        
         {/* Botón de Cierre */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 p-2 text-slate-300 hover:text-white rounded-full bg-[#085375] hover:bg-[#0E6E94] transition-colors"
+          className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 rounded-full bg-slate-100 transition-colors"
         >
           <Icons.X size={20} />
         </button>
 
-        {/* Encabezado de la Modal */}
-        <div className="flex items-center gap-3 mb-6">
+        {/* Encabezado */}
+        <div className="flex items-center gap-3 mb-4">
           <span className={`text-xs font-bold uppercase tracking-widest px-3 py-1 rounded-full border ${config.badgeStyle}`}>
             {insignia.rareza}
           </span>
-          <span className="text-xs font-mono text-[#38BDF8] bg-[#085375] border border-[#0E6E94] px-3 py-1 rounded-full">
+          <span className="text-xs font-mono text-[#0E6E94] bg-sky-50 border border-sky-200 px-3 py-1 rounded-full">
             {insignia.categoria || 'General'}
           </span>
         </div>
 
-        {/* Icono Grande Animado */}
+        {/* Icono Grande */}
         <div className="flex justify-center my-6">
           <div
-            className={`relative p-8 rounded-3xl border transition-all duration-500 ${
-              desbloqueada ? 'bg-[#043349] shadow-2xl' : 'bg-[#043349]/50 border-slate-700 opacity-60'
-            }`}
-            style={{
-              borderColor: desbloqueada ? `${insignia.colorHex}80` : undefined,
-              boxShadow: desbloqueada ? `0 0 40px ${insignia.colorHex}40` : undefined
-            }}
+            className={`p-6 rounded-3xl bg-[#064460] shadow-xl border border-[#0E6E94] ${desbloqueada ? 'animate-bounce' : ''}`}
           >
-            <IconComponent
-              size={72}
-              color={desbloqueada ? insignia.colorHex : '#030303'}
-              className={desbloqueada ? 'animate-bounce' : ''}
-            />
+            <IconComponent size={64} color={desbloqueada ? insignia.colorHex : '#94A3B8'} />
           </div>
         </div>
 
         {/* Título y Descripción */}
-        <h3 className="text-2xl font-black text-center text-white">{insignia.nombre}</h3>
-        <p className="text-slate-200 text-sm text-center mt-3 leading-relaxed">
+        <h3 className="text-2xl font-black text-center text-[#064460]">{insignia.nombre}</h3>
+        <p className="text-slate-600 text-xs sm:text-sm text-center mt-2 leading-relaxed">
           {insignia.descripcion}
         </p>
 
-        {/* Estadísticas de Progreso dentro de la Modal */}
-        <div className="mt-8 bg-[#043349]/80 border border-[#085375] rounded-2xl p-4">
+        {/* Progreso */}
+        <div className="mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4">
           <div className="flex justify-between items-center text-xs mb-2">
-            <span className="text-slate-300 font-medium">Requisito de Desbloqueo</span>
-            <span className="text-white font-mono font-bold">{insignia.reqPuntos} Eco-Puntos</span>
+            <span className="text-slate-500 font-medium">Requisito de Desbloqueo</span>
+            <span className="text-[#064460] font-mono font-bold">{insignia.reqPuntos} Eco-Puntos</span>
           </div>
           
-          <div className="w-full bg-[#064460] h-3 rounded-full overflow-hidden border border-[#085375] mb-3">
+          <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden mb-3">
             <div
               className="h-full bg-[#2E8B38] transition-all duration-700"
               style={{ width: `${porcentaje}%` }}
@@ -324,7 +377,7 @@ function InsigniaModal({ insignia, desbloqueada, puntosActuales, onClose }) {
           </div>
 
           <div className="flex justify-between items-center text-xs">
-            <span className={desbloqueada ? 'text-[#4ADE80] font-bold flex items-center gap-1' : 'text-slate-300'}>
+            <span className={desbloqueada ? 'text-[#2E8B38] font-bold flex items-center gap-1' : 'text-slate-500'}>
               {desbloqueada ? (
                 <>
                   <Icons.CheckCircle2 size={14} /> ¡Insignia Conseguida!
@@ -333,15 +386,15 @@ function InsigniaModal({ insignia, desbloqueada, puntosActuales, onClose }) {
                 `Te faltan ${faltantes} Eco-Puntos`
               )}
             </span>
-            <span className="text-slate-300 font-bold">{porcentaje}%</span>
+            <span className="text-slate-500 font-bold">{porcentaje}%</span>
           </div>
         </div>
 
         {/* Acciones */}
-        <div className="mt-6 flex gap-3">
+        <div className="mt-6">
           <button
             onClick={onClose}
-            className="w-full py-3 bg-[#2E8B38] hover:bg-[#26752F] text-white font-bold rounded-xl text-sm transition-all shadow-lg"
+            className="w-full py-3 bg-[#2E8B38] hover:bg-[#25722D] text-white font-bold rounded-xl text-sm transition-all shadow-md"
           >
             Entendido
           </button>
@@ -352,7 +405,7 @@ function InsigniaModal({ insignia, desbloqueada, puntosActuales, onClose }) {
 }
 
 // ----------------------------------------------------------------------
-// COMPONENTE PRINCIPAL: GALERÍA DE INSIGNIAS GAMIFICADAS
+// COMPONENTE PRINCIPAL: RUTA DE INSIGNIAS CON CARRUSEL GIRATORIO
 // ----------------------------------------------------------------------
 export default function InsigniasGamificadas({ puntosSalonActual = 720, codigoSalon = '10A' }) {
   const [insignias, setInsignias] = useState([]);
@@ -360,7 +413,8 @@ export default function InsigniasGamificadas({ puntosSalonActual = 720, codigoSa
   const [filtroRareza, setFiltroRareza] = useState('Todas');
   const [busqueda, setBusqueda] = useState('');
   const [modalInsignia, setModalInsignia] = useState(null);
-  const [vistaModo, setVistaModo] = useState('grid'); // 'grid' o 'list'
+  
+  const swiperRef = useRef(null);
 
   // Cargar Insignias desde la API PHP o usar Fallback por defecto
   useEffect(() => {
@@ -386,7 +440,7 @@ export default function InsigniasGamificadas({ puntosSalonActual = 720, codigoSa
     cargarInsignias();
   }, []);
 
-  // Filtrado reactivo por rareza y término de búsqueda
+  // Filtrado por búsqueda y rareza
   const insigniasFiltradas = useMemo(() => {
     return insignias.filter((item) => {
       const coincideRareza =
@@ -404,298 +458,229 @@ export default function InsigniasGamificadas({ puntosSalonActual = 720, codigoSa
     });
   }, [insignias, filtroRareza, busqueda, puntosSalonActual]);
 
-  // Métricas globales calculadas
-  const totalDesbloqueadas = useMemo(() => {
-    return insignias.filter((i) => puntosSalonActual >= i.reqPuntos).length;
+  // Identificar las insignias desbloqueadas y la más reciente
+  const insigniasDesbloqueadas = useMemo(() => {
+    return insignias.filter((i) => puntosSalonActual >= i.reqPuntos);
   }, [insignias, puntosSalonActual]);
+
+  const ultimaDesbloqueada = useMemo(() => {
+    return insigniasDesbloqueadas[insigniasDesbloqueadas.length - 1];
+  }, [insigniasDesbloqueadas]);
 
   const porcentajeGlobal = useMemo(() => {
     if (insignias.length === 0) return 0;
-    return Math.round((totalDesbloqueadas / insignias.length) * 100);
-  }, [totalDesbloqueadas, insignias]);
+    return Math.round((insigniasDesbloqueadas.length / insignias.length) * 100);
+  }, [insigniasDesbloqueadas, insignias]);
+
+  // Enfocar el carrusel en la última insignia desbloqueada y disparar el confeti
+  useEffect(() => {
+    if (ultimaDesbloqueada && swiperRef.current && swiperRef.current.swiper) {
+      const index = insigniasFiltradas.findIndex((i) => i.codigo === ultimaDesbloqueada.codigo);
+      if (index !== -1) {
+        setTimeout(() => {
+          swiperRef.current.swiper.slideTo(index, 800);
+          if (swiperRef.current.swiper.autoplay) {
+            swiperRef.current.swiper.autoplay.stop();
+          }
+          dispararConfetiBioSayegh();
+        }, 500);
+      }
+    }
+  }, [puntosSalonActual, insigniasFiltradas, ultimaDesbloqueada]);
 
   if (cargando) {
     return (
-      <div className="min-h-screen bg-[#064460] flex flex-col items-center justify-center text-[#4ADE80] p-6 relative overflow-hidden">
-        <BackgroundParticles />
-        <div className="relative z-10 flex flex-col items-center">
-          <Icons.Loader2 className="w-12 h-12 animate-spin mb-4 text-[#2E8B38]" />
-          <h2 className="text-xl font-bold text-white tracking-wide">Cargando Bio-Sayegh COLSAM</h2>
-          <p className="text-xs text-slate-300 mt-1 animate-pulse">Sincronizando logros con la base de datos...</p>
-        </div>
+      <div className="min-h-screen bg-[#F8FAFC] flex flex-col items-center justify-center text-[#2E8B38] p-6">
+        <Icons.Loader2 className="w-12 h-12 animate-spin mb-4" />
+        <h2 className="text-xl font-bold text-slate-800">Cargando Ruta de Insignias</h2>
+        <p className="text-xs text-slate-500 mt-1 animate-pulse">Conectando con Bio-Sayegh COLSAM...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-[#064460] via-[#043349] to-[#022232] text-white p-4 sm:p-8 relative overflow-hidden font-sans">
-      {/* Fondo Animado de Partículas */}
+    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 p-4 sm:p-8 relative overflow-hidden font-sans">
       <BackgroundParticles />
 
       <div className="max-w-7xl mx-auto space-y-8 relative z-10">
         
         {/* ================================================================== */}
-        {/* HEADER & DASHBOARD DE LOGROS */}
+        {/* HEADER TIPO BANNER PRINCIPAL (MANTENIDO INTACTO) */}
         {/* ================================================================== */}
-        <header className="relative bg-[#085375]/80 border border-[#2E8B38]/40 backdrop-blur-2xl rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-            
-            {/* Título e Info del Salón */}
+        <header className="relative bg-gradient-to-r from-[#064460] to-[#2E8B38] border-2 border-[#2E8B38] rounded-3xl p-6 sm:p-10 shadow-xl overflow-hidden text-white">
+          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6 relative z-10">
             <div className="space-y-2">
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full bg-[#2E8B38] text-white text-xs font-bold border border-[#4ADE80] flex items-center gap-1.5">
-                  <Icons.ShieldAlert size={14} /> Salón {codigoSalon}
-                </span>
-                <span className="text-xs text-slate-200 font-mono">
-                  {puntosSalonActual} Eco-Puntos Acumulados
-                </span>
-              </div>
-
-              <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white">
-                Galería de Insignias COLSAM
+              <span className="inline-block px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold border border-white/30 backdrop-blur-md">
+                Salón Conectado: {codigoSalon} ({puntosSalonActual} Eco-Puntos)
+              </span>
+              <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white">
+                Ruta de Insignias
               </h1>
-              <p className="text-slate-200 text-sm max-w-2xl">
-                Explora las medallas de reconocimiento ambiental. Supera los retos en el colegio para desbloquear coleccionables exclusivos.
+              <p className="text-emerald-100 text-sm max-w-2xl">
+                Plataforma ecológica para la geolocalización de residuos y gamificación por cursos en el Colegio San Alberto Magno.
               </p>
             </div>
 
-            {/* Métrica Resumen */}
-            <div className="flex items-center gap-4 bg-[#043349]/90 border border-[#0E6E94] p-5 rounded-2xl w-full lg:w-auto shadow-inner">
-              <div className="p-3 bg-[#2E8B38]/20 border border-[#2E8B38] rounded-2xl">
-                <Icons.Trophy className="w-10 h-10 text-[#2E8B38] animate-pulse" />
+            <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl w-full lg:w-auto text-center">
+              <div className="text-3xl font-black text-white">
+                {insigniasDesbloqueadas.length} <span className="text-base font-normal text-emerald-100">/ {insignias.length}</span>
               </div>
-              <div>
-                <div className="text-3xl font-black text-white">
-                  {totalDesbloqueadas} <span className="text-base font-normal text-slate-300">/ {insignias.length}</span>
-                </div>
-                <div className="text-xs text-[#4ADE80] font-bold flex items-center gap-1 mt-0.5">
-                  <Icons.Sparkles size={12} /> {porcentajeGlobal}% Completado
-                </div>
+              <div className="text-xs text-emerald-200 font-bold mt-1">
+                {porcentajeGlobal}% Desbloqueado
               </div>
             </div>
           </div>
 
-          {/* Barra de Progreso Global */}
-          <div className="mt-8 space-y-2">
-            <div className="flex justify-between text-xs font-medium text-slate-200">
-              <span>Nivel de Avance de la Promoción</span>
-              <span className="text-[#4ADE80] font-mono font-bold">{porcentajeGlobal}%</span>
-            </div>
-            <div className="w-full bg-[#043349] h-3 rounded-full p-0.5 border border-[#0E6E94]">
-              <div
-                className="h-full bg-[#2E8B38] rounded-full transition-all duration-1000 shadow-[0_0_15px_rgba(46,139,56,0.5)]"
-                style={{ width: `${porcentajeGlobal}%` }}
-              />
-            </div>
+          {/* Barra de Progreso Superior */}
+          <div className="mt-6 w-full bg-black/20 h-2.5 rounded-full overflow-hidden border border-white/20">
+            <div
+              className="h-full bg-emerald-400 transition-all duration-1000 shadow-[0_0_12px_rgba(52,211,153,0.8)]"
+              style={{ width: `${porcentajeGlobal}%` }}
+            />
           </div>
         </header>
 
         {/* ================================================================== */}
-        {/* BARRA DE HERRAMIENTAS: BÚSQUEDA Y FILTROS */}
+        {/* CONTROLES Y FILTROS */}
         {/* ================================================================== */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-[#085375]/50 border border-[#0E6E94] p-4 rounded-2xl backdrop-blur-md">
-          
-          {/* Caja de Búsqueda */}
+        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white border border-slate-200 p-4 rounded-2xl shadow-sm">
           <div className="relative w-full md:w-80">
-            <Icons.Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+            <Icons.Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
             <input
               type="text"
               placeholder="Buscar insignia..."
               value={busqueda}
               onChange={(e) => setBusqueda(e.target.value)}
-              className="w-full pl-10 pr-4 py-2.5 bg-[#043349] border border-[#0E6E94] rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-[#2E8B38] transition-colors"
+              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm text-slate-800 placeholder-slate-400 focus:outline-none focus:border-[#2E8B38]"
             />
-            {busqueda && (
-              <button
-                onClick={() => setBusqueda('')}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-300 hover:text-white"
-              >
-                <Icons.X size={14} />
-              </button>
-            )}
           </div>
 
-          {/* Botones de Filtro por Rareza */}
-          <div className="flex flex-wrap items-center gap-2 w-full md:w-auto justify-center">
-            {['Todas', 'Desbloqueadas', 'Común', 'Raro', 'Épico', 'Legendario'].map((categoria) => (
+          <div className="flex flex-wrap items-center gap-2 justify-center">
+            {['Todas', 'Desbloqueadas', 'Común', 'Raro', 'Épico', 'Legendario'].map((cat) => (
               <button
-                key={categoria}
-                onClick={() => setFiltroRareza(categoria)}
+                key={cat}
+                onClick={() => setFiltroRareza(cat)}
                 className={`px-4 py-2 rounded-xl text-xs font-bold transition-all border ${
-                  filtroRareza === categoria
-                    ? 'bg-[#2E8B38] border-[#4ADE80] text-white shadow-lg scale-105'
-                    : 'bg-[#0E6E94]/60 border-[#085375] text-slate-200 hover:bg-[#0E6E94]'
+                  filtroRareza === cat
+                    ? 'bg-[#2E8B38] border-[#2E8B38] text-white shadow-md scale-105'
+                    : 'bg-slate-100 border-slate-200 text-slate-600 hover:bg-slate-200'
                 }`}
               >
-                {categoria}
+                {cat}
               </button>
             ))}
-          </div>
-
-          {/* Toggle de Modo de Vista (Grid / List) */}
-          <div className="hidden sm:flex items-center bg-[#043349] border border-[#0E6E94] p-1 rounded-xl">
-            <button
-              onClick={() => setVistaModo('grid')}
-              className={`p-2 rounded-lg transition-colors ${vistaModo === 'grid' ? 'bg-[#2E8B38] text-white' : 'text-slate-400 hover:text-white'}`}
-              title="Vista en Cuadrícula"
-            >
-              <Icons.LayoutGrid size={16} />
-            </button>
-            <button
-              onClick={() => setVistaModo('list')}
-              className={`p-2 rounded-lg transition-colors ${vistaModo === 'list' ? 'bg-[#2E8B38] text-white' : 'text-slate-400 hover:text-white'}`}
-              title="Vista en Lista"
-            >
-              <Icons.List size={16} />
-            </button>
           </div>
         </div>
 
         {/* ================================================================== */}
-        {/* GRID DE CARDS DINÁMICAS DE INSIGNIAS */}
+        {/* NUEVA ORGANIZACIÓN: BANNER GIRATORIO EN 3D (SWIPER COVERFLOW) */}
         {/* ================================================================== */}
-        {insigniasFiltradas.length === 0 ? (
-          <div className="bg-[#085375]/40 border border-[#0E6E94] rounded-3xl p-12 text-center max-w-md mx-auto">
-            <Icons.AlertCircle className="w-12 h-12 text-slate-400 mx-auto mb-3" />
-            <h3 className="text-lg font-bold text-slate-200">No se encontraron insignias</h3>
-            <p className="text-xs text-slate-300 mt-1">Prueba cambiando el término de búsqueda o el filtro seleccionado.</p>
-            <button
-              onClick={() => { setFiltroRareza('Todas'); setBusqueda(''); }}
-              className="mt-4 px-4 py-2 bg-[#0E6E94] hover:bg-[#085375] text-xs font-bold rounded-xl text-white transition-colors"
-            >
-              Restablecer Filtros
-            </button>
+        <div className="relative bg-gradient-to-b from-[#064460] to-[#043349] p-6 sm:p-10 rounded-3xl shadow-2xl border-2 border-[#0E6E94] overflow-hidden">
+          
+          <div className="text-center mb-4">
+            <h2 className="text-white text-xl sm:text-2xl font-extrabold tracking-wide">
+              Carrusel Interactivo de Insignias
+            </h2>
+            <p className="text-slate-300 text-xs mt-1">
+              Desliza horizontalmente. El carrusel se detiene en la insignia recién alcanzada.
+            </p>
           </div>
-        ) : (
-          <div className={
-            vistaModo === 'grid'
-              ? "grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6"
-              : "flex flex-col gap-4"
-          }>
-            {insigniasFiltradas.map((item) => {
-              const IconComponent = Icons[item.icono] || Icons.Award;
-              const desbloqueada = puntosSalonActual >= item.reqPuntos;
-              const config = RAREZA_CONFIG[item.rareza] || RAREZA_CONFIG['Común'];
-              const porcentaje = Math.min(100, Math.round((puntosSalonActual / item.reqPuntos) * 100));
 
-              if (vistaModo === 'list') {
+          {insigniasFiltradas.length === 0 ? (
+            <div className="bg-white/10 border border-white/20 rounded-2xl p-8 text-center text-white my-8">
+              <Icons.AlertCircle className="w-10 h-10 mx-auto mb-2 text-amber-300" />
+              <p className="font-bold">No hay insignias que coincidan con la búsqueda.</p>
+            </div>
+          ) : (
+            <Swiper
+              ref={swiperRef}
+              effect={'coverflow'}
+              grabCursor={true}
+              centeredSlides={true}
+              slidesPerView={'auto'}
+              coverflowEffect={{
+                rotate: 25,
+                stretch: 0,
+                depth: 180,
+                modifier: 1,
+                slideShadows: false,
+              }}
+              autoplay={{
+                delay: 3500,
+                disableOnInteraction: true,
+              }}
+              pagination={{ clickable: true }}
+              navigation={true}
+              modules={[EffectCoverflow, Pagination, Navigation, Autoplay]}
+              className="w-full py-6"
+            >
+              {insigniasFiltradas.map((item) => {
+                const IconComponent = Icons[item.icono] || Icons.Award;
+                const desbloqueada = puntosSalonActual >= item.reqPuntos;
+                const esUltima = ultimaDesbloqueada?.codigo === item.codigo;
+                const config = RAREZA_CONFIG[item.rareza] || RAREZA_CONFIG['Común'];
+
                 return (
-                  <div
-                    key={item.codigo}
-                    onClick={() => setModalInsignia(item)}
-                    className={`group bg-gradient-to-r ${config.bgGradient} border ${config.borderColor} ${config.glowColor} rounded-2xl p-4 backdrop-blur-md transition-all duration-300 flex items-center justify-between cursor-pointer ${
-                      !desbloqueada && 'opacity-60 grayscale hover:grayscale-0'
-                    }`}
-                  >
-                    <div className="flex items-center gap-4">
-                      <div
-                        className="p-3 rounded-xl border bg-[#043349]"
-                        style={{ borderColor: desbloqueada ? `${item.colorHex}60` : undefined }}
-                      >
-                        <IconComponent size={32} color={desbloqueada ? item.colorHex : '#64748B'} />
-                      </div>
+                  <SwiperSlide key={item.codigo} className="w-[280px] sm:w-[320px]">
+                    <div
+                      onClick={() => {
+                        if (desbloqueada) dispararConfetiBioSayegh();
+                        setModalInsignia(item);
+                      }}
+                      className={`relative bg-white border-2 rounded-3xl p-6 shadow-xl transition-all duration-500 cursor-pointer flex flex-col justify-between h-[390px] ${
+                        esUltima
+                          ? 'border-amber-400 shadow-[0_0_35px_rgba(245,158,11,0.5)] scale-105'
+                          : desbloqueada
+                          ? 'border-[#2E8B38]'
+                          : 'border-slate-200 opacity-60 grayscale'
+                      }`}
+                    >
                       <div>
-                        <div className="flex items-center gap-2">
-                          <h3 className="font-bold text-white group-hover:text-[#4ADE80] transition-colors">{item.nombre}</h3>
-                          <span className={`text-[10px] px-2 py-0.5 rounded-full border ${config.badgeStyle}`}>
+                        {/* Cabecera de la tarjeta */}
+                        <div className="flex justify-between items-center mb-3">
+                          <span className={`text-[10px] font-extrabold uppercase px-3 py-1 rounded-full border ${config.badgeStyle}`}>
                             {item.rareza}
                           </span>
+                          <span className="text-xs font-mono font-bold text-slate-500">
+                            {item.reqPuntos} PTS
+                          </span>
                         </div>
-                        <p className="text-xs text-slate-300 line-clamp-1 mt-0.5">{item.descripcion}</p>
+
+                        {/* Icono central */}
+                        <div className="flex justify-center my-6">
+                          <div className={`p-5 rounded-3xl bg-[#064460] shadow-lg border border-[#0E6E94] ${esUltima ? 'animate-bounce' : ''}`}>
+                            <IconComponent size={52} color={desbloqueada ? item.colorHex : '#94A3B8'} />
+                          </div>
+                        </div>
+
+                        {/* Título y Descripción con alto contraste */}
+                        <h3 className="text-center font-black text-lg text-[#064460]">
+                          {item.nombre}
+                        </h3>
+                        <p className="text-center text-xs text-slate-600 font-medium mt-2 leading-relaxed line-clamp-2">
+                          {item.descripcion}
+                        </p>
                       </div>
-                    </div>
 
-                    <div className="flex items-center gap-6">
-                      <div className="text-right hidden sm:block">
-                        <span className="text-xs font-mono font-bold text-white">{item.reqPuntos} PTS</span>
-                        <div className="text-[10px] text-slate-300">{porcentaje}% alcanzado</div>
-                      </div>
-                      <Icons.ChevronRight className="text-slate-400 group-hover:text-[#4ADE80] transition-colors" size={20} />
-                    </div>
-                  </div>
-                );
-              }
-
-              return (
-                <div
-                  key={item.codigo}
-                  onClick={() => setModalInsignia(item)}
-                  className={`group relative bg-gradient-to-b ${config.bgGradient} border ${config.borderColor} ${config.glowColor} rounded-3xl p-5 backdrop-blur-md transition-all duration-500 hover:-translate-y-2 flex flex-col justify-between cursor-pointer overflow-hidden ${
-                    !desbloqueada && 'opacity-60 grayscale hover:grayscale-0'
-                  }`}
-                >
-                  {/* Luz de fondo en Hover */}
-                  <div className="absolute -top-12 -left-12 w-28 h-28 bg-white/5 rounded-full blur-xl group-hover:scale-150 transition-transform duration-700 pointer-events-none" />
-
-                  <div>
-                    {/* Fila Superior: Rareza y Puntos */}
-                    <div className="flex justify-between items-center mb-4">
-                      <span className={`text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full border ${config.badgeStyle}`}>
-                        {item.rareza}
-                      </span>
-                      <span className="text-xs font-mono font-bold text-slate-300 group-hover:text-[#4ADE80] transition-colors">
-                        {item.reqPuntos} PTS
-                      </span>
-                    </div>
-
-                    {/* Icono de Insignia Central con Glow */}
-                    <div className="flex justify-center my-4">
-                      <div
-                        className={`relative p-4 rounded-2xl border transition-all duration-500 transform group-hover:scale-110 ${
-                          desbloqueada
-                            ? 'bg-[#043349] border-[#2E8B38]/50 shadow-lg'
-                            : 'bg-[#043349]/40 border-slate-700'
-                        }`}
-                        style={{
-                          borderColor: desbloqueada ? `${item.colorHex}80` : undefined,
-                          boxShadow: desbloqueada ? `0 0 25px ${item.colorHex}35` : undefined
-                        }}
-                      >
-                        <IconComponent
-                          size={44}
-                          color={desbloqueada ? item.colorHex : '#64748B'}
-                          className={`transition-transform duration-500 ${desbloqueada ? 'group-hover:rotate-12' : ''}`}
-                        />
-
-                        {/* Indicador de Desbloqueado en tiempo real */}
-                        {desbloqueada && (
-                          <span className="absolute -top-1 -right-1 flex h-3.5 w-3.5">
-                            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#4ADE80] opacity-75"></span>
-                            <span className="relative inline-flex rounded-full h-3.5 w-3.5 bg-[#2E8B38]"></span>
+                      {/* Pie de tarjeta */}
+                      <div className="pt-4 border-t border-slate-100 flex justify-between items-center text-xs font-bold">
+                        <span className={desbloqueada ? 'text-[#2E8B38] font-black' : 'text-slate-400'}>
+                          {desbloqueada ? '¡Desbloqueada!' : 'En Progreso'}
+                        </span>
+                        {esUltima && (
+                          <span className="bg-amber-400 text-slate-900 px-2.5 py-0.5 rounded-full text-[10px] font-black animate-pulse">
+                            ¡RECIÉN OBTENIDA!
                           </span>
                         )}
                       </div>
                     </div>
+                  </SwiperSlide>
+                );
+              })}
+            </Swiper>
+          )}
+        </div>
 
-                    {/* Título y Descripción Corta */}
-                    <h3 className="text-center font-extrabold text-base text-white group-hover:text-[#4ADE80] transition-colors">
-                      {item.nombre}
-                    </h3>
-                    <p className="text-center text-xs text-slate-300 mt-1.5 leading-relaxed line-clamp-2 min-h-[32px]">
-                      {item.descripcion}
-                    </p>
-                  </div>
-
-                  {/* Barra de Progreso Individual Inferior */}
-                  <div className="mt-5 pt-3 border-t border-[#085375]">
-                    <div className="flex justify-between text-[11px] font-medium mb-1">
-                      <span className={desbloqueada ? 'text-[#4ADE80] font-bold' : 'text-slate-400'}>
-                        {desbloqueada ? '¡Desbloqueada!' : 'En Progreso'}
-                      </span>
-                      <span className="text-slate-300">{porcentaje}%</span>
-                    </div>
-                    <div className="w-full bg-[#043349] h-2 rounded-full overflow-hidden border border-[#0E6E94]">
-                      <div
-                        className="h-full bg-[#2E8B38] transition-all duration-700"
-                        style={{ width: `${porcentaje}%` }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        )}
       </div>
 
       {/* Modal de Detalle */}
