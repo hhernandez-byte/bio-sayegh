@@ -30,15 +30,161 @@ const RAREZA_CONFIG = {
   }
 };
 
+// ----------------------------------------------------------------------
+// CATÁLOGO COMPLETO DE INSIGNIAS POR DEFECTO (15 MEDALLAS EXTENDIDAS)
+// ----------------------------------------------------------------------
 const INSIGNIAS_CATALOGO_DEFAULT = [
-  { codigo: 'GUARDIANES_CAMPUS', nombre: 'Guardianes del Campus', descripcion: 'Reporte y recuperación activa de zonas críticas de residuos.', icono: 'ShieldCheck', colorHex: '#4ADE80', rareza: 'Común', reqPuntos: 50, categoria: 'Limpieza' },
-  { codigo: 'ECO_MAPEO', nombre: 'Eco-Mapeadores', descripcion: 'Mapeo total de puntos limpios y zonas verdes en el plano interactivo.', icono: 'MapPin', colorHex: '#38BDF8', rareza: 'Común', reqPuntos: 100, categoria: 'Exploración' },
-  { codigo: 'SEGREGACION_EXPERTA', nombre: 'Maestros del Reciclaje', descripcion: 'Separación impecable de orgánicos, plásticos y papel.', icono: 'Recycle', colorHex: '#4ADE80', rareza: 'Común', reqPuntos: 150, categoria: 'Reciclaje' },
-  { codigo: 'CERO_RESIDUOS', nombre: 'Zona Cero Residuos', descripcion: 'Mantener el aula de clases 100% libre de basura durante todo un mes.', icono: 'Sparkles', colorHex: '#38BDF8', rareza: 'Raro', reqPuntos: 200, categoria: 'Limpieza' },
-  { codigo: 'PATRULLA_VERDE', nombre: 'Escuadrón Verde', descripcion: 'Liderar 5 jornadas masivas de recolección comunitaria en el plantel.', icono: 'Users', colorHex: '#38BDF8', rareza: 'Raro', reqPuntos: 300, categoria: 'Liderazgo' },
-  { codigo: 'TROFEO_ORO', nombre: 'Gran Leyenda Verde', descripcion: 'Obtener el Primer Lugar indiscutible en el ranking final.', icono: 'Trophy', colorHex: '#F59E0B', rareza: 'Legendario', reqPuntos: 1500, categoria: 'Honor' }
+  {
+    codigo: 'GUARDIANES_CAMPUS',
+    nombre: 'Guardianes del Campus',
+    descripcion: 'Reporte y recuperación activa de zonas críticas de residuos.',
+    icono: 'ShieldCheck',
+    colorHex: '#4ADE80',
+    rareza: 'Común',
+    reqPuntos: 50,
+    categoria: 'Limpieza'
+  },
+  {
+    codigo: 'ECO_MAPEO',
+    nombre: 'Eco-Mapeadores',
+    descripcion: 'Mapeo total de puntos limpios y zonas verdes en el plano.',
+    icono: 'MapPin',
+    colorHex: '#38BDF8',
+    rareza: 'Común',
+    reqPuntos: 100,
+    categoria: 'Exploración'
+  },
+  {
+    codigo: 'SEGREGACION_EXPERTA',
+    nombre: 'Maestros del Reciclaje',
+    descripcion: 'Separación impecable de orgánicos, plásticos y papel.',
+    icono: 'Recycle',
+    colorHex: '#4ADE80',
+    rareza: 'Común',
+    reqPuntos: 150,
+    categoria: 'Reciclaje'
+  },
+  {
+    codigo: 'CERO_RESIDUOS',
+    nombre: 'Zona Cero Residuos',
+    descripcion: 'Mantener el aula 100% libre de basura durante todo un mes.',
+    icono: 'Sparkles',
+    colorHex: '#38BDF8',
+    rareza: 'Raro',
+    reqPuntos: 200,
+    categoria: 'Limpieza'
+  },
+  {
+    codigo: 'PATRULLA_VERDE',
+    nombre: 'Escuadrón Verde',
+    descripcion: 'Liderar 5 jornadas masivas de recolección comunitaria.',
+    icono: 'Users',
+    colorHex: '#38BDF8',
+    rareza: 'Raro',
+    reqPuntos: 300,
+    categoria: 'Liderazgo'
+  },
+  {
+    codigo: 'COMUNIDAD_SOSTENIBLE',
+    nombre: 'Fuerza Colectiva',
+    descripcion: 'Lograr que el 100% del salón esté activo en la app.',
+    icono: 'HeartHandshake',
+    colorHex: '#38BDF8',
+    rareza: 'Raro',
+    reqPuntos: 400,
+    categoria: 'Comunidad'
+  },
+  {
+    codigo: 'ECO_PUNTOS_PRO',
+    nombre: 'Club 500 Eco-Puntos',
+    descripcion: 'Superar la barrera colectiva de los 500 Eco-Puntos.',
+    icono: 'Award',
+    colorHex: '#38BDF8',
+    rareza: 'Raro',
+    reqPuntos: 500,
+    categoria: 'Puntaje'
+  },
+  {
+    codigo: 'AHORRO_HIDRICO',
+    nombre: 'Guardianes del Agua',
+    descripcion: 'Reporte y reparación rápida de fugas hídricas en el campus.',
+    icono: 'Droplets',
+    colorHex: '#F97316',
+    rareza: 'Épico',
+    reqPuntos: 600,
+    categoria: 'Conservación'
+  },
+  {
+    codigo: 'LIDERAZGO_PRAE',
+    nombre: 'Líderes PRAE',
+    descripcion: 'Articulación total de actividades con el Proyecto Ambiental.',
+    icono: 'BookOpen',
+    colorHex: '#F97316',
+    rareza: 'Épico',
+    reqPuntos: 650,
+    categoria: 'Liderazgo'
+  },
+  {
+    codigo: 'EFICIENCIA_ENERGETICA',
+    nombre: 'Huella de Luz Cero',
+    descripcion: 'Apagado oportuno de luces y equipos en horas de descanso.',
+    icono: 'Zap',
+    colorHex: '#F97316',
+    rareza: 'Épico',
+    reqPuntos: 750,
+    categoria: 'Energía'
+  },
+  {
+    codigo: 'CONSTANCIA_VERDE',
+    nombre: 'Racha Imparable',
+    descripcion: 'Cumplir metas ambientales durante 6 semanas seguidas.',
+    icono: 'Flame',
+    colorHex: '#F97316',
+    rareza: 'Épico',
+    reqPuntos: 850,
+    categoria: 'Constancia'
+  },
+  {
+    codigo: 'INNOVADORES_AMBIENTALES',
+    nombre: 'Mentes de Futuro',
+    descripcion: 'Presentación de un prototipo de economía circular.',
+    icono: 'Lightbulb',
+    colorHex: '#F97316',
+    rareza: 'Épico',
+    reqPuntos: 950,
+    categoria: 'Innovación'
+  },
+  {
+    codigo: 'JARDIN_BIODIVERSO',
+    nombre: 'Pulmón del Colegio',
+    descripcion: 'Adopción y cuidado de un micro-jardín en la sede.',
+    icono: 'Sprout',
+    colorHex: '#F59E0B',
+    rareza: 'Legendario',
+    reqPuntos: 1200,
+    categoria: 'Biodiversidad'
+  },
+  {
+    codigo: 'CAMPEONES_PLANETA',
+    nombre: 'Titanes Bio-Sayegh',
+    descripcion: 'Alcanzar los 1,500 Eco-Puntos acumulados en el año.',
+    icono: 'Crown',
+    colorHex: '#F59E0B',
+    rareza: 'Legendario',
+    reqPuntos: 1500,
+    categoria: 'Puntaje'
+  },
+  {
+    codigo: 'TROFEO_ORO',
+    nombre: 'Gran Leyenda Verde',
+    descripcion: 'Obtener el primer lugar en el ranking final de salones.',
+    icono: 'Trophy',
+    colorHex: '#F59E0B',
+    rareza: 'Legendario',
+    reqPuntos: 2000,
+    categoria: 'Honor'
+  }
 ];
-
 // EFECTO DE CONFETI MATEMÁTICO NATIVO EN CANVAS
 function dispararConfetiBioSayegh() {
   const canvas = document.createElement('canvas');
