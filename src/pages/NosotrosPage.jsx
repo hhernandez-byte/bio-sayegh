@@ -19,79 +19,79 @@ import {
 export default function NosotrosPage() {
   const [selectedMember, setSelectedMember] = useState(null);
   const [activeProblemTab, setActiveProblemTab] = useState('contexto');
-  const [activeMarcoTab, setActiveMarcoTab] = useState('teorico');
+  const [activeMarcoTab, setActiveMarcoTab] = useState('Tecnológico');
 
   const teamMembers = [
     {
-    id: 'AC',
-    initials: 'AC',
-    name: 'Aylin Carbonell',
-    role: 'Administradora de Base de Datos',
-    specialty: 'Gestión de Datos & Almacenamiento',
-    bio: 'Encargada de estructurar los modelos de datos, asegurar el almacenamiento correcto y la integridad de la información del sistema.',
-    contributions: [
-      'Diseño y estructuración del modelo de datos',
-      'Gestión de registros de usuarios, salones e insignias',
-      'Aseguramiento de la persistencia de datos'
-    ],
-    badge: 'Base de Datos'
-  },
-  {
-    id: 'JG',
-    initials: 'JG',
-    name: 'Jesús Gutierrez',
-    role: 'Analista de Errores & Calidad',
-    specialty: 'Control de Calidad (QA) & Pruebas',
-    bio: 'Encargado de realizar pruebas de software, detectar fallos en la interfaz y garantizar el correcto funcionamiento del sistema.',
-    contributions: [
-      'Pruebas funcionales de la plataforma web',
-      'Detección y reporte de errores en el código',
-      'Control de calidad y verificación del rendimiento'
-    ],
-    badge: 'Analista QA'
-  },
-  {
-    id: 'HH',
-    initials: 'HH',
-    name: 'Hernando Hernandez',
-    role: 'Investigador Teórico del Proyecto',
-    specialty: 'Investigación Ambiental & Contenidos',
-    bio: 'Encargado del sustento ecológico, investigación del marco PRAE y redacción de los contenidos ambientales de la plataforma.',
-    contributions: [
-      'Investigación del marco teórico ecológico (PRAE)',
-      'Redacción de eco-consejos y guías del sitio',
-      'Documentación temática ambiental del proyecto'
-    ],
-    badge: 'Investigador'
-  },
-  {
-    id: 'SP',
-    initials: 'SP',
-    name: 'Samuel Pardo',
-    role: 'Líder General del Proyecto',
-    specialty: 'Dirección de Proyecto & Estrategia',
-    bio: 'Encargado de la gestión integral, supervisión del equipo y toma de decisiones estratégicas de la plataforma Bio-Sayegh COLSAM.',
-    contributions: [
-      'Liderazgo y gestión del equipo',
-      'Planificación estratégica del proyecto',
-      'Supervisión general de avances y entregables'
-    ],
-    badge: 'Líder'
-  },
-  {
-    id: 'YV',
-    initials: 'YV',
-    name: 'Yhara Vasquéz',
-    role: 'Desarrolladora Web Principal',
-    specialty: 'Desarrollo Frontend & UI/UX',
-    bio: 'Encargada del desarrollo web, maquetación visual y componentes interactivos de la plataforma Bio-Sayegh COLSAM.',
-    contributions: [
-      'Desarrollo e interfaz de la plataforma web',
-      'Implementación de componentes dinámicos en React',
-      'Navegación y diseño responsivo del sitio'
-    ],
-    badge: 'Desarrolladora'
-  }
+      id: 'AC',
+      initials: 'AC',
+      name: 'Aylin Carbonell',
+      role: 'Administración de Base de Datos',
+      specialty: 'Gestión de Datos & Almacenamiento',
+      bio: 'Encargada de estructurar los modelos de datos, asegurar el almacenamiento correcto y la integridad de la información del sistema.',
+      contributions: [
+        'Creación de Base de datos',
+        'Gestión de registros de usuarios, salones e insignias',
+        'Aseguramiento de la persistencia de datos'
+      ],
+      badge: 'Administradora'
+    },
+    {
+      id: 'JG',
+      initials: 'JG',
+      name: 'Jesús Gutierrez',
+      role: 'Analisis de Errores & Calidad',
+      specialty: 'Control de Calidad (QA) & Pruebas',
+      bio: 'Encargado de realizar pruebas de software, detectar fallos en la interfaz y garantizar el correcto funcionamiento del sistema.',
+      contributions: [
+        'Pruebas funcionales de la plataforma web',
+        'Detección y reporte de errores en el código',
+        'Control de calidad y verificación del rendimiento'
+      ],
+      badge: 'Analista QA'
+    },
+    {
+      id: 'HH',
+      initials: 'HH',
+      name: 'Hernando Hernandez',
+      role: 'Investigador Teórico del Proyecto',
+      specialty: 'Investigación de Contenidos',
+      bio: 'Encargado del sustento ecológico, investigación del marco PRAE y redacción de los contenidos ambientales de la plataforma.',
+      contributions: [
+        'Investigación de conceptos',
+        'Redacción de conceptos',
+        'Documentación de conceptos'
+      ],
+      badge: 'Investigador'
+    },
+    {
+      id: 'SP',
+      initials: 'SP',
+      name: 'Samuel Pardo',
+      role: 'Liderazgo General del Proyecto',
+      specialty: 'Dirección de Proyecto & Estrategia',
+      bio: 'Encargado de la gestión integral, supervisión del equipo y toma de decisiones estratégicas de la plataforma Bio-Sayegh COLSAM.',
+      contributions: [
+        'Liderazgo y gestión del equipo',
+        'Planificación estratégica del proyecto',
+        'Supervisión general de avances y entregables'
+      ],
+      badge: 'Líder'
+    },
+    {
+      id: 'YV',
+      initials: 'YV',
+      name: 'Yhara Vasquéz',
+      role: 'Desarrollo Web',
+      specialty: 'Desarrollo aplicativo web',
+      bio: 'Encargada del desarrollo web, maquetación visual y componentes interactivos de la plataforma Bio-Sayegh COLSAM.',
+      contributions: [
+        'Desarrollo e interfaz de la plataforma web',
+        'Implementación de componentes dinámicos en React',
+        'Navegación y diseño responsivo del sitio'
+      ],
+      badge: 'Desarrolladora'
+    }
   ];
 
   const problemComponents = [
@@ -172,7 +172,7 @@ export default function NosotrosPage() {
   ];
 
   const marcoData = {
-    teorico: {
+    Tecnológico: {
       title: 'Marco Tecnológico',
       subtitle: 'Sostenibilidad & Gamificación Educativa',
       content: 'Se fundamenta en la teoría del Aprendizaje Basado en Juegos (GBL), la Geoinformática ambiental y los enfoques de Educación para el Desarrollo Sostenible (EDS) promovidos por la UNESCO.',
@@ -182,7 +182,7 @@ export default function NosotrosPage() {
         'Cultura de reciclaje y segregación en la fuente'
       ]
     },
-    conceptual: {
+    Conceptual: {
       title: 'Marco Conceptual',
       subtitle: 'Definiciones Clave de la Plataforma',
       content: 'Establece los términos técnicos y pedagógicos utilizados en la plataforma Bio-Sayegh COLSAM para homologar la comprensión entre docentes y alumnos.',
@@ -192,7 +192,7 @@ export default function NosotrosPage() {
         'Saneamiento Colaborativo: Proceso colectivo de recuperación de zonas'
       ]
     },
-    legal: {
+    Legal: {
       title: 'Marco Legal',
       subtitle: 'Normativa Ambiental Colombiana',
       content: 'Alineado con las leyes y decretos nacionales sobre educación ambiental, gestión integral de residuos sólidos y cumplimiento de metas internacionales.',
@@ -208,27 +208,15 @@ export default function NosotrosPage() {
     <div className="min-h-screen bg-[#FFFFFF] text-[#03658C] font-sans selection:bg-[#A6D9A5] selection:text-[#03658C] pb-12">
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-12">
         
-        {/* BANNER PRINCIPAL */}
+        {/* BANNER PRINCIPAL SIMPLIFICADO */}
         <section className="relative rounded-3xl overflow-hidden bg-gradient-to-r from-[#03658C] via-[#024f6e] to-[#338C30] text-white p-8 sm:p-12 text-center shadow-xl border border-[#A6D9A5]/30">
           <Leaf className="absolute -left-10 -bottom-10 w-48 h-48 text-white/5 pointer-events-none" />
           <TreePine className="absolute -right-10 -top-10 w-52 h-52 text-white/5 pointer-events-none" />
 
           <div className="max-w-3xl mx-auto space-y-6 relative z-10">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-[#A6D9A5]/40 text-xs font-bold uppercase tracking-widest text-[#A6D9A5]">
-              <span className="w-2 h-2 rounded-full bg-[#A6D9A5]" />
-              <span>APARTADO NOSOTROS - COLEGIO SAN ALBERTO MAGNO</span>
-            </div>
-
             <h1 className="text-3xl sm:text-5xl font-black tracking-tight uppercase leading-tight">
-              PROYECTO <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-white via-[#A6D9A5] to-white">
-                BIO-SAYEGH COLSAM
-              </span>
+              ACERCA DE NOSOTROS
             </h1>
-
-            <p className="text-sm sm:text-base text-slate-100 font-normal leading-relaxed max-w-2xl mx-auto">
-              Plataforma ecológica para la geolocalización de residuos, limpieza colaborativa, gamificación ambiental y estructuración metodológica de investigación escolar.
-            </p>
 
             <div className="pt-2 flex flex-wrap items-center justify-center gap-4">
               <a
@@ -306,7 +294,7 @@ export default function NosotrosPage() {
               >
                 <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#03658C] via-[#338C30] to-[#8C644D]" />
 
-                <div className="relative my-3">
+                <div className="relative my-2 pb-3">
                   <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full p-[3px] bg-gradient-to-tr from-[#03658C] via-[#338C30] to-[#A6D9A5] shadow-md group-hover:scale-105 transition-transform duration-300">
                     <div className="w-full h-full rounded-full bg-white flex items-center justify-center border-2 border-[#A6D9A5]/30">
                       <span className="text-2xl font-black text-[#03658C] group-hover:text-[#338C30] transition-colors">
@@ -315,7 +303,7 @@ export default function NosotrosPage() {
                     </div>
                   </div>
                   
-                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-[#03658C] text-white uppercase tracking-wider shadow">
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 px-2.5 py-1 rounded-full text-[9px] sm:text-[10px] font-bold bg-[#03658C] text-white uppercase tracking-wider shadow whitespace-nowrap z-10">
                     {member.badge}
                   </span>
                 </div>
@@ -553,7 +541,7 @@ export default function NosotrosPage() {
               <span>OBJETIVO GENERAL</span>
             </div>
             <p className="text-base sm:text-lg font-semibold leading-relaxed">
-              Desarrollar e implementar la plataforma web Bio-Sayegh COLSAM para la geolocalización de residuos y gamificación de incentivos ambientales, fomentando una cultura de recolección selectiva y saneamiento en el Colegio San Alberto Magno.
+              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh COLSAM) basado en geolocalización de residuos y estrategias de gamificación, orientado a mejorar la clasificación, el saneamiento y la cultura de recolección selectiva en el Colegio San Alberto Magno de Barranquilla en 2026.
             </p>
           </div>
 
