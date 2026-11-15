@@ -1,60 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Bot, 
-  RefreshCw, 
-  Apple, 
-  Trash2, 
-  Milk, 
-  Cpu, 
+import {
+  CircuitBoard,
+  RefreshCw,
+  Apple,
+  Trash2,
+  Milk,
+  Cpu,
   Sparkles
 } from 'lucide-react';
+import { conectarResiduos, obtenerResiduosUnaVez, conteoVacio } from './reinApi.js';
 
 export default function EstadisticasPage() {
-  // Estado telemétrico de clasificación de residuos recopilados por el EcoBot
-  const [conteoResiduos, setConteoResiduos] = useState({
-    organicos: 42,      // Residuos de comida, cáscaras, etc.
-    inorganicos: 28,    // Empaques, cartón, envoltorios
-    botellasPlastico: 65, // Botellas PET y plásticos duros
-    ultimaActualizacion: "En tiempo real"
-  });
-
+  // Conteo de residuos clasificados por la API de Rein Vø (base de datos en la nube)
+  const [conteoResiduos, setConteoResiduos] = useState(conteoVacio);
   const [cargando, setCargando] = useState(false);
+  const [conectado, setConectado] = useState(false);
+  const [error, setError] = useState('');
 
   // Total acumulado
-  const totalRecolectado = conteoResiduos.organicos + conteoResiduos.inorganicos + conteoResiduos.botellasPlastico;
+  const totalRecolectado =
+    conteoResiduos.organicos +
+    conteoResiduos.inorganicos +
+    conteoResiduos.botellasPlastico +
+    conteoResiduos.otros;
 
   // Porcentajes para métricas visuales
   const pctOrganicos = totalRecolectado > 0 ? Math.round((conteoResiduos.organicos / totalRecolectado) * 100) : 0;
   const pctInorganicos = totalRecolectado > 0 ? Math.round((conteoResiduos.inorganicos / totalRecolectado) * 100) : 0;
   const pctPlastico = totalRecolectado > 0 ? Math.round((conteoResiduos.botellasPlastico / totalRecolectado) * 100) : 0;
 
-  // Función preparada para consumir la API en MongoDB / IoT del Robot
+  // Escucha la API en tiempo real: cada registro nuevo actualiza la página sola
+  useEffect(() => {
+    let cancelarEscucha;
+    let activo = true;
+
+    conectarResiduos((conteo) => {
+      if (!activo) return;
+      setConteoResiduos(conteo);
+      setConectado(true);
+      setError('');
+    })
+      .then((cancelar) => {
+        cancelarEscucha = cancelar;
+      })
+      .catch((e) => {
+        if (!activo) return;
+        setConectado(false);
+        setError(String(e?.message || e));
+      });
+
+    return () => {
+      activo = false;
+      if (cancelarEscucha) cancelarEscucha();
+    };
+  }, []);
+
+  // Botón "Actualizar ahora": consulta una vez por si el navegador se durmió
   const actualizarClasificacion = async () => {
     setCargando(true);
     try {
-      // AQUÍ CONECTARÁS TU API POSTERIORMENTE:
-      // const res = await fetch('http://localhost:5000/api/robot/residuos');
-      // const data = await res.json();
-      // setConteoResiduos(data);
-
-      setTimeout(() => {
-        setConteoResiduos((prev) => ({
-          ...prev,
-          botellasPlastico: prev.botellasPlastico + 1,
-          ultimaActualizacion: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
-        }));
-        setCargando(false);
-      }, 600);
-    } catch (error) {
-      console.error("Error consultando la API de clasificación:", error);
+      const conteo = await obtenerResiduosUnaVez();
+      setConteoResiduos(conteo);
+      setConectado(true);
+      setError('');
+    } catch (e) {
+      setError(String(e?.message || e));
+    } finally {
       setCargando(false);
     }
   };
-
-  useEffect(() => {
-    const intervalo = setInterval(actualizarClasificacion, 12000);
-    return () => clearInterval(intervalo);
-  }, []);
 
   return (
     <div style={{
@@ -134,25 +148,25 @@ export default function EstadisticasPage() {
             borderRadius: '20px',
             color: '#FFFFFF'
           }}>
-            <Bot size={38} />
+            <CircuitBoard size={38} />
           </div>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px' }}>
               <span className="anim-pulse" style={{ width: '10px', height: '10px', borderRadius: '50%', backgroundColor: '#A6D9A5' }} />
               <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#A6D9A5', textTransform: 'uppercase', letterSpacing: '1px' }}>
-                SISTEMA DE CLASIFICACIÓN IoT EN VIVO
+                API DE CLASIFICACIÓN EN VIVO
               </span>
             </div>
             <h1 style={{ margin: 0, fontSize: '1.8rem', fontWeight: 900, letterSpacing: '-0.5px' }}>
-              Métricas del EcoBot COLSAM
+              Métricas de la API Rein Vø COLSAM
             </h1>
           </div>
         </div>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <button onClick={actualizarClasificacion} className="btn-sync">
-            <RefreshCw size={18} className={cargando ? 'anim-pulse' : ''} /> 
-            {cargando ? 'Consultando API...' : 'Actualizar Clasificación'}
+            <RefreshCw size={18} className={cargando ? 'anim-pulse' : ''} />
+            {cargando ? 'Consultando API...' : 'Actualizar ahora'}
           </button>
         </div>
       </div>
@@ -169,7 +183,9 @@ export default function EstadisticasPage() {
         alignItems: 'center',
         justifyContent: 'space-between',
         marginBottom: '32px',
-        boxSizing: 'border-box'
+        boxSizing: 'border-box',
+        flexWrap: 'wrap',
+        gap: '12px'
       }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '14px' }}>
           <div style={{ backgroundColor: '#338C30', padding: '10px', borderRadius: '14px', color: '#FFFFFF' }}>
@@ -198,7 +214,7 @@ export default function EstadisticasPage() {
         gap: '24px',
         marginBottom: '32px'
       }}>
-        
+
         {/* 1. ORGÁNICOS */}
         <div className="card-clasificacion" style={{ borderLeft: '7px solid #338C30' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '14px' }}>
@@ -282,7 +298,7 @@ export default function EstadisticasPage() {
 
       </div>
 
-      {/* CONSOLA DE CONEXIÓN CON LA BASE DE DATOS MONGODB */}
+      {/* CONSOLA DE CONEXIÓN CON LA BASE DE DATOS EN LA NUBE */}
       <div style={{
         width: '100%',
         maxWidth: '1100px',
@@ -295,7 +311,7 @@ export default function EstadisticasPage() {
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '14px' }}>
           <Cpu size={22} color="#03658C" />
           <h3 style={{ margin: 0, fontSize: '1.05rem', fontWeight: 900, color: '#03658C' }}>
-            ESTADO DEL BACKEND & MONGODB
+            ESTADO DE LA CONEXIÓN
           </h3>
         </div>
 
@@ -309,15 +325,20 @@ export default function EstadisticasPage() {
           lineHeight: 1.6,
           border: '2px solid #338C30'
         }}>
-          <div>[API ENDPOINT]: /api/robot/residuos</div>
-          <div>[CLUSTERING]: Detección de sensores ópticos por categoría en tiempo real</div>
-          <div>[DATABASE]: MongoDB 'biosayegh_colsam' -&gt; colección 'clasificacion_ecobot'</div>
+          <div>[API]: Rein Vø — Clasificación automática de residuos</div>
+          <div>[BASE DE DATOS]: Realtime Database 'rein-31f65' -&gt; nodo 'residuos'</div>
+          <div>[REGISTROS RECIBIDOS]: {conteoResiduos.totalRegistros}</div>
+          {conteoResiduos.otros > 0 && (
+            <div>[OTROS TIPOS]: {conteoResiduos.otros} unidad(es) sin categoría definida</div>
+          )}
           <div style={{ color: '#FFFFFF', marginTop: '6px', fontWeight: 'bold' }}>
-            STATUS: Listo para sincronizar conteos físicos cuando el EcoBot empiece a recolectar.
+            STATUS: {conectado
+              ? 'Conectado — la página se actualiza sola con cada nuevo registro.'
+              : (error ? `Sin conexión con la API (${error})` : 'Conectando con la API...')}
           </div>
         </div>
       </div>
-  
- </div>
-);
+
+    </div>
+  );
 }
