@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { 
   Leaf, 
   MapPin, 
   Award, 
   BarChart3, 
-  Sparkles, 
-  ShieldCheck, 
   Users, 
   Code, 
   HeartHandshake, 
@@ -17,32 +15,6 @@ import {
 
 export default function Home({ usuario }) {
   const esInvitado = usuario?.rol === 'invitado';
-
-  const [metricas, setMetricas] = useState({
-    zonasLimpiadas: 0,
-    reportesActivos: 0,
-    puntosTotales: 120
-  });
-
-  useEffect(() => {
-    const calcularImpacto = () => {
-      try {
-        const reportes = JSON.parse(localStorage.getItem('reportes_residuos') || '[]');
-        const limpiados = parseInt(localStorage.getItem('zonas_limpiadas_count') || '0', 10);
-        setMetricas({
-          zonasLimpiadas: limpiados,
-          reportesActivos: reportes.length,
-          puntosTotales: 120 + (limpiados * 35) + (reportes.length * 15)
-        });
-      } catch (e) {
-        console.error("Error cargando métricas:", e);
-      }
-    };
-
-    calcularImpacto();
-    window.addEventListener('storage', calcularImpacto);
-    return () => window.removeEventListener('storage', calcularImpacto);
-  }, []);
 
   return (
     <div style={{
@@ -186,7 +158,7 @@ export default function Home({ usuario }) {
             }}>
               PROYECTO <br />
               <span style={{ color: '#A6D9A5' }}>
-                BIO-SAYEGH COLSAM
+                BIO-SAYEGH
               </span>
             </h1>
 
@@ -211,56 +183,6 @@ export default function Home({ usuario }) {
               </Link>
             </div>
 
-          </div>
-        </div>
-
-        {/* MÉTRICAS */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-          gap: '20px',
-          marginBottom: '50px'
-        }}>
-          <div className="card-eco" style={{ display: 'flex', alignItems: 'center', gap: '18px', borderLeft: '6px solid #338C30' }}>
-            <div style={{ backgroundColor: 'rgba(51, 140, 48, 0.12)', border: '2px solid #338C30', padding: '16px', borderRadius: '16px', color: '#338C30' }}>
-              <ShieldCheck size={32} />
-            </div>
-            <div>
-              <span style={{ fontSize: '1.8rem', fontWeight: 900, color: '#03658C', display: 'block', lineHeight: 1 }}>
-                {metricas.zonasLimpiadas}
-              </span>
-              <span style={{ fontSize: '0.8rem', color: '#8C644D', fontWeight: 800, textTransform: 'uppercase' }}>
-                Zonas Saneadas
-              </span>
-            </div>
-          </div>
-
-          <div className="card-eco" style={{ display: 'flex', alignItems: 'center', gap: '18px', borderLeft: '6px solid #03658C' }}>
-            <div style={{ backgroundColor: 'rgba(3, 101, 140, 0.12)', border: '2px solid #03658C', padding: '16px', borderRadius: '16px', color: '#03658C' }}>
-              <Sparkles size={32} />
-            </div>
-            <div>
-              <span style={{ fontSize: '1.8rem', fontWeight: 900, color: '#03658C', display: 'block', lineHeight: 1 }}>
-                {metricas.puntosTotales}
-              </span>
-              <span style={{ fontSize: '0.8rem', color: '#8C644D', fontWeight: 800, textTransform: 'uppercase' }}>
-                Eco-Puntos Acumulados
-              </span>
-            </div>
-          </div>
-
-          <div className="card-eco" style={{ display: 'flex', alignItems: 'center', gap: '18px', borderLeft: '6px solid #8C644D' }}>
-            <div style={{ backgroundColor: 'rgba(140, 100, 77, 0.12)', border: '2px solid #8C644D', padding: '16px', borderRadius: '16px', color: '#8C644D' }}>
-              <MapPin size={32} />
-            </div>
-            <div>
-              <span style={{ fontSize: '1.8rem', fontWeight: 900, color: '#03658C', display: 'block', lineHeight: 1 }}>
-                {metricas.reportesActivos}
-              </span>
-              <span style={{ fontSize: '0.8rem', color: '#8C644D', fontWeight: 800, textTransform: 'uppercase' }}>
-                Reportes Activos
-              </span>
-            </div>
           </div>
         </div>
 
@@ -322,6 +244,7 @@ export default function Home({ usuario }) {
 
       </div>
 
+      
 
     </div>
   );
