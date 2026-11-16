@@ -26,15 +26,15 @@ export default function NosotrosPage() {
       id: 'AC',
       initials: 'AC',
       name: 'Aylin Carbonell',
-      role: 'Administración de Base de Datos',
-      specialty: 'Gestión de Datos & Almacenamiento',
+      role: 'Investigación Teórica',
+      specialty: 'Investigación Teórica',
       bio: 'Encargada de estructurar los modelos de datos, asegurar el almacenamiento correcto y la integridad de la información del sistema.',
       contributions: [
         'Creación de Base de datos',
         'Gestión de registros de usuarios, salones e insignias',
         'Aseguramiento de la persistencia de datos'
       ],
-      badge: 'Administradora'
+      badge: 'Investigador Teórico 1'
     },
     {
       id: 'JG',
@@ -54,15 +54,15 @@ export default function NosotrosPage() {
       id: 'HH',
       initials: 'HH',
       name: 'Hernando Hernandez',
-      role: 'Investigador Teórico del Proyecto',
-      specialty: 'Investigación de Contenidos',
+      role: 'Investigación Teórica',
+      specialty: 'Investigación Teórica',
       bio: 'Encargado del sustento ecológico, investigación del marco PRAE y redacción de los contenidos ambientales de la plataforma.',
       contributions: [
         'Investigación de conceptos',
         'Redacción de conceptos',
         'Documentación de conceptos'
       ],
-      badge: 'Investigador'
+      badge: 'Investigador Teórico 2'
     },
     {
       id: 'SP',
@@ -70,7 +70,7 @@ export default function NosotrosPage() {
       name: 'Samuel Pardo',
       role: 'Liderazgo General del Proyecto',
       specialty: 'Dirección de Proyecto & Estrategia',
-      bio: 'Encargado de la gestión integral, supervisión del equipo y toma de decisiones estratégicas de la plataforma Bio-Sayegh COLSAM.',
+      bio: 'Encargado de la gestión integral, supervisión del equipo y toma de decisiones estratégicas de la plataforma Bio-Sayegh.',
       contributions: [
         'Liderazgo y gestión del equipo',
         'Planificación estratégica del proyecto',
@@ -84,7 +84,7 @@ export default function NosotrosPage() {
       name: 'Yhara Vasquéz',
       role: 'Desarrollo Web',
       specialty: 'Desarrollo aplicativo web',
-      bio: 'Encargada del desarrollo web, maquetación visual y componentes interactivos de la plataforma Bio-Sayegh COLSAM.',
+      bio: 'Encargada del desarrollo web, maquetación visual y componentes interactivos de la plataforma Bio-Sayegh.',
       contributions: [
         'Desarrollo e interfaz de la plataforma web',
         'Implementación de componentes dinámicos en React',
@@ -136,7 +136,7 @@ export default function NosotrosPage() {
       borderColor: 'border-[#8C644D]',
       badgeBg: 'bg-[#8C644D]',
       title: 'Propuesta de Solución',
-      subtitle: 'Plataforma Bio-Sayegh COLSAM',
+      subtitle: 'Plataforma Bio-Sayegh',
       text: 'Implementar una web geolocalizada con gamificación por salones (eco-puntos, insignias y zonas saneadas), transformando la gestión de residuos en una actividad colaborativa.',
       btnText: 'Ver Modelo de Solución',
       btnBg: 'bg-[#8C644D] hover:bg-[#72513e]',
@@ -149,47 +149,44 @@ export default function NosotrosPage() {
   ];
 
   const specificObjectives = [
-    {
-      num: '1',
-      title: 'Geolocalizar Zonas Críticas',
-      desc: 'Cartografiar digitalmente el Colegio San Alberto Magno para registrar alertas de residuos y puntos limpios en tiempo real.'
-    },
-    {
-      num: '2',
-      title: 'Implementar Gamificación Ambiental',
-      desc: 'Desarrollar la estructura de Eco-Puntos e Insignias para motivar la sana competencia ecológica entre los salones del colegio.'
-    },
-    {
-      num: '3',
-      title: 'Sistematizar Datos de Saneamiento',
-      desc: 'Generar tableros de control con estadísticas de zonas saneadas e indicadores de desempeño ambiental por curso.'
-    },
-    {
-      num: '4',
-      title: 'Fomentar la Cultura Sostenible',
-      desc: 'Evaluar la apropiación comunitaria de la plataforma Bio-Sayegh como herramienta pedagógica del proyecto ambiental institucional.'
-    }
+    { num: '1', title: 'Diagnosticar', desc: 'Diagnosticar la situación actual sobre la segregación de residuos y el nivel de conocimiento ecológico en los estudiantes del Colegio San Alberto Magno.' },
+    { num: '2', title: 'Diseñar', desc: 'Diseñar las dinámicas de gamificación (retos, insignias y el asistente virtual) y la cartografía de los puntos de acopio adaptadas a la comunidad educativa.' },
+    { num: '3', title: 'Implementar', desc: 'Implementar el aplicativo web Bio-Sayegh como herramienta pedagógica interactiva dentro de las actividades de saneamiento ambiental del colegio.' },
+    { num: '4', title: 'Evaluar', desc: 'Evaluar el cambio en la cultura de recolección selectiva y el grado de adopción de la plataforma a través del seguimiento de estadísticas de participación en 2026.' }
   ];
 
   const marcoData = {
     Tecnológico: {
       title: 'Marco Tecnológico',
       subtitle: 'Sostenibilidad & Gamificación Educativa',
-      content: 'Se fundamenta en la teoría del Aprendizaje Basado en Juegos (GBL), la Geoinformática ambiental y los enfoques de Educación para el Desarrollo Sostenible (EDS) promovidos por la UNESCO.',
+      content: 'Detalla la infraestructura técnica, los lenguajes de programación, las librerías y la arquitectura de software integradas en la plataforma Bio-Sayegh para asegurar una experiencia interactiva, eficiente y escalable en la gestión ambiental del colegio.',
       points: [
-        'Mecanismos de Gamificación para cambios conductuales (Deterding et al.)',
-        'Tecnologías de la Información Geográfica (TIG) aplicadas a la educación',
-        'Cultura de reciclaje y segregación en la fuente'
+        'Arquitectura Web Cliente-Servidor (React + Node.js)',
+        'Entorno de Construcción y Rendimiento (Vite)',
+        'Sistema de Módulos e Interfaz Adaptativa',
+        'Gestión de Datos y Modelado de Residuos',
+        'Plataforma Educativa y Gamificación',
+        'Control de Calidad y Estándares de Código'
       ]
     },
     Conceptual: {
       title: 'Marco Conceptual',
       subtitle: 'Definiciones Clave de la Plataforma',
-      content: 'Establece los términos técnicos y pedagógicos utilizados en la plataforma Bio-Sayegh COLSAM para homologar la comprensión entre docentes y alumnos.',
+      content: 'Establece los términos técnicos y pedagógicos utilizados en la plataforma Bio-Sayegh para homologar la comprensión entre docentes y alumnos.',
       points: [
-        'Punto Limpio: Área designada para el depósito clasificado de residuos',
-        'Eco-Puntos: Unidades de logro otorgadas a salones por acciones ecológicas',
-        'Saneamiento Colaborativo: Proceso colectivo de recuperación de zonas'
+        'Eco-Puntos: Unidades de logro otorgadas a salones por acciones ecológicas.',
+        'Eco-Guardianes: Rol adquirido al proteger el entorno escolar de invasores.',
+        'Eco-Misión: Tareas a completar para alcanzar Eco-Puntos.',
+        'Eco-Insignias: Recompensas obtenidas al completar alguna Eco-Misión.',
+        'Saneamiento: Proceso de recuperación de zonas.',
+        'Punto limpio: Área designada para el depósito clasificado de residuos.',
+        'Invasores: Residuos encontrados en el Colegio San Alberto Magno.',
+        'Concienciar: Adquirir conciencia sobre una realidad o problemática.',
+        'Gamificación: Uso de elementos, mecánicas y dinámicas propios de los juegos en entornos que no son lúdicos.',
+        'Geolocalización: Proceso de determinar la ubicación física o geográfica real de un dispositivo, persona u objeto en zonas determinadas.',
+        'Cartografía Ambiental: Representación gráfica del territorio que localiza las zonas críticas y saneadas del colegio.',
+        'Educación Ambiental: Proceso formativo que desarrolla conocimientos, valores y hábitos para proteger el entorno.',
+        'API: Es un puente digital que permite que dos programas distintos se comuniquen e intercambien datos entre sí.'
       ]
     },
     Legal: {
@@ -197,9 +194,13 @@ export default function NosotrosPage() {
       subtitle: 'Normativa Ambiental Colombiana',
       content: 'Alineado con las leyes y decretos nacionales sobre educación ambiental, gestión integral de residuos sólidos y cumplimiento de metas internacionales.',
       points: [
-        'Ley 115 de 1994 (Ley General de Educación - PRAE)',
-        'Decreto 1743 de 1994 (Institucionalización de la Educación Ambiental)',
-        'Objetivos de Desarrollo Sostenible (ODS 12: Producción y Consumo Responsable)'
+        'Constitución Política de Colombia (1991) – Artículo 79',
+        'Constitución Política de Colombia (1991) – Artículo 80',
+        'Constitución Política de Colombia (1991) – Artículo 95 (Numeral 8)',
+        'Ley 115 de 1994 (Ley General de Educación) – Artículo 5 (Numeral 10)',
+        'Ley 115 de 1994 – Artículo 14 (Literal c)',
+        'Decreto 1743 de 1994',
+        'Resolución 2184 de 2019 (Ministerio de Ambiente y Desarrollo Sostenible)'
       ]
     }
   };
@@ -234,39 +235,6 @@ export default function NosotrosPage() {
                 <Target className="w-4 h-4 text-[#A6D9A5]" />
                 <span>VER OBJETIVOS</span>
               </a>
-            </div>
-          </div>
-        </section>
-
-        {/* METRIC CARDS */}
-        <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-white rounded-2xl p-6 border-2 border-[#338C30] shadow-sm flex items-center gap-5 hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 rounded-xl bg-[#A6D9A5]/25 border border-[#338C30]/30 flex items-center justify-center text-[#338C30] shrink-0">
-              <ShieldCheck className="w-7 h-7" />
-            </div>
-            <div>
-              <div className="text-3xl font-black text-[#03658C]">5</div>
-              <div className="text-xs font-bold text-slate-500 tracking-wider uppercase">INTEGRANTES DEL EQUIPO</div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 border-2 border-[#03658C] shadow-sm flex items-center gap-5 hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 rounded-xl bg-[#03658C]/10 border border-[#03658C]/30 flex items-center justify-center text-[#03658C] shrink-0">
-              <Sparkles className="w-7 h-7" />
-            </div>
-            <div>
-              <div className="text-3xl font-black text-[#03658C]">155</div>
-              <div className="text-xs font-bold text-slate-500 tracking-wider uppercase">ECO-PUNTOS ACUMULADOS</div>
-            </div>
-          </div>
-
-          <div className="bg-white rounded-2xl p-6 border-2 border-[#8C644D] shadow-sm flex items-center gap-5 hover:shadow-md transition-shadow">
-            <div className="w-14 h-14 rounded-xl bg-[#8C644D]/10 border border-[#8C644D]/30 flex items-center justify-center text-[#8C644D] shrink-0">
-              <BookOpen className="w-7 h-7" />
-            </div>
-            <div>
-              <div className="text-3xl font-black text-[#03658C]">3</div>
-              <div className="text-xs font-bold text-slate-500 tracking-wider uppercase">EJES DEL MARCO REFERENCIAL</div>
             </div>
           </div>
         </section>
@@ -541,7 +509,7 @@ export default function NosotrosPage() {
               <span>OBJETIVO GENERAL</span>
             </div>
             <p className="text-base sm:text-lg font-semibold leading-relaxed">
-              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh COLSAM) basado en geolocalización de residuos y estrategias de gamificación, orientado a mejorar la clasificación, el saneamiento y la cultura de recolección selectiva en el Colegio San Alberto Magno de Barranquilla en 2026.
+              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh) basado en geolocalización de residuos y estrategias de gamificación, orientado a mejorar la clasificación, el saneamiento y la cultura de recolección selectiva en el Colegio San Alberto Magno de Barranquilla en 2026.
             </p>
           </div>
 
@@ -598,36 +566,44 @@ export default function NosotrosPage() {
 
             <div className="pt-2">
               <span className="text-xs font-bold text-[#03658C] uppercase block mb-2">Puntos Destacados:</span>
-              <ul className="space-y-2">
-                {marcoData[activeMarcoTab].points.map((pt, i) => (
-                  <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
-                    <CheckCircle2 className="w-4 h-4 text-[#338C30] shrink-0" />
-                    <span>{pt}</span>
-                  </li>
-                ))}
-              </ul>
+              {activeMarcoTab === 'Conceptual' ? (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  {marcoData[activeMarcoTab].points.map((pt, i) => {
+                    const sep = pt.indexOf(': ');
+                    const term = sep > -1 ? pt.slice(0, sep) : pt;
+                    const def = sep > -1 ? pt.slice(sep + 2) : '';
+                    return (
+                      <div
+                        key={i}
+                        className="flex gap-3 rounded-xl border border-[#03658C]/15 bg-[#F5FAF7] p-3 transition-all hover:border-[#338C30]/45 hover:shadow-sm"
+                      >
+                        <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-[#03658C]/10 text-[10px] font-black text-[#03658C]">
+                          {i + 1}
+                        </span>
+                        <div className="space-y-0.5">
+                          <span className="block text-xs font-black text-[#338C30]">{term}</span>
+                          <span className="block text-[11px] leading-snug text-slate-600">{def}</span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              ) : (
+                <ul className="space-y-2">
+                  {marcoData[activeMarcoTab].points.map((pt, i) => (
+                    <li key={i} className="flex items-center gap-2 text-xs text-slate-600">
+                      <CheckCircle2 className="w-4 h-4 text-[#338C30] shrink-0" />
+                      <span>{pt}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           </div>
         </section>
 
       </main>
 
-      {/* FOOTER */}
-      <footer className="mt-16 bg-[#03658C] text-white py-8 border-t-4 border-[#338C30]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap items-center justify-between gap-4 text-xs">
-          <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-[#338C30] flex items-center justify-center">
-              <Leaf className="w-3.5 h-3.5 text-white" />
-            </div>
-            <span className="font-bold tracking-wide uppercase">
-              Bio-Sayegh COLSAM &copy; {new Date().getFullYear()}
-            </span>
-          </div>
-          <p className="text-slate-300">
-            Colegio San Alberto Magno &bull; Proyecto Ambiental Escolar (PRAE)
-          </p>
-        </div>
-      </footer>
     </div>
   );
 }
