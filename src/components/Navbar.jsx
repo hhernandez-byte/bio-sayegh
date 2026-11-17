@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/bio-sayegh-logo-verde.png';
-import { Menu, X, BarChart2, Home, LogOut, UserCheck, ShieldAlert, Award, Users } from 'lucide-react';
+import { Menu, X, MapPin, BarChart2, Home, LogOut, UserCheck, ShieldAlert, Award, Users } from 'lucide-react';
 
 export default function Navbar({ usuario, onCerrarSesion }) {
   const [abierto, setAbierto] = useState(false);
@@ -30,13 +30,16 @@ export default function Navbar({ usuario, onCerrarSesion }) {
             <Link to="/" style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 700, padding: '8px 14px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', transition: 'all 0.2s ease' }}>
               <Home size={16} color="#A6D9A5" /> Inicio
             </Link>
-
-            <Link to="/nosotros" style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 700, padding: '8px 14px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', transition: 'all 0.2s ease' }}>
-              <Users size={16} color="#A6D9A5" /> Nosotros
+            <Link to="/mapa" style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 700, padding: '8px 14px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', transition: 'all 0.2s ease' }}>
+              <MapPin size={16} color="#A6D9A5" /> Mapa
             </Link>
-
             <Link to="/estadisticas" style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 700, padding: '8px 14px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', transition: 'all 0.2s ease' }}>
               <BarChart2 size={16} color="#A6D9A5" /> Datos
+            </Link>
+            
+            {/* NUEVO APARTADO: NOSOTROS */}
+            <Link to="/nosotros" style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 700, padding: '8px 14px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', transition: 'all 0.2s ease' }}>
+              <Users size={16} color="#A6D9A5" /> Nosotros
             </Link>
 
             <Link to="/insignias" style={{ textDecoration: 'none', backgroundColor: '#338C30', color: '#FFFFFF', fontWeight: 800, padding: '8px 16px', borderRadius: '8px', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', border: '2px solid #A6D9A5', boxShadow: '0 2px 8px rgba(51, 140, 48, 0.4)' }}>
