@@ -1,47 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/bio-sayegh-logo-verde.png';
 import { Menu, X, MapPin, BarChart2, Home, LogOut, UserCheck, ShieldAlert, Award, Users } from 'lucide-react';
-
-// Componente del Logo vectorial integrado
-function BioSayeghLogo() {
-  return (
-    <svg 
-      viewBox="0 0 450 160" 
-      style={{ height: '48px', width: 'auto', display: 'block' }} 
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient id="navLogoGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#FFFFFF" />
-          <stop offset="100%" stopColor="#A6D9A5" />
-        </linearGradient>
-      </defs>
-      
-      <g fill="url(#navLogoGrad)">
-        {/* Hojas sobre la letra i */}
-        <path d="M 148 55 C 146 45, 155 35, 160 38 C 163 45, 154 53, 148 55 Z" />
-        <path d="M 158 56 C 165 48, 175 49, 176 56 C 169 59, 160 59, 158 56 Z" />
-        
-        {/* Texto principal Bio-Sayegh */}
-        <text 
-          x="50%" 
-          y="105" 
-          textAnchor="middle" 
-          fontFamily="'Kaushan Script', cursive" 
-          fontSize="75" 
-          fontWeight="bold" 
-          fontStyle="italic"
-        >
-          Bio-Sayegh
-        </text>
-
-        {/* Trazo e ilustración inferior */}
-        <path d="M 70 115 C 70 145, 180 155, 230 140 C 170 142, 90 135, 75 115 Z" />
-        <path d="M 180 138 C 210 135, 235 150, 230 158 C 200 160, 180 148, 180 138 Z" />
-      </g>
-    </svg>
-  );
-}
 
 export default function Navbar({ usuario, onCerrarSesion }) {
   const [abierto, setAbierto] = useState(false);
@@ -58,11 +18,9 @@ export default function Navbar({ usuario, onCerrarSesion }) {
     }}>
       <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '12px 20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         
-        {/* LOGO EN SVG CSS CON IDENTIDAD COLSAM */}
-        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <BioSayeghLogo />
-          <span style={{ fontSize: '0.9rem', fontWeight: 800, color: '#A6D9A5', letterSpacing: '1px', alignSelf: 'flex-end', marginBottom: '6px' }}>
-          </span>
+        {/* LOGO DOMINANTE EN AZUL Y VERDE CLARO */}
+        <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
+          <img src={logo} alt="Bio-Sayegh" style={{ height: '44px', width: 'auto', display: 'block' }} />
         </Link>
 
         {/* NAVEGACIÓN */}
@@ -79,6 +37,7 @@ export default function Navbar({ usuario, onCerrarSesion }) {
               <BarChart2 size={16} color="#A6D9A5" /> Datos
             </Link>
             
+            {/* NUEVO APARTADO: NOSOTROS */}
             <Link to="/nosotros" style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 700, padding: '8px 14px', borderRadius: '8px', backgroundColor: 'rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', gap: '6px', fontSize: '14px', transition: 'all 0.2s ease' }}>
               <Users size={16} color="#A6D9A5" /> Nosotros
             </Link>
@@ -88,7 +47,7 @@ export default function Navbar({ usuario, onCerrarSesion }) {
             </Link>
           </div>
 
-          {/* TARJETA DE MODO / SALÓN */}
+          {/* TARJETA DE MODO / SALÓN CON DETALLES MARRÓN Y MENTA */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', borderLeft: '1px solid rgba(255,255,255,0.25)', paddingLeft: '15px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', backgroundColor: 'rgba(0,0,0,0.2)', border: '1px solid #A6D9A5', padding: '6px 12px', borderRadius: '8px' }}>
               <span style={{ width: '8px', height: '8px', borderRadius: '50%', backgroundColor: esInvitado ? '#A6D9A5' : '#338C30' }} />

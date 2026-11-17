@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { verificarSalon } from './progreso.js';
 import { ShieldAlert, UserCheck, Key, ArrowRight, X, Sparkles } from 'lucide-react';
 
 export default function AccesoModal({ abierto, onCerrar, onSeleccionarRol }) {
@@ -21,14 +22,17 @@ export default function AccesoModal({ abierto, onCerrar, onSeleccionarRol }) {
       return;
     }
 
-    // Validación local / backend (puedes ajustar la clave por defecto o conectarlo a Mongo)
-    if (clave === 'colsam2026' || clave === `salon${salonSeleccionado}`) {
-      setError('');
-      onSeleccionarRol({ rol: 'estudiante', salon: salonSeleccionado });
-      setClave('');
-    } else {
-      setError('Contraseña incorrecta. Prueba con "colsam2026" o la clave de tu curso.');
-    }
+    setError('Verificando...');
+    verificarSalon(salonSeleccionado, clave.trim()).then((ok) => {
+      if (ok) {
+        setError('');
+        localStorage.setItem('clave_salon', clave.trim());
+        onSeleccionarRol({ rol: 'estudiante', salon: salonSeleccionado });
+        setClave('');
+      } else {
+        setError('Contraseña incorrecta para este salón.');
+      }
+    }).catch(() => setError('No se pudo conectar. Intenta de nuevo.'));
   };
 
   const handleEntrarInvitado = () => {
@@ -82,42 +86,6 @@ export default function AccesoModal({ abierto, onCerrar, onSeleccionarRol }) {
           </p>
         </div>
 
-        {/* MODO INVITADO */}
-        <button
-          onClick={handleEntrarInvitado}
-          style={{
-            width: '100%',
-            padding: '14px',
-            backgroundColor: '#F0F9F5',
-            border: '2px solid #338C30',
-            borderRadius: '16px',
-            color: '#03658C',
-            fontWeight: 800,
-            fontSize: '0.95rem',
-            cursor: 'pointer',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            marginBottom: '20px',
-            transition: 'all 0.2s ease'
-          }}
-        >
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-            <ShieldAlert size={22} color="#338C30" />
-            <div style={{ textAlign: 'left' }}>
-              <span style={{ display: 'block', lineHeight: 1.1 }}>Modo Invitado</span>
-              <small style={{ fontSize: '0.72rem', color: '#8C644D', fontWeight: 600 }}>Solo exploración y lecturas</small>
-            </div>
-          </div>
-          <ArrowRight size={18} color="#338C30" />
-        </button>
-
-        <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' }}>
-          <div style={{ flex: 1, height: '1px', backgroundColor: '#A6D9A5' }} />
-          <span style={{ fontSize: '0.75rem', fontWeight: 800, color: '#8C644D', textTransform: 'uppercase' }}>O Inicia Sesión por Salón</span>
-          <div style={{ flex: 1, height: '1px', backgroundColor: '#A6D9A5' }} />
-        </div>
-
         {/* FORMULARIO MODO SALÓN (3° a 11°) */}
         <form onSubmit={handleLoginSalon} style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
           
@@ -146,7 +114,6 @@ export default function AccesoModal({ abierto, onCerrar, onSeleccionarRol }) {
               />
               <Key size={18} color="#03658C" style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)' }} />
             </div>
-            <small style={{ fontSize: '0.7rem', color: '#8C644D', display: 'block', marginTop: '4px' }}>Clave general demo: <strong>colsam2026</strong></small>
           </div>
 
           {error && (

@@ -1,509 +1,393 @@
-import React, { useState, useEffect, useMemo, useRef } from 'react';
-import * as Icons from 'lucide-react';
+import { jsx, jsxs } from "react/jsx-runtime";
+import { useState, useEffect } from "react";
+import {
+  Trophy,
+  Sparkles,
+  Lock,
+  Star,
+  ShieldCheck,
+  Zap,
+  AlertTriangle,
+  Flame,
+  Award,
+  X,
+  Crown,
+  Recycle,
+  Leaf,
+  Globe
+} from "lucide-react";
+import { obtenerProgreso, calcularPuntos } from "../components/progreso.js";
+function InsigniasPage() {
+  const [estadisticas, setEstadisticas] = useState({
+    reportesRealizados: 0,
+    zonasLimpiadas: 0,
+    puntosTotales: 0
+  });
+  const [insigniaSeleccionada, setInsigniaSeleccionada] = useState(null);
+  const [mostrarCeleb, setMostrarCeleb] = useState(false);
+  const salon = typeof window !== "undefined" && localStorage.getItem("salon_activo") || "10-A";
+  useEffect(() => {
+    const cargarProgresoReal = async () => {
+      try {
+        const salonActual = localStorage.getItem("salon_activo") || "";
+        if (!salonActual) return;
+        const { reportes, limpiadas } = await obtenerProgreso(salonActual);
+        setEstadisticas({ reportesRealizados: reportes, zonasLimpiadas: limpiadas, puntosTotales: calcularPuntos(reportes, limpiadas) });
+      } catch (e) {
+        console.error("Error al sincronizar insignias:", e);
+      }
+    };
+    cargarProgresoReal();
+    window.addEventListener("progreso-actualizado", cargarProgresoReal);
+    return () => window.removeEventListener("progreso-actualizado", cargarProgresoReal);
+  }, []);
+  const R = estadisticas.reportesRealizados, L = estadisticas.zonasLimpiadas, P = estadisticas.puntosTotales;
+  const colores = ["#03658C", "#338C30", "#8C644D"];
+  const misiones = [
+    ["Primer Escaneo Eco", "Registra tu primer reporte de residuo en el mapa del colegio.", Zap, R, 1, "\u{1F916} Eco-Bot Alpha"],
+    ["Primera Limpieza", "Sanea tu primera zona marcada en el mapa.", ShieldCheck, L, 1, "\u{1F41E} Mariquita Eco"],
+    ["Vigilante del Campus", "Acumula 3 reportes geolocalizados en el colegio.", AlertTriangle, R, 3, "\u{1F98A} Zorro Guardi\xE1n"],
+    ["Sanador Ambiental", "Limpia o sanea 2 zonas marcadas en alerta.", ShieldCheck, L, 2, "\u{1F989} B\xFAho Detector"],
+    ["Potencia Eco-Puntos", "Alcanza los 200 Eco-Puntos acumulados.", Flame, P, 200, "\u{1F43B} Oso Limpiador"],
+    ["Ojo Verde", "Registra 5 reportes de residuos.", Star, R, 5, "\u{1F438} Rana Vig\xEDa"],
+    ["Brigada Limpia", "Sanea 3 zonas del colegio.", Recycle, L, 3, "\u{1F43F}\uFE0F Ardilla Brigadista"],
+    ["Leyenda Bio-Sayegh", "Suma 8 reportes para liderar la tabla general.", Trophy, R, 8, "\u{1F451} Comandante Eco"],
+    ["Eco-Impulso", "Alcanza los 300 Eco-Puntos.", Sparkles, P, 300, "\u{1F98B} Mariposa Viajera"],
+    ["Guardi\xE1n del Reciclaje", "Sanea 5 zonas y convi\xE9rtelas en espacios limpios.", Recycle, L, 5, "\u{1F422} Tortuga Recicladora"],
+    ["Reportero Experto", "Registra 10 reportes en el mapa.", AlertTriangle, R, 10, "\u{1F99C} Loro Reportero"],
+    ["Embajador Verde", "Alcanza los 400 Eco-Puntos e inspira a otros salones.", Leaf, P, 400, "\u{1F41D} Abeja Polinizadora"],
+    ["Campus Brillante", "Sanea 7 zonas del colegio.", ShieldCheck, L, 7, "\u{1F994} Erizo Limpio"],
+    ["H\xE9roe del Planeta", "Registra 15 reportes de residuos.", Globe, R, 15, "\u{1F40B} Ballena Protectora"],
+    ["Fuerza Eco", "Alcanza los 550 Eco-Puntos.", Flame, P, 550, "\u{1F985} \xC1guila Andina"],
+    ["Maestro Bio-Sayegh", "Sanea 10 zonas y convierte al colegio en un campus eco.", Crown, L, 10, "\u{1F333} \xC1rbol Ancestral"],
+    ["Centinela del Colegio", "Registra 20 reportes en el mapa.", Award, R, 20, "\u{1F406} Jaguar Centinela"],
+    ["Restaurador Total", "Sanea 15 zonas del colegio.", Recycle, L, 15, "\u{1F42C} Delf\xEDn Sanador"],
+    ["Eco-\xC9lite", "Alcanza los 900 Eco-Puntos.", Sparkles, P, 900, "\u{1F99A} Pavo Real Eco"],
+    ["Leyenda del Planeta", "Registra 30 reportes y sanea 20 zonas: \xA1campus 100% eco!", Crown, Math.min(R, L * 1.5), 30, "\u{1F30D} Guardi\xE1n de la Tierra"]
+  ];
+  const ESPACIO = 130, TOPE = 100;
+  const ALTO = TOPE * 2 + ESPACIO * (misiones.length - 1);
+  const posX = [425, 640, 425, 210];
+  let previaCompleta = true;
+  const niveles = misiones.map(([titulo, descripcion, Icono, actual, meta, mascota], i) => {
+    const color = colores[i % 3];
+    const completa = actual >= meta;
+    const disponible = previaCompleta;
+    const desbloqueado = disponible && completa;
+    previaCompleta = desbloqueado;
+    return { id: i + 1, numero: String(i + 1), titulo, descripcion, icono: /* @__PURE__ */ jsx(Icono, { size: 36, color }), actual: disponible ? actual : 0, meta, color, x: posX[i % 4], y: TOPE + i * ESPACIO, mascota, disponible, desbloqueado };
+  });
+  const rutaD = niveles.reduce((d, n, i) => {
+    if (i === 0) return `M ${n.x} ${n.y}`;
+    const p = niveles[i - 1];
+    const my = (p.y + n.y) / 2;
+    return `${d} C ${p.x} ${my}, ${n.x} ${my}, ${n.x} ${n.y}`;
+  }, "");
+  const abrirAnuncioQuizizz = (nivel, estaDesbloqueado) => {
+    setInsigniaSeleccionada({ ...nivel, desbloqueado: estaDesbloqueado });
+    setMostrarCeleb(true);
+  };
+  return /* @__PURE__ */ jsxs("div", { style: {
+    minHeight: "100vh",
+    backgroundColor: "#FFFFFF",
+    color: "#03658C",
+    fontFamily: "'Plus Jakarta Sans', system-ui, -apple-system, sans-serif",
+    padding: "30px 20px",
+    boxSizing: "border-box",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    position: "relative",
+    overflowX: "hidden"
+  }, children: [
+    /* @__PURE__ */ jsx("style", { children: `
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@700;800;900&display=swap');
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://tu-servidor-php.com/api.php';
+        .nodo-giant {
+          transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+          cursor: pointer;
+        }
+        .nodo-giant:hover {
+          transform: scale(1.18) translateY(-6px);
+        }
 
-const RAREZA_CONFIG = {
-  Común: {
-    label: 'Común',
-    colorHex: '#2E8B38',
-    borderColor: 'border-[#2E8B38]/30 hover:border-[#2E8B38]',
-    badgeStyle: 'bg-[#2E8B38]/10 text-[#2E8B38] border-[#2E8B38]/30',
-  },
-  Raro: {
-    label: 'Raro',
-    colorHex: '#0E6E94',
-    borderColor: 'border-[#0E6E94]/30 hover:border-[#0E6E94]',
-    badgeStyle: 'bg-[#0E6E94]/10 text-[#0E6E94] border-[#0E6E94]/30',
-  },
-  Épico: {
-    label: 'Épico',
-    colorHex: '#93634C',
-    borderColor: 'border-[#93634C]/30 hover:border-[#93634C]',
-    badgeStyle: 'bg-[#93634C]/10 text-[#93634C] border-[#93634C]/30',
-  },
-  Legendario: {
-    label: 'Legendario',
-    colorHex: '#D97706',
-    borderColor: 'border-amber-400 hover:border-amber-500',
-    badgeStyle: 'bg-amber-500 text-white border-amber-400 animate-pulse',
-  }
+        .card-cyber-giant {
+          background: #FFFFFF;
+          border: 3px solid #03658C;
+          box-shadow: 0 12px 32px rgba(3, 101, 140, 0.12);
+          border-radius: 24px;
+        }
+
+        @keyframes quizizzPop {
+          0% { transform: scale(0.4) rotate(-8deg); opacity: 0; }
+          70% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+          100% { transform: scale(1) rotate(0deg); opacity: 1; }
+        }
+
+        .quizizz-modal {
+          animation: quizizzPop 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        @keyframes floatSlow {
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-10px); }
+        }
+
+        .anim-float {
+          animation: floatSlow 3.5s ease-in-out infinite;
+        }
+      ` }),
+    /* @__PURE__ */ jsxs("div", { className: "card-cyber-giant", style: {
+      width: "100%",
+      maxWidth: "850px",
+      padding: "20px 32px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      marginBottom: "28px",
+      zIndex: 10
+    }, children: [
+      /* @__PURE__ */ jsxs("div", { style: { display: "flex", alignItems: "center", gap: "18px" }, children: [
+        /* @__PURE__ */ jsx("div", { style: {
+          backgroundColor: "#03658C",
+          padding: "14px",
+          borderRadius: "20px",
+          border: "2px solid #A6D9A5",
+          color: "#FFFFFF"
+        }, children: /* @__PURE__ */ jsx(Award, { size: 36 }) }),
+        /* @__PURE__ */ jsxs("div", { children: [
+          /* @__PURE__ */ jsx("span", { style: { fontSize: "0.8rem", fontWeight: 900, color: "#338C30", textTransform: "uppercase", letterSpacing: "2px" }, children: "PROGRESI\xD3N DE NIVELES" }),
+          /* @__PURE__ */ jsx("h1", { style: { margin: "2px 0 0 0", fontSize: "2rem", fontWeight: 900, color: "#03658C" }, children: "Camino de Eco-Insignias" })
+        ] })
+      ] }),
+      /* @__PURE__ */ jsxs("div", { style: {
+        backgroundColor: "#F0F9F5",
+        border: "2px solid #338C30",
+        borderRadius: "20px",
+        padding: "10px 22px",
+        display: "flex",
+        alignItems: "center",
+        gap: "10px"
+      }, children: [
+        /* @__PURE__ */ jsx(Sparkles, { size: 24, color: "#338C30", className: "anim-float" }),
+        /* @__PURE__ */ jsxs("span", { style: { fontSize: "1.4rem", fontWeight: 900, color: "#03658C" }, children: [
+          estadisticas.puntosTotales,
+          " ",
+          /* @__PURE__ */ jsx("span", { style: { fontSize: "0.85rem", color: "#8C644D" }, children: "PTS" })
+        ] })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxs("div", { style: {
+      position: "relative",
+      width: "100%",
+      maxWidth: "850px",
+      height: `${ALTO}px`,
+      backgroundColor: "#FAFCFB",
+      border: "3px solid #03658C",
+      borderRadius: "36px",
+      overflow: "hidden",
+      boxShadow: "0 20px 50px rgba(3, 101, 140, 0.12)"
+    }, children: [
+      ["\u{1F33F}", "\u{1F343}", "\u{1F331}", "\u267B\uFE0F", "\u{1F4A7}"].flatMap((e, k) => [0, 1].map((j) => /* @__PURE__ */ jsx("div", { style: { position: "absolute", top: `${(k * 2 + j) * (ALTO / 10) + 60}px`, [j ? "right" : "left"]: "28px", fontSize: "2.4rem", opacity: 0.55, zIndex: 5, filter: "saturate(1.6)" }, children: e }, `${k}-${j}`))),
+      /* @__PURE__ */ jsxs("svg", { viewBox: `0 0 850 ${ALTO}`, preserveAspectRatio: "none", width: "100%", height: "100%", style: { position: "absolute", top: 0, left: 0 }, children: [
+        /* @__PURE__ */ jsx("defs", { children: /* @__PURE__ */ jsxs("linearGradient", { id: "giantPathGrad", x1: "0%", y1: "100%", x2: "0%", y2: "0%", children: [
+          /* @__PURE__ */ jsx("stop", { offset: "0%", stopColor: "#03658C" }),
+          /* @__PURE__ */ jsx("stop", { offset: "35%", stopColor: "#8C644D" }),
+          /* @__PURE__ */ jsx("stop", { offset: "70%", stopColor: "#338C30" }),
+          /* @__PURE__ */ jsx("stop", { offset: "100%", stopColor: "#A6D9A5" })
+        ] }) }),
+        /* @__PURE__ */ jsx(
+          "path",
+          {
+            d: rutaD,
+            fill: "none",
+            stroke: "#E2E8F0",
+            strokeWidth: "48",
+            strokeLinecap: "round"
+          }
+        ),
+        /* @__PURE__ */ jsx(
+          "path",
+          {
+            d: rutaD,
+            fill: "none",
+            stroke: "url(#giantPathGrad)",
+            strokeWidth: "24",
+            strokeDasharray: "16 12",
+            strokeLinecap: "round"
+          }
+        )
+      ] }),
+      niveles.map((nivel) => {
+        const desbloqueado = nivel.desbloqueado;
+        const porcentaje = Math.min(100, Math.round(nivel.actual / nivel.meta * 100));
+        return /* @__PURE__ */ jsxs(
+          "div",
+          {
+            className: "nodo-giant",
+            onClick: () => abrirAnuncioQuizizz(nivel, desbloqueado),
+            style: {
+              position: "absolute",
+              left: `calc(${nivel.x / 850 * 100}% - 55px)`,
+              top: `${nivel.y - 55}px`,
+              width: "110px",
+              height: "110px",
+              zIndex: 20
+            },
+            children: [
+              desbloqueado && /* @__PURE__ */ jsxs("div", { style: {
+                position: "absolute",
+                top: "-32px",
+                left: nivel.x > 450 ? "-70px" : "70px",
+                backgroundColor: "#FFFFFF",
+                border: `2px solid ${nivel.color}`,
+                borderRadius: "16px",
+                padding: "4px 12px",
+                boxShadow: "0 6px 16px rgba(0,0,0,0.1)",
+                display: "flex",
+                alignItems: "center",
+                gap: "6px",
+                whiteSpace: "nowrap",
+                zIndex: 30
+              }, children: [
+                /* @__PURE__ */ jsx("span", { style: { fontSize: "1.15rem", lineHeight: 1 }, children: nivel.mascota.slice(0, nivel.mascota.indexOf(" ")) }),
+                /* @__PURE__ */ jsxs("span", { style: { fontSize: "0.8rem", fontWeight: 900, color: nivel.color }, children: [
+                  nivel.mascota.slice(nivel.mascota.indexOf(" ") + 1),
+                  " (",
+                  salon,
+                  ")"
+                ] })
+              ] }),
+              /* @__PURE__ */ jsxs("div", { style: {
+                width: "100%",
+                height: "100%",
+                borderRadius: "50%",
+                backgroundColor: desbloqueado ? "#FFFFFF" : "#F1F5F9",
+                border: `4px solid ${desbloqueado ? nivel.color : "#CBD5E1"}`,
+                boxShadow: desbloqueado ? `0 0 20px ${nivel.color}44` : "none",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                position: "relative"
+              }, children: [
+                /* @__PURE__ */ jsxs("div", { style: { position: "absolute", top: "-12px", display: "flex", gap: "3px" }, children: [
+                  /* @__PURE__ */ jsx(Star, { size: 16, fill: desbloqueado ? "#338C30" : "#CBD5E1", stroke: "none" }),
+                  /* @__PURE__ */ jsx(Star, { size: 20, fill: desbloqueado ? "#338C30" : "#CBD5E1", stroke: "none", style: { marginTop: "-4px" } }),
+                  /* @__PURE__ */ jsx(Star, { size: 16, fill: desbloqueado ? "#338C30" : "#CBD5E1", stroke: "none" })
+                ] }),
+                desbloqueado ? nivel.icono : nivel.disponible ? /* @__PURE__ */ jsx("span", { style: { fontSize: "1.6rem", fontWeight: 900, color: nivel.color }, children: nivel.numero }) : /* @__PURE__ */ jsx(Lock, { size: 32, color: "#94A3B8" }),
+                /* @__PURE__ */ jsxs("span", { style: { fontSize: "0.75rem", fontWeight: 900, color: desbloqueado ? "#03658C" : "#64748B", marginTop: "2px" }, children: [
+                  porcentaje,
+                  "%"
+                ] })
+              ] })
+            ]
+          },
+          nivel.id
+        );
+      })
+    ] }),
+    mostrarCeleb && insigniaSeleccionada && /* @__PURE__ */ jsx("div", { style: {
+      position: "fixed",
+      inset: 0,
+      backgroundColor: "rgba(3, 101, 140, 0.5)",
+      backdropFilter: "blur(8px)",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      zIndex: 999,
+      padding: "20px"
+    }, children: /* @__PURE__ */ jsxs("div", { className: "quizizz-modal", style: {
+      position: "relative",
+      width: "100%",
+      maxWidth: "460px",
+      backgroundColor: "#FFFFFF",
+      border: `3px solid ${insigniaSeleccionada.color}`,
+      borderRadius: "32px",
+      padding: "36px 28px",
+      textAlign: "center",
+      boxShadow: `0 20px 60px rgba(0,0,0,0.2)`
+    }, children: [
+      /* @__PURE__ */ jsx(
+        "button",
+        {
+          onClick: () => setMostrarCeleb(false),
+          style: {
+            position: "absolute",
+            top: "18px",
+            right: "18px",
+            backgroundColor: "rgba(0,0,0,0.05)",
+            border: "none",
+            color: "#03658C",
+            borderRadius: "50%",
+            width: "36px",
+            height: "36px",
+            cursor: "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center"
+          },
+          children: /* @__PURE__ */ jsx(X, { size: 20 })
+        }
+      ),
+      /* @__PURE__ */ jsxs("div", { style: { display: "inline-flex", padding: "8px 18px", borderRadius: "30px", backgroundColor: "rgba(166, 217, 165, 0.3)", border: `2px solid ${insigniaSeleccionada.color}`, color: insigniaSeleccionada.color, fontWeight: 900, fontSize: "0.85rem", marginBottom: "16px", gap: "6px", alignItems: "center" }, children: [
+        /* @__PURE__ */ jsx(Crown, { size: 18 }),
+        " ",
+        insigniaSeleccionada.desbloqueado ? "\xA1LOGRO DESBLOQUEADO!" : insigniaSeleccionada.disponible ? "MISI\xD3N EN CURSO" : "COMPLETA LA MISI\xD3N ANTERIOR"
+      ] }),
+      /* @__PURE__ */ jsx("div", { style: {
+        margin: "0 auto 20px auto",
+        width: "110px",
+        height: "110px",
+        borderRadius: "50%",
+        backgroundColor: "#FFFFFF",
+        border: `4px solid ${insigniaSeleccionada.color}`,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: `0 8px 24px ${insigniaSeleccionada.color}33`
+      }, children: insigniaSeleccionada.icono }),
+      /* @__PURE__ */ jsx("h2", { style: { fontSize: "1.8rem", fontWeight: 900, margin: "0 0 10px 0", color: "#03658C" }, children: insigniaSeleccionada.titulo }),
+      /* @__PURE__ */ jsx("p", { style: { color: "#8C644D", fontSize: "0.95rem", lineHeight: 1.5, marginBottom: "24px", fontWeight: 600 }, children: insigniaSeleccionada.descripcion }),
+      /* @__PURE__ */ jsxs("div", { style: { backgroundColor: "#F8FAFC", border: "1px solid #E2E8F0", borderRadius: "14px", padding: "12px 16px", marginBottom: "24px" }, children: [
+        /* @__PURE__ */ jsxs("div", { style: { display: "flex", justifyContent: "space-between", fontSize: "0.8rem", fontWeight: 800, color: "#8C644D", marginBottom: "6px" }, children: [
+          /* @__PURE__ */ jsx("span", { children: "PROGRESO ACTUAL:" }),
+          /* @__PURE__ */ jsxs("span", { style: { color: insigniaSeleccionada.color }, children: [
+            insigniaSeleccionada.actual,
+            " / ",
+            insigniaSeleccionada.meta
+          ] })
+        ] }),
+        /* @__PURE__ */ jsx("div", { style: { width: "100%", height: "10px", backgroundColor: "#E2E8F0", borderRadius: "10px", overflow: "hidden" }, children: /* @__PURE__ */ jsx("div", { style: {
+          width: `${Math.min(100, insigniaSeleccionada.actual / insigniaSeleccionada.meta * 100)}%`,
+          height: "100%",
+          backgroundColor: insigniaSeleccionada.color,
+          borderRadius: "10px"
+        } }) })
+      ] }),
+      /* @__PURE__ */ jsx(
+        "button",
+        {
+          onClick: () => setMostrarCeleb(false),
+          style: {
+            width: "100%",
+            padding: "14px",
+            backgroundColor: insigniaSeleccionada.color,
+            color: "#FFFFFF",
+            border: "none",
+            borderRadius: "16px",
+            fontWeight: 900,
+            fontSize: "1rem",
+            cursor: "pointer",
+            boxShadow: `0 4px 14px ${insigniaSeleccionada.color}44`
+          },
+          children: "\xA1ENTENDIDO!"
+        }
+      )
+    ] }) })
+  ] });
+}
+export {
+  InsigniasPage as default
 };
-
-// ----------------------------------------------------------------------
-// CATÁLOGO COMPLETO DE INSIGNIAS POR DEFECTO (15 MEDALLAS EXTENDIDAS)
-// ----------------------------------------------------------------------
-const INSIGNIAS_CATALOGO_DEFAULT = [
-  {
-    codigo: 'GUARDIANES_CAMPUS',
-    nombre: 'Guardianes del Campus',
-    descripcion: 'Reporte y recuperación activa de zonas críticas de residuos.',
-    icono: 'ShieldCheck',
-    colorHex: '#4ADE80',
-    rareza: 'Común',
-    reqPuntos: 50,
-    categoria: 'Limpieza'
-  },
-  {
-    codigo: 'ECO_MAPEO',
-    nombre: 'Eco-Mapeadores',
-    descripcion: 'Mapeo total de puntos limpios y zonas verdes en el plano.',
-    icono: 'MapPin',
-    colorHex: '#38BDF8',
-    rareza: 'Común',
-    reqPuntos: 100,
-    categoria: 'Exploración'
-  },
-  {
-    codigo: 'SEGREGACION_EXPERTA',
-    nombre: 'Maestros del Reciclaje',
-    descripcion: 'Separación impecable de orgánicos, plásticos y papel.',
-    icono: 'Recycle',
-    colorHex: '#4ADE80',
-    rareza: 'Común',
-    reqPuntos: 150,
-    categoria: 'Reciclaje'
-  },
-  {
-    codigo: 'CERO_RESIDUOS',
-    nombre: 'Zona Cero Residuos',
-    descripcion: 'Mantener el aula 100% libre de basura durante todo un mes.',
-    icono: 'Sparkles',
-    colorHex: '#38BDF8',
-    rareza: 'Raro',
-    reqPuntos: 200,
-    categoria: 'Limpieza'
-  },
-  {
-    codigo: 'PATRULLA_VERDE',
-    nombre: 'Escuadrón Verde',
-    descripcion: 'Liderar 5 jornadas masivas de recolección comunitaria.',
-    icono: 'Users',
-    colorHex: '#38BDF8',
-    rareza: 'Raro',
-    reqPuntos: 300,
-    categoria: 'Liderazgo'
-  },
-  {
-    codigo: 'COMUNIDAD_SOSTENIBLE',
-    nombre: 'Fuerza Colectiva',
-    descripcion: 'Lograr que el 100% del salón esté activo en la app.',
-    icono: 'HeartHandshake',
-    colorHex: '#38BDF8',
-    rareza: 'Raro',
-    reqPuntos: 400,
-    categoria: 'Comunidad'
-  },
-  {
-    codigo: 'ECO_PUNTOS_PRO',
-    nombre: 'Club 500 Eco-Puntos',
-    descripcion: 'Superar la barrera colectiva de los 500 Eco-Puntos.',
-    icono: 'Award',
-    colorHex: '#38BDF8',
-    rareza: 'Raro',
-    reqPuntos: 500,
-    categoria: 'Puntaje'
-  },
-  {
-    codigo: 'AHORRO_HIDRICO',
-    nombre: 'Guardianes del Agua',
-    descripcion: 'Reporte y reparación rápida de fugas hídricas en el campus.',
-    icono: 'Droplets',
-    colorHex: '#F97316',
-    rareza: 'Épico',
-    reqPuntos: 600,
-    categoria: 'Conservación'
-  },
-  {
-    codigo: 'LIDERAZGO_PRAE',
-    nombre: 'Líderes PRAE',
-    descripcion: 'Articulación total de actividades con el Proyecto Ambiental.',
-    icono: 'BookOpen',
-    colorHex: '#F97316',
-    rareza: 'Épico',
-    reqPuntos: 650,
-    categoria: 'Liderazgo'
-  },
-  {
-    codigo: 'EFICIENCIA_ENERGETICA',
-    nombre: 'Huella de Luz Cero',
-    descripcion: 'Apagado oportuno de luces y equipos en horas de descanso.',
-    icono: 'Zap',
-    colorHex: '#F97316',
-    rareza: 'Épico',
-    reqPuntos: 750,
-    categoria: 'Energía'
-  },
-  {
-    codigo: 'CONSTANCIA_VERDE',
-    nombre: 'Racha Imparable',
-    descripcion: 'Cumplir metas ambientales durante 6 semanas seguidas.',
-    icono: 'Flame',
-    colorHex: '#F97316',
-    rareza: 'Épico',
-    reqPuntos: 850,
-    categoria: 'Constancia'
-  },
-  {
-    codigo: 'INNOVADORES_AMBIENTALES',
-    nombre: 'Mentes de Futuro',
-    descripcion: 'Presentación de un prototipo de economía circular.',
-    icono: 'Lightbulb',
-    colorHex: '#F97316',
-    rareza: 'Épico',
-    reqPuntos: 950,
-    categoria: 'Innovación'
-  },
-  {
-    codigo: 'JARDIN_BIODIVERSO',
-    nombre: 'Pulmón del Colegio',
-    descripcion: 'Adopción y cuidado de un micro-jardín en la sede.',
-    icono: 'Sprout',
-    colorHex: '#F59E0B',
-    rareza: 'Legendario',
-    reqPuntos: 1200,
-    categoria: 'Biodiversidad'
-  },
-  {
-    codigo: 'CAMPEONES_PLANETA',
-    nombre: 'Titanes Bio-Sayegh',
-    descripcion: 'Alcanzar los 1,500 Eco-Puntos acumulados en el año.',
-    icono: 'Crown',
-    colorHex: '#F59E0B',
-    rareza: 'Legendario',
-    reqPuntos: 1500,
-    categoria: 'Puntaje'
-  },
-  {
-    codigo: 'TROFEO_ORO',
-    nombre: 'Gran Leyenda Verde',
-    descripcion: 'Obtener el primer lugar en el ranking final de salones.',
-    icono: 'Trophy',
-    colorHex: '#F59E0B',
-    rareza: 'Legendario',
-    reqPuntos: 2000,
-    categoria: 'Honor'
-  }
-];
-// EFECTO DE CONFETI MATEMÁTICO NATIVO EN CANVAS
-function dispararConfetiBioSayegh() {
-  const canvas = document.createElement('canvas');
-  canvas.style.position = 'fixed';
-  canvas.style.top = '0';
-  canvas.style.left = '0';
-  canvas.style.width = '100vw';
-  canvas.style.height = '100vh';
-  canvas.style.pointerEvents = 'none';
-  canvas.style.zIndex = '99999';
-  document.body.appendChild(canvas);
-
-  const ctx = canvas.getContext('2d');
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-
-  const colores = ['#064460', '#2E8B38', '#0E6E94', '#93634C', '#4ADE80', '#F59E0B'];
-  const particulas = Array.from({ length: 110 }).map(() => ({
-    x: canvas.width / 2,
-    y: canvas.height / 2 + 60,
-    vx: (Math.random() - 0.5) * 18,
-    vy: (Math.random() - 0.75) * 18,
-    size: Math.random() * 9 + 4,
-    color: colores[Math.floor(Math.random() * colores.length)],
-    rotation: Math.random() * 360,
-    vRot: (Math.random() - 0.5) * 12,
-    opacity: 1
-  }));
-
-  let frame = 0;
-  function animar() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let activas = 0;
-
-    particulas.forEach((p) => {
-      if (p.opacity > 0) {
-        activas++;
-        p.x += p.vx;
-        p.y += p.vy;
-        p.vy += 0.32;
-        p.rotation += p.vRot;
-        p.opacity -= 0.01;
-
-        ctx.save();
-        ctx.globalAlpha = Math.max(0, p.opacity);
-        ctx.translate(p.x, p.y);
-        ctx.rotate((p.rotation * Math.PI) / 180);
-        ctx.fillStyle = p.color;
-        ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-        ctx.restore();
-      }
-    });
-
-    if (activas > 0 && frame < 180) {
-      frame++;
-      requestAnimationFrame(animar);
-    } else {
-      canvas.remove();
-    }
-  }
-
-  animar();
-}
-
-function InsigniaModal({ insignia, desbloqueada, puntosActuales, onClose }) {
-  if (!insignia) return null;
-
-  const IconComponent = Icons[insignia.icono] || Icons.Award;
-  const config = RAREZA_CONFIG[insignia.rareza] || RAREZA_CONFIG['Común'];
-  const porcentaje = Math.min(100, Math.round((puntosActuales / insignia.reqPuntos) * 100));
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md">
-      <div className={`relative w-full max-w-lg bg-white border ${config.borderColor} rounded-3xl p-6 sm:p-8 shadow-2xl overflow-hidden text-slate-800`}>
-        <button onClick={onClose} className="absolute top-4 right-4 p-2 text-slate-400 hover:text-slate-700 rounded-full bg-slate-100">
-          <Icons.X size={20} />
-        </button>
-
-        <div className="flex justify-center my-6">
-          <div className={`p-6 rounded-3xl bg-[#064460] shadow-xl border border-[#0E6E94] ${desbloqueada ? 'animate-bounce' : ''}`}>
-            <IconComponent size={64} color={desbloqueada ? insignia.colorHex : '#94A3B8'} />
-          </div>
-        </div>
-
-        <h3 className="text-2xl font-black text-center text-[#064460]">{insignia.nombre}</h3>
-        <p className="text-slate-600 text-xs sm:text-sm text-center mt-2 leading-relaxed">{insignia.descripcion}</p>
-
-        <div className="mt-6 bg-slate-50 border border-slate-200 rounded-2xl p-4">
-          <div className="flex justify-between text-xs mb-2">
-            <span className="text-slate-500 font-medium">Requisito</span>
-            <span className="text-[#064460] font-bold">{insignia.reqPuntos} Eco-Puntos</span>
-          </div>
-          <div className="w-full bg-slate-200 h-3 rounded-full overflow-hidden mb-2">
-            <div className="h-full bg-[#2E8B38] transition-all duration-700" style={{ width: `${porcentaje}%` }} />
-          </div>
-        </div>
-
-        <button onClick={onClose} className="mt-6 w-full py-3 bg-[#2E8B38] text-white font-bold rounded-xl text-sm shadow-md">
-          Entendido
-        </button>
-      </div>
-    </div>
-  );
-}
-
-export default function InsigniasGamificadas({ puntosSalonActual = 720, codigoSalon = '10A' }) {
-  const [insignias, setInsignias] = useState(INSIGNIAS_CATALOGO_DEFAULT);
-  const [filtroRareza, setFiltroRareza] = useState('Todas');
-  const [busqueda, setBusqueda] = useState('');
-  const [modalInsignia, setModalInsignia] = useState(null);
-  
-  const [indiceActivo, setIndiceActivo] = useState(0);
-  const [autoRotate, setAutoRotate] = useState(true);
-
-  const insigniasFiltradas = useMemo(() => {
-    return insignias.filter((item) => {
-      const coincideRareza =
-        filtroRareza === 'Todas'
-          ? true
-          : filtroRareza === 'Desbloqueadas'
-          ? puntosSalonActual >= item.reqPuntos
-          : item.rareza === filtroRareza;
-
-      const coincideBusqueda =
-        item.nombre.toLowerCase().includes(busqueda.toLowerCase()) ||
-        item.descripcion.toLowerCase().includes(busqueda.toLowerCase());
-
-      return coincideRareza && coincideBusqueda;
-    });
-  }, [insignias, filtroRareza, busqueda, puntosSalonActual]);
-
-  const insigniasDesbloqueadas = useMemo(() => {
-    return insignias.filter((i) => puntosSalonActual >= i.reqPuntos);
-  }, [insignias, puntosSalonActual]);
-
-  const ultimaDesbloqueada = useMemo(() => {
-    return insigniasDesbloqueadas[insigniasDesbloqueadas.length - 1];
-  }, [insigniasDesbloqueadas]);
-
-  // Rotación automática del carrusel nativo
-  useEffect(() => {
-    if (!autoRotate || insigniasFiltradas.length === 0) return;
-    const interval = setInterval(() => {
-      setIndiceActivo((prev) => (prev + 1) % insigniasFiltradas.length);
-    }, 3500);
-    return () => clearInterval(interval);
-  }, [autoRotate, insigniasFiltradas]);
-
-  // Detenerse en la última desbloqueada y lanzar confeti
-  useEffect(() => {
-    if (ultimaDesbloqueada && insigniasFiltradas.length > 0) {
-      const index = insigniasFiltradas.findIndex((i) => i.codigo === ultimaDesbloqueada.codigo);
-      if (index !== -1) {
-        setIndiceActivo(index);
-        setAutoRotate(false);
-        dispararConfetiBioSayegh();
-      }
-    }
-  }, [puntosSalonActual, insigniasFiltradas, ultimaDesbloqueada]);
-
-  return (
-    <div className="min-h-screen bg-[#F8FAFC] text-slate-800 p-4 sm:p-8 font-sans">
-      <div className="max-w-7xl mx-auto space-y-8">
-        
-        {/* HEADER TIPO BANNER PRINCIPAL */}
-        <header className="relative bg-gradient-to-r from-[#064460] to-[#2E8B38] border-2 border-[#2E8B38] rounded-3xl p-6 sm:p-10 shadow-xl text-white">
-          <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-6">
-            <div>
-              <span className="px-3 py-1 rounded-full bg-white/20 text-white text-xs font-bold border border-white/30 backdrop-blur-md">
-                Salón Conectado: {codigoSalon} ({puntosSalonActual} Eco-Puntos)
-              </span>
-              <h1 className="text-3xl sm:text-5xl font-extrabold mt-2">Ruta de Insignias</h1>
-              <p className="text-emerald-100 text-sm mt-1">Plataforma ecológica COLSAM.</p>
-            </div>
-
-            <div className="bg-white/10 backdrop-blur-md border border-white/20 p-5 rounded-2xl text-center">
-              <div className="text-3xl font-black text-white">
-                {insigniasDesbloqueadas.length} <span className="text-base font-normal text-emerald-100">/ {insignias.length}</span>
-              </div>
-              <div className="text-xs text-emerald-200 font-bold mt-1">Desbloqueadas</div>
-            </div>
-          </div>
-        </header>
-
-        {/* FILTROS */}
-        <div className="flex flex-col md:flex-row gap-4 items-center justify-between bg-white border border-slate-200 p-4 rounded-2xl shadow-sm">
-          <div className="relative w-full md:w-80">
-            <Icons.Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400" size={18} />
-            <input
-              type="text"
-              placeholder="Buscar insignia..."
-              value={busqueda}
-              onChange={(e) => setBusqueda(e.target.value)}
-              className="w-full pl-10 pr-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-sm"
-            />
-          </div>
-
-          <div className="flex flex-wrap gap-2 justify-center">
-            {['Todas', 'Desbloqueadas', 'Común', 'Raro', 'Épico', 'Legendario'].map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setFiltroRareza(cat)}
-                className={`px-4 py-2 rounded-xl text-xs font-bold border transition-all ${
-                  filtroRareza === cat ? 'bg-[#2E8B38] border-[#2E8B38] text-white shadow-md' : 'bg-slate-100 border-slate-200 text-slate-600'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* BANNER GIRATORIO EN 3D NATIVO (SIN LIBRERÍAS EXTERNAS) */}
-        <div className="relative bg-gradient-to-b from-[#064460] to-[#043349] p-6 sm:p-12 rounded-3xl shadow-2xl border-2 border-[#0E6E94] overflow-hidden min-h-[500px] flex flex-col justify-center items-center">
-          
-          <div className="text-center mb-6 z-10">
-            <h2 className="text-white text-xl sm:text-2xl font-extrabold">Carrusel Interactivo de Insignias</h2>
-            <p className="text-slate-300 text-xs mt-1">Selecciona o desliza para enfocar una insignia.</p>
-          </div>
-
-          {/* ESCENA DEL CARRUSEL 3D NATIVO */}
-          <div className="relative w-full max-w-4xl h-[400px] flex items-center justify-center overflow-hidden">
-            {insigniasFiltradas.map((item, idx) => {
-              const offset = idx - indiceActivo;
-              const esActiva = idx === indiceActivo;
-              const desbloqueada = puntosSalonActual >= item.reqPuntos;
-              const esUltima = ultimaDesbloqueada?.codigo === item.codigo;
-              const IconComponent = Icons[item.icono] || Icons.Award;
-              const config = RAREZA_CONFIG[item.rareza] || RAREZA_CONFIG['Común'];
-
-              // Cálculo de transformaciones 3D
-              const translateX = offset * 220;
-              const scale = esActiva ? 1.05 : Math.max(0.7, 1 - Math.abs(offset) * 0.2);
-              const opacity = Math.abs(offset) > 2 ? 0 : Math.max(0.4, 1 - Math.abs(offset) * 0.3);
-              const zIndex = 30 - Math.abs(offset);
-
-              return (
-                <div
-                  key={item.codigo}
-                  onClick={() => {
-                    setIndiceActivo(idx);
-                    setAutoRotate(false);
-                    if (desbloqueada) dispararConfetiBioSayegh();
-                    setModalInsignia(item);
-                  }}
-                  className={`absolute w-[280px] sm:w-[320px] h-[380px] bg-white border-2 rounded-3xl p-6 shadow-2xl transition-all duration-700 cursor-pointer flex flex-col justify-between ${
-                    esUltima && esActiva
-                      ? 'border-amber-400 shadow-[0_0_35px_rgba(245,158,11,0.6)]'
-                      : desbloqueada
-                      ? 'border-[#2E8B38]'
-                      : 'border-slate-200 grayscale opacity-75'
-                  }`}
-                  style={{
-                    transform: `translateX(${translateX}px) scale(${scale})`,
-                    opacity: opacity,
-                    zIndex: zIndex,
-                  }}
-                >
-                  <div>
-                    <div className="flex justify-between items-center mb-3">
-                      <span className={`text-[10px] font-extrabold uppercase px-3 py-1 rounded-full border ${config.badgeStyle}`}>
-                        {item.rareza}
-                      </span>
-                      <span className="text-xs font-mono font-bold text-slate-500">{item.reqPuntos} PTS</span>
-                    </div>
-
-                    <div className="flex justify-center my-6">
-                      <div className={`p-5 rounded-3xl bg-[#064460] border border-[#0E6E94] ${esUltima && esActiva ? 'animate-bounce' : ''}`}>
-                        <IconComponent size={52} color={desbloqueada ? item.colorHex : '#94A3B8'} />
-                      </div>
-                    </div>
-
-                    <h3 className="text-center font-black text-lg text-[#064460]">{item.nombre}</h3>
-                    <p className="text-center text-xs text-slate-600 font-medium mt-2 line-clamp-2">{item.descripcion}</p>
-                  </div>
-
-                  <div className="pt-4 border-t border-slate-100 flex justify-between items-center text-xs font-bold">
-                    <span className={desbloqueada ? 'text-[#2E8B38]' : 'text-slate-400'}>
-                      {desbloqueada ? '¡Desbloqueada!' : 'En Progreso'}
-                    </span>
-                    {esUltima && (
-                      <span className="bg-amber-400 text-slate-900 px-2.5 py-0.5 rounded-full text-[10px] font-black">
-                        ¡NUEVA!
-                      </span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* CONTROLES FLECHAS DEL CARRUSEL */}
-          <div className="flex gap-4 mt-4 z-20">
-            <button
-              onClick={() => { setAutoRotate(false); setIndiceActivo((prev) => Math.max(0, prev - 1)); }}
-              className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/20"
-            >
-              <Icons.ChevronLeft size={20} />
-            </button>
-            <button
-              onClick={() => { setAutoRotate(false); setIndiceActivo((prev) => Math.min(insigniasFiltradas.length - 1, prev + 1)); }}
-              className="p-3 bg-white/10 hover:bg-white/20 text-white rounded-full border border-white/20"
-            >
-              <Icons.ChevronRight size={20} />
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-
-      {modalInsignia && (
-        <InsigniaModal
-          insignia={modalInsignia}
-          desbloqueada={puntosSalonActual >= modalInsignia.reqPuntos}
-          puntosActuales={puntosSalonActual}
-          onClose={() => setModalInsignia(null)}
-        />
-      )}
-    </div>
-  );
-}

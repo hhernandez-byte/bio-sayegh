@@ -1,4 +1,5 @@
 import React from 'react';
+import escudo from '../assets/escudo-colsam-sin-fondo.png';
 import { Link } from 'react-router-dom';
 
 export default function FooterBioSayegh() {
@@ -176,7 +177,7 @@ export default function FooterBioSayegh() {
             <div className="bsf-logo-fila">
               <div className="bsf-logo-circulo">🌿</div>
               <span className="bsf-logo-nombre">
-                Bio-Sayegh <span>COLSAM</span>
+                Bio-Sayegh
               </span>
             </div>
             <p className="bsf-descripcion">
@@ -212,19 +213,13 @@ export default function FooterBioSayegh() {
             <h4 className="bsf-titulo">🤝 Institución</h4>
             <p className="bsf-institucion-nombre">Colegio San Alberto Magno</p>
             <p className="bsf-institucion-sub">Proyecto Ambiental Escolar (PRAE)</p>
-            <div className="bsf-equipo">
-              <div className="bsf-equipo-avatar">BS</div>
-              <div>
-                <strong className="bsf-equipo-nombre">Equipo Bio-Sayegh</strong>
-                <span className="bsf-equipo-sub">Proyecto de Ecología</span>
-              </div>
-            </div>
+            <img src={escudo} alt="Escudo Colegio San Alberto Magno" style={{ height: '90px', width: 'auto', display: 'block' }} />
           </div>
 
         </div>
 
         <div className="bsf-pie">
-          <span>© {currentYear} Bio-Sayegh COLSAM. Todos los derechos reservados.</span>
+          <span>© {currentYear} Bio-Sayegh. Todos los derechos reservados.</span>
           <span>🍃 Hecho con 💚 por estudiantes para el planeta</span>
         </div>
       </div>
