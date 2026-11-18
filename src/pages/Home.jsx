@@ -237,7 +237,7 @@ export default function Home({ usuario }) {
             <div style={{ width: '60px', height: '60px', borderRadius: '16px', backgroundColor: '#338C30', border: '2px solid #A6D9A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto', color: '#FFFFFF' }}>
               <Award size={30} />
             </div>
-            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0 0 8px 0', color: '#338C30' }}>Ruta de Insignias</h3>
+            <h3 style={{ fontSize: '1.2rem', fontWeight: 800, margin: '0 0 8px 0', color: '#03658C' }}>Ruta de Insignias</h3>
             <p style={{ fontSize: '0.85rem', color: '#8C644D', lineHeight: 1.5, marginBottom: '20px', fontWeight: 600 }}>
               Camino interactivo con anuncios de celebración para reconocer logros ecológicos por salones.
             </p>
