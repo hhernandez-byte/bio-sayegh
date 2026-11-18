@@ -22,77 +22,77 @@ export default function NosotrosPage() {
   const [activeMarcoTab, setActiveMarcoTab] = useState('Tecnológico');
 
   const teamMembers = [
-    {
-      id: 'AC',
-      initials: 'AC',
-      name: 'Aylin Carbonell',
-      role: 'Investigación Teórica',
-      specialty: 'Investigación Teórica',
-      bio: 'Encargada de estructurar los modelos de datos, asegurar el almacenamiento correcto y la integridad de la información del sistema.',
-      contributions: [
-        'Creación de Base de datos',
-        'Gestión de registros de usuarios, salones e insignias',
-        'Aseguramiento de la persistencia de datos'
-      ],
-      badge: 'Investigador Teórico 1'
-    },
-    {
-      id: 'JG',
-      initials: 'JG',
-      name: 'Jesús Gutierrez',
-      role: 'Analisis de Errores & Calidad',
-      specialty: 'Control de Calidad (QA) & Pruebas',
-      bio: 'Encargado de realizar pruebas de software, detectar fallos en la interfaz y garantizar el correcto funcionamiento del sistema.',
-      contributions: [
-        'Pruebas funcionales de la plataforma web',
-        'Detección y reporte de errores en el código',
-        'Control de calidad y verificación del rendimiento'
-      ],
-      badge: 'Analista QA'
-    },
-    {
-      id: 'HH',
-      initials: 'HH',
-      name: 'Hernando Hernandez',
-      role: 'Investigación Teórica',
-      specialty: 'Investigación Teórica',
-      bio: 'Encargado del sustento ecológico, investigación del marco PRAE y redacción de los contenidos ambientales de la plataforma.',
-      contributions: [
-        'Investigación de conceptos',
-        'Redacción de conceptos',
-        'Documentación de conceptos'
-      ],
-      badge: 'Investigador Teórico 2'
-    },
-    {
-      id: 'SP',
-      initials: 'SP',
-      name: 'Samuel Pardo',
-      role: 'Liderazgo General del Proyecto',
-      specialty: 'Dirección de Proyecto & Estrategia',
-      bio: 'Encargado de la gestión integral, supervisión del equipo y toma de decisiones estratégicas de la plataforma Bio-Sayegh.',
-      contributions: [
-        'Liderazgo y gestión del equipo',
-        'Planificación estratégica del proyecto',
-        'Supervisión general de avances y entregables'
-      ],
-      badge: 'Líder'
-    },
-    {
-      id: 'YV',
-      initials: 'YV',
-      name: 'Yhara Vasquéz',
-      role: 'Desarrollo Web',
-      specialty: 'Desarrollo aplicativo web',
-      bio: 'Encargada del desarrollo web, maquetación visual y componentes interactivos de la plataforma Bio-Sayegh.',
-      contributions: [
-        'Desarrollo e interfaz de la plataforma web',
-        'Implementación de componentes dinámicos en React',
-        'Navegación y diseño responsivo del sitio'
-      ],
-      badge: 'Desarrolladora'
-    }
-  ];
+  {
+    id: 'AC',
+    initials: 'AC',
+    name: 'Aylin Carbonell',
+    role: 'Creación del guardado de progreso por salón',
+    specialty: 'Investigación Teórica',
+    bio: 'Encargada de crear la base de datos para el guardado de progreso por salón, definir los objetivos general y específicos del proyecto, y desarrollar el subproyecto 3.',
+    contributions: [
+      'Creación de Base de datos',
+      'Definición de objetivos general y específicos',
+      'Desarrollo del subproyecto 3'
+    ],
+    badge: 'Gestión & Datos'
+  },
+  {
+    id: 'JG',
+    initials: 'JG',
+    name: 'Jesús Gutiérrez',
+    role: 'Análisis de Calidad y Cierre Documental',
+    specialty: 'Control de Calidad (QA) & Pruebas',
+    bio: 'Encargado de validar el funcionamiento de la plataforma web mediante pruebas funcionales y consolidar las conclusiones, prospectiva y referencias del proyecto.',
+    contributions: [
+      'Pruebas funcionales de la plataforma web',
+      'Consolidación de conclusión, limitaciones y prospectiva',
+      'Organización de referencias'
+    ],
+    badge: 'Analista QA'
+  },
+  {
+    id: 'HH',
+    initials: 'HH',
+    name: 'Hernando Hernández',
+    role: 'Investigación y Planteamiento del Proyecto',
+    specialty: 'Investigación Teórica',
+    bio: 'Encargado de construir el sustento teórico de Bio-Sayegh, estructurando el problema ambiental y la justificación que respaldan la plataforma.',
+    contributions: [
+      'Investigación de conceptos',
+      'Consolidación de Introducción, justificación y planteamiento del tema elegido',
+      'Desarrollo del subproyecto 2'
+    ],
+    badge: 'Documentador'
+  },
+  {
+    id: 'SP',
+    initials: 'SP',
+    name: 'Samuel Pardo',
+    role: 'Liderazgo General del Proyecto',
+    specialty: 'Dirección de Proyecto & Estrategia',
+    bio: 'Encargado de dirigir y coordinar al equipo de Bio-Sayegh, consolidar el estado del arte y evaluar el alcance e innovación del proyecto.',
+    contributions: [
+      'Liderazgo y gestión del equipo',
+      'Consolidación del estado del arte',
+      'Evaluación del proyecto de innovación'
+    ],
+    badge: 'Líder'
+  },
+  {
+    id: 'YV',
+    initials: 'YV',
+    name: 'Yhara Vásquez',
+    role: 'Desarrollo Web',
+    specialty: 'Desarrollo de Aplicativo Web',
+    bio: 'Encargada de diseñar y desarrollar la interfaz web de Bio-Sayegh, aportar en la contextualización del proyecto y liderar el avance del subproyecto 1.',
+    contributions: [
+      'Desarrollo de interfaz de la plataforma web',
+      'Contextualización y diseño del proyecto',
+      'Desarrollo del subproyecto 1'
+    ],
+    badge: 'Desarrolladora'
+  }
+];
 
   const problemComponents = [
     {
