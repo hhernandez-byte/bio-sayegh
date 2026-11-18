@@ -220,7 +220,6 @@ export default function FooterBioSayegh() {
 
         <div className="bsf-pie">
           <span>© {currentYear} Bio-Sayegh. Todos los derechos reservados.</span>
-          <span>🍃 Hecho con 💚 por estudiantes para el planeta</span>
         </div>
       </div>
     </footer>
