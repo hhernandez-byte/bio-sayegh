@@ -5,10 +5,6 @@ import {
   MapPin, 
   Award, 
   BarChart3, 
-  Users, 
-  Code, 
-  HeartHandshake, 
-  CheckCircle2,
   TreePine,
   Zap
 } from 'lucide-react';
@@ -114,6 +110,28 @@ export default function Home({ usuario }) {
           border-color: #FFFFFF;
           transform: translateY(-2px);
         }
+
+        /* BOTONES DE LAS TARJETAS: #03658C EN REPOSO Y #338C30 EN HOVER */
+        .btn-card-eco {
+          background-color: #03658C;
+          color: #FFFFFF;
+          font-weight: 800;
+          border-radius: 12px;
+          border: 2px solid #03658C;
+          cursor: pointer;
+          transition: all 0.25s ease;
+          text-decoration: none;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .btn-card-eco:hover {
+          background-color: #338C30;
+          border-color: #338C30;
+          color: #FFFFFF;
+          transform: translateY(-2px);
+        }
       `}</style>
 
       {/* ELEMENTOS FLOTANTES EN MENTA Y VERDE */}
@@ -210,12 +228,12 @@ export default function Home({ usuario }) {
             <p style={{ fontSize: '0.85rem', color: '#8C644D', lineHeight: 1.5, marginBottom: '20px', fontWeight: 600 }}>
               Ubica puntos de acumulación de basura en tiempo real sobre el plano vectorial del colegio.
             </p>
-            <Link to="/mapa" className="btn-eco-primary" style={{ width: '100%', padding: '10px', fontSize: '0.85rem' }}>
+            <Link to="/mapa" className="btn-card-eco" style={{ width: '100%', padding: '10px', fontSize: '0.85rem', boxSizing: 'border-box' }}>
               Ver Mapa Interactivo
             </Link>
           </div>
 
-          <div className="card-eco" style={{ textAlign: 'center', border: '3px solid #338C30', backgroundColor: 'rgba(166, 217, 165, 0.15)' }}>
+          <div className="card-eco" style={{ textAlign: 'center' }}>
             <div style={{ width: '60px', height: '60px', borderRadius: '16px', backgroundColor: '#338C30', border: '2px solid #A6D9A5', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 16px auto', color: '#FFFFFF' }}>
               <Award size={30} />
             </div>
@@ -223,7 +241,7 @@ export default function Home({ usuario }) {
             <p style={{ fontSize: '0.85rem', color: '#8C644D', lineHeight: 1.5, marginBottom: '20px', fontWeight: 600 }}>
               Camino interactivo con anuncios de celebración para reconocer logros ecológicos por salones.
             </p>
-            <Link to="/insignias" className="btn-eco-primary" style={{ width: '100%', padding: '10px', fontSize: '0.85rem' }}>
+            <Link to="/insignias" className="btn-card-eco" style={{ width: '100%', padding: '10px', fontSize: '0.85rem', boxSizing: 'border-box' }}>
               Explorar Insignias
             </Link>
           </div>
@@ -236,16 +254,13 @@ export default function Home({ usuario }) {
             <p style={{ fontSize: '0.85rem', color: '#8C644D', lineHeight: 1.5, marginBottom: '20px', fontWeight: 600 }}>
               Visualiza estadísticas de residuos limpios y análisis de comportamiento ambiental por curso.
             </p>
-            <Link to="/estadisticas" className="btn-eco-secondary" style={{ width: '100%', padding: '10px', fontSize: '0.85rem' }}>
+            <Link to="/estadisticas" className="btn-card-eco" style={{ width: '100%', padding: '10px', fontSize: '0.85rem', boxSizing: 'border-box' }}>
               Ver Estadísticas
             </Link>
           </div>
         </div>
 
       </div>
-
-      
-
     </div>
   );
 }
