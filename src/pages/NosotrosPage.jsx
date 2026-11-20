@@ -152,7 +152,7 @@ export default function NosotrosPage() {
     { num: '1', title: 'Diagnosticar', desc: 'Diagnosticar la situación actual sobre la segregación de residuos y el nivel de conocimiento ecológico en los estudiantes del Colegio San Alberto Magno.' },
     { num: '2', title: 'Crear', desc: 'Crear las dinámicas de gamificación (retos, insignias y API) y la cartografía aerea general del colegio.' },
     { num: '3', title: 'Aplicar', desc: 'Aplicar el aplicativo web Bio-Sayegh como herramienta pedagógica interactiva dentro de las actividades de saneamiento ambiental del colegio.' },
-    { num: '4', title: 'Evaluar', desc: 'Evaluar el cambio en la cultura de recolección selectiva y el grado de adopción de la plataforma a través del seguimiento de estadísticas de participación en 2026.' }
+    { num: '4', title: 'Evaluar', desc: 'Evaluar el cambio en los hábitos y prácticas de saneamiento en el colegio tras la implementación del aplicativo.' }
   ];
 
   const marcoData = {
@@ -508,7 +508,7 @@ export default function NosotrosPage() {
               <span>OBJETIVO GENERAL</span>
             </div>
             <p className="text-base sm:text-lg font-semibold leading-relaxed">
-              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh) basado en geolocalización de residuos y estrategias de gamificación, orientado a mejorar del saneamiento en el Colegio San Alberto Magno de Barranquilla en 2026.
+              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh) basado en geolocalización de residuos y estrategias de gamificación, orientado a una mejora del saneamiento en el Colegio San Alberto Magno de Barranquilla en 2026.
             </p>
           </div>
 
