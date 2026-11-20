@@ -150,8 +150,8 @@ export default function NosotrosPage() {
 
   const specificObjectives = [
     { num: '1', title: 'Diagnosticar', desc: 'Diagnosticar la situación actual sobre la segregación de residuos y el nivel de conocimiento ecológico en los estudiantes del Colegio San Alberto Magno.' },
-    { num: '2', title: 'Diseñar', desc: 'Diseñar las dinámicas de gamificación (retos, insignias y API) y la cartografía de los puntos de acopio adaptadas a la comunidad educativa.' },
-    { num: '3', title: 'Implementar', desc: 'Implementar el aplicativo web Bio-Sayegh como herramienta pedagógica interactiva dentro de las actividades de saneamiento ambiental del colegio.' },
+    { num: '2', title: 'Crear', desc: 'Crear las dinámicas de gamificación (retos, insignias y API) y la cartografía aerea general del colegio.' },
+    { num: '3', title: 'Aplicar', desc: 'Aplicar el aplicativo web Bio-Sayegh como herramienta pedagógica interactiva dentro de las actividades de saneamiento ambiental del colegio.' },
     { num: '4', title: 'Evaluar', desc: 'Evaluar el cambio en la cultura de recolección selectiva y el grado de adopción de la plataforma a través del seguimiento de estadísticas de participación en 2026.' }
   ];
 
