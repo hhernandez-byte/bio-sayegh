@@ -508,7 +508,7 @@ export default function NosotrosPage() {
               <span>OBJETIVO GENERAL</span>
             </div>
             <p className="text-base sm:text-lg font-semibold leading-relaxed">
-              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh) basado en geolocalización de residuos y estrategias de gamificación, orientado a mejorar la clasificación, el saneamiento y la cultura de recolección selectiva en el Colegio San Alberto Magno de Barranquilla en 2026.
+              Diseñar e implementar un aplicativo web interactivo (Bio-Sayegh) basado en geolocalización de residuos y estrategias de gamificación, orientado a mejorar del saneamiento en el Colegio San Alberto Magno de Barranquilla en 2026.
             </p>
           </div>
 
